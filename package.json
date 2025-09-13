@@ -1,0 +1,27 @@
+{
+  "name": "educontrol-v.2",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Genaro43/EduControl-v2.git"
+  },
+  "keywords": [
+    "SASS",
+    "NPM",
+    "GULP",
+    "PHP",
+    "SQL",
+    "GIT"
+  ],
+  "author": "Genaro Rosales Carrasco",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Genaro43/EduControl-v2/issues"
+  },
+  "homepage": "https://github.com/Genaro43/EduControl-v2#readme",
+  "description": "EduControl es una aplicación para llevar un mejor control de la institución, en esta los prefectos encargados podrán efectuar las faltas cometidas por los alumnos y realizar las sanciones correspondientes, existirá una ubicación de aulas que facilitará encontrar cual está vacía y si una esta ocupada muestre quien la usa, EduControl también cuenta con un sistema para los encargado puedan hacer un mejor manejo de sus áreas de encargo.Creada con la visión de que tanto para alumnos como para prefectos y personal sea mas fácil cumplir con sus labores y exista un mejor control en la institución."
+}
