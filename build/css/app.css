@@ -9,13 +9,12 @@ body {
   margin: 80px auto;
   padding: 44px;
   padding-bottom: 10em;
-  background: #892159;
+  background: #FCE4FF;
   border-radius: 10px;
 }
 .contenedor-login h1 {
   text-align: center;
   margin-bottom: 16px;
-  color: #FFFFFF;
 }
 
 .campo {
@@ -24,7 +23,7 @@ body {
 .campo label {
   display: block;
   margin-bottom: 4px;
-  color: #FFFFFF;
+  color: #000000;
 }
 .campo input {
   width: 96%;
@@ -36,8 +35,8 @@ body {
 .btn {
   width: 100%;
   padding: 10px;
-  background: #FCE4FF;
-  color: #000000;
+  background: #892159;
+  color: #FFFFFF;
   border: none;
   border-radius: 4px;
   cursor: pointer;
