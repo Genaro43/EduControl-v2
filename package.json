@@ -2,8 +2,9 @@
   "name": "educontrol-v.2",
   "version": "1.0.0",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "sass": "sass --watch src/scss:build/css"
+    "dev": "gulp dev"
   },
   "repository": {
     "type": "git",
@@ -25,6 +26,9 @@
   "homepage": "https://github.com/Genaro43/EduControl-v2#readme",
   "description": "EduControl es una aplicación para llevar un mejor control de la institución, en esta los prefectos encargados podrán efectuar las faltas cometidas por los alumnos y realizar las sanciones correspondientes, existirá una ubicación de aulas que facilitará encontrar cual está vacía y si una esta ocupada muestre quien la usa, EduControl también cuenta con un sistema para los encargado puedan hacer un mejor manejo de sus áreas de encargo.Creada con la visión de que tanto para alumnos como para prefectos y personal sea mas fácil cumplir con sus labores y exista un mejor control en la institución.",
   "devDependencies": {
+    "gulp": "^5.0.1",
+    "gulp-sass": "^6.0.1",
+    "gulp-terser": "^2.1.0",
     "sass": "^1.92.1"
   }
 }
