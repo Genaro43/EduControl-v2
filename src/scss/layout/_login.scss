@@ -1,0 +1,48 @@
+@use "../base/variables" as *;
+
+body {
+    background-color: $negro;
+    margin: 0;
+    padding: 0;
+}
+
+.contenedor-login {
+    max-width: 33em;
+    margin: 80px auto;
+    padding: 44px;
+    padding-bottom: 10em;
+    background: $guinda;
+    border-radius: 10px;
+
+    h1 {
+        text-align: center;
+        margin-bottom: 16px;
+    }
+}
+
+.campo {
+    margin-bottom: 12px;
+
+    label {
+        display: block;
+        margin-bottom: 4px;
+        color: $blanco;
+    }
+
+    input {
+        width: 96%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+}
+
+.btn {
+    width: 100%;
+    padding: 10px;
+    background: $guinda-claro;
+    color: $negro;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
