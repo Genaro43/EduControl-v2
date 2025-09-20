@@ -1,0 +1,76 @@
+@use "../base/variables" as *;
+
+.prefectos-page {
+    width: 100%;
+    max-width: $ancho-maximo-app;
+    margin: 12px auto 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+    padding: 0 $espacio-contenedor;
+    box-sizing: border-box;
+}
+
+/* Botón grande "Alumnos" — reutiliza la clase global .btn--primary pero le damos ajustes locales
+   para que coincida con el mock: tamaño, anchura y sombra */
+.btn--primary {
+    padding: 22px 56px;
+    font-size: 48px;
+    width: min(92%, 360px);
+    text-align: center;
+    line-height: 1;
+    border-radius: 4px;
+    /* Mantiene el estilo base (.btn) heredado de globales */
+}
+
+.tarjeta-mapa {
+    width: 100%;
+    max-width: 360px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+// .map-container img {
+//     max-width: 94%;
+//     max-height: 94%;
+//     object-fit: cover;
+//     display: block;
+//     filter: grayscale(90%) contrast(105%);
+//     opacity: 0.96;
+//     border-radius: 2px;
+//     border: 2px solid transparent;
+// }
+
+.btn--exit {
+    left: 18px;
+    bottom: 18px;
+    z-index: 50;
+}
+
+/* Ajustes de accesibilidad visual (foco para elementos interactivos) */
+.prefectos-page .btn:focus,
+.prefectos-page .card__media:focus {
+    outline: 3px solid rgba(0, 0, 0, 0.08);
+    outline-offset: 2px;
+}
+
+/* Responsividad para pantallas pequeñas */
+@media (max-width: 420px) {
+    .btn--primary {
+        font-size: 40px;
+        padding: 18px 36px;
+        width: 92%;
+    }
+
+    .prefectos-page {
+        margin: 8px auto 100px;
+        gap: 18px;
+    }
+
+    .map-container {
+        min-height: 40vh;
+    }
+}

@@ -1,0 +1,356 @@
+// scss/base/_globales.scss
+// Estilos globales compartidos para toda la app
+// Diseñado para compilar con Sass 1.92.1 y pipelines con Gulp 5.x
+
+// Cargar variables locales (archivo: scss/base/_variables.scss)
+@use "variables" as *;
+
+/* ------------------------------------------------------------------
+   NOTA DE COMPATIBILIDAD
+   - Evité funciones de manipulación de color (p. ej. darken/lighten).
+   - Si cambias $rojo-acento en variables, actualiza también
+     $rojo-acento-oscuro más abajo si quieres mantener el degradado.
+   ------------------------------------------------------------------ */
+
+/* color derivado (evita funciones de Sass; modifica manualmente si cambias el acento) */
+$rojo-acento-oscuro: #c80000 !default;
+
+/* --------------------
+   Reset y base
+   -------------------- */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: $fuente-base;
+    background: $fondo-guinda;
+    color: $guinda-negro;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    line-height: 1.4;
+    -webkit-text-size-adjust: 100%;
+}
+
+/* Imágenes responsivas */
+img {
+    max-width: 100%;
+    display: block;
+    height: auto;
+}
+
+/* Enlaces por defecto */
+a {
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Listas */
+ul,
+ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+/* Encabezados */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0;
+    color: $guinda-negro;
+    line-height: 1.1;
+}
+
+/* Párrafos */
+p {
+    margin: 0 0 1rem 0;
+}
+
+/* Accesibilidad de foco */
+:focus {
+    outline: 3px solid rgba(0, 0, 0, 0.08);
+    outline-offset: 2px;
+}
+
+/* --------------------
+   Contenedores y layout
+   -------------------- */
+
+/* contenedor central de la app */
+.container {
+    width: 100%;
+    max-width: $ancho-maximo-app;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: $espacio-contenedor;
+    padding-right: $espacio-contenedor;
+}
+
+/* estructura principal */
+.app {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: $espacio-contenedor;
+}
+
+/* header (logo / acciones) */
+.app__header {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 6px;
+}
+
+.logo {
+    font-family: $fuente-encabezado;
+    color: $guinda-negro;
+    font-size: 16px;
+}
+
+/* main centrado */
+.app__main {
+    width: 100%;
+    max-width: $ancho-maximo-app;
+    margin: 32px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+}
+
+/* --------------------
+   Botones base
+   -------------------- */
+/* estilo base para botones reutilizables */
+.btn {
+    display: inline-block;
+    font-family: $fuente-encabezado;
+    cursor: pointer;
+    text-align: center;
+    color: $guinda-negro;
+    background: $guinda-claro;
+    border: 4px solid $guinda-negro;
+    box-shadow: 0 $sombra-btn-tamano 0 $guinda-negro;
+    border-radius: 4px;
+    padding: 10px 16px;
+    text-decoration: none;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+}
+
+/* variantes */
+.btn--primary {
+    padding: 22px 56px;
+    font-size: 48px;
+    line-height: 1;
+    width: min(90%, 360px);
+}
+
+.btn--login {
+    display: block;
+    width: 100%;
+    padding: 12px 18px;
+    font-size: 18px;
+    border-width: 4px;
+}
+
+.btn--exit {
+    padding: 10px 26px;
+    font-size: 24px;
+    position: fixed;
+    left: 20px;
+    bottom: 22px;
+    box-shadow: 0 3px 0 $guinda-negro;
+    border-width: 3px;
+    z-index: 30;
+    text-transform: lowercase;
+}
+
+/* estados */
+.btn[disabled],
+.btn:disabled {
+    opacity: 0.6;
+    pointer-events: none;
+    box-shadow: none;
+}
+
+/* efecto simple en active (aplicable a todos los .btn) */
+.btn:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 $guinda-negro;
+}
+
+/* --------------------
+   Formularios (base)
+   -------------------- */
+label {
+    display: inline-block;
+    margin-bottom: 6px;
+    font-weight: 700;
+    color: $guinda-negro;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+textarea,
+select {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 6px;
+    border: 3px solid $guinda-negro;
+    background: $blanco;
+    font-size: 16px;
+    box-shadow: inset 0 -3px 0 rgba(0, 0, 0, 0.04);
+    transition: transform .08s ease, box-shadow .08s ease;
+    -webkit-transition: transform .08s ease, box-shadow .08s ease;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 0 rgba(0, 0, 0, 0.08);
+    outline: none;
+}
+
+/* agrupador de campo */
+.field,
+.campo {
+    margin-bottom: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* --------------------
+   Tarjetas (card) reusables
+   -------------------- */
+.card {
+    background: $blanco;
+    border: 4px solid $guinda-negro;
+    border-radius: 4px;
+    padding: 12px;
+    overflow: hidden;
+    box-shadow: 0 6px 0 rgba(0, 0, 0, $opacidad-sombra-tarjeta);
+}
+
+.card--map {
+    width: 100%;
+    max-width: 340px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card__title {
+    font-family: $fuente-encabezado;
+    font-size: 20px;
+    color: $guinda-negro;
+    text-align: center;
+    margin-bottom: 8px;
+}
+
+.card__media {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* marcador reutilizable (pin) - evita funciones Sass */
+.map-pin {
+    position: absolute;
+    width: 36px;
+    height: 36px;
+    border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+    /* degradado simple con el color de acento y su versión más oscura definida manualmente */
+    background: radial-gradient(circle at 40% 35%, $rojo-acento, $rojo-acento-oscuro);
+    box-shadow: 0 3px 0 rgba(0, 0, 0, 0.25);
+    border: 3px solid rgba(255, 255, 255, 0.1);
+    pointer-events: none;
+}
+
+/* --------------------
+   Utilidades
+   -------------------- */
+.center-abs {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.sr-only {
+    position: absolute !important;
+    height: 1px;
+    width: 1px;
+    overflow: hidden;
+    clip: rect(1px, 1px, 1px, 1px);
+    white-space: nowrap;
+}
+
+.flex {
+    display: flex;
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.items-center {
+    align-items: center;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+.gap-sm {
+    gap: 8px;
+}
+
+.gap-md {
+    gap: 16px;
+}
+
+.text-center {
+    text-align: center;
+}
+
+/* --------------------
+   Responsive (pequeño)
+   -------------------- */
+@media (max-width: 420px) {
+    .btn--primary {
+        font-size: 40px;
+        padding: 18px 36px;
+    }
+
+    .container {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    .card--map {
+        max-width: 92vw;
+    }
+}

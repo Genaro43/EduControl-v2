@@ -1,43 +1,528 @@
+@charset "UTF-8";
+/* Contenedor principal del login: centrado absoluto/vertical */
+.contenedor-login {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  /* no tocamos el background global (body lo controla en globales) */
+}
+
+/* Título principal (H1) — estilo tipo "placa" que aparece en la imagen */
+.contenedor-login > h1,
+.contenedor-login > H1 {
+  margin: 0 0 18px 0;
+  font-family: "Fredoka One", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  font-size: 32px;
+  text-align: center;
+  color: #1b0f12;
+  background: #f5dbe6;
+  border: 4px solid #1b0f12;
+  padding: 12px 16px;
+  border-radius: 3px;
+  box-shadow: 0 4px 0 #1b0f12;
+  letter-spacing: 0.6px;
+}
+
+/* El formulario actúa como "tarjeta" blanca centrada */
+.contenedor-login > form {
+  width: 100%;
+  max-width: 380px;
+  background: #ffffff;
+  border: 4px solid #1b0f12;
+  border-radius: 6px;
+  padding: 20px;
+  box-shadow: 0 6px 0 rgba(0, 0, 0, 0.06);
+  box-sizing: border-box;
+}
+
+/* Campos (label + input) */
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+/* Etiqueta */
+.campo label {
+  font-size: 14px;
+  font-weight: 700;
+  color: #1b0f12;
+}
+
+/* Inputs: aprovechamos las reglas globales pero ajustamos tamaños si es necesario */
+.campo input[type=text],
+.campo input[type=password] {
+  padding: 12px 14px;
+  font-size: 16px;
+  border-radius: 6px;
+  border: 3px solid #1b0f12;
+  /* redundante con globales: mayor especificidad */
+  background: #ffffff;
+  box-shadow: inset 0 -3px 0 rgba(0, 0, 0, 0.04);
+  transition: transform 0.08s ease, box-shadow 0.08s ease;
+}
+
+/* Focus más definido para inputs dentro del login */
+.campo input:focus {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 0 rgba(0, 0, 0, 0.08);
+  outline: none;
+}
+
+/* Botón submit (usa la clase .btn en tu HTML) */
+/* Usamos selector con mayor especificidad para que el estilo del login prevalezca
+   aunque globales declare .btn después en el bundle */
+.contenedor-login .btn {
+  display: block;
+  width: 100%;
+  padding: 12px 18px;
+  font-size: 18px;
+  font-family: "Fredoka One", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  color: #1b0f12;
+  background: #f5dbe6;
+  border: 4px solid #1b0f12;
+  box-shadow: 0 4px 0 #1b0f12;
+  border-radius: 4px;
+  text-align: center;
+  cursor: pointer;
+  margin-top: 6px;
+  user-select: none;
+}
+
+/* Estado activo/hover para el botón dentro del login */
+.contenedor-login .btn:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 #1b0f12;
+}
+
+/* Botón deshabilitado (si aplicas disabled en algún momento) */
+.contenedor-login .btn[disabled],
+.contenedor-login .btn:disabled {
+  opacity: 0.6;
+  pointer-events: none;
+  box-shadow: none;
+}
+
+/* Pequeños ajustes responsivos */
+@media (max-width: 420px) {
+  .contenedor-login > h1,
+  .contenedor-login > H1 {
+    font-size: 24px;
+    padding: 10px 12px;
+  }
+  .contenedor-login > form {
+    padding: 16px;
+  }
+  .contenedor-login .btn {
+    padding: 10px 14px;
+    font-size: 16px;
+  }
+}
+.prefectos-page {
+  width: 100%;
+  max-width: 420px;
+  margin: 12px auto 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+  padding: 0 24px;
+  box-sizing: border-box;
+}
+
+/* Botón grande "Alumnos" — reutiliza la clase global .btn--primary pero le damos ajustes locales
+   para que coincida con el mock: tamaño, anchura y sombra */
+.btn--primary {
+  padding: 22px 56px;
+  font-size: 48px;
+  width: min(92%, 360px);
+  text-align: center;
+  line-height: 1;
+  border-radius: 4px;
+  /* Mantiene el estilo base (.btn) heredado de globales */
+}
+
+.tarjeta-mapa {
+  width: 100%;
+  max-width: 360px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.btn--exit {
+  left: 18px;
+  bottom: 18px;
+  z-index: 50;
+}
+
+/* Ajustes de accesibilidad visual (foco para elementos interactivos) */
+.prefectos-page .btn:focus,
+.prefectos-page .card__media:focus {
+  outline: 3px solid rgba(0, 0, 0, 0.08);
+  outline-offset: 2px;
+}
+
+/* Responsividad para pantallas pequeñas */
+@media (max-width: 420px) {
+  .btn--primary {
+    font-size: 40px;
+    padding: 18px 36px;
+    width: 92%;
+  }
+  .prefectos-page {
+    margin: 8px auto 100px;
+    gap: 18px;
+  }
+  .map-container {
+    min-height: 40vh;
+  }
+}
+/* ------------------------------------------------------------------
+   NOTA DE COMPATIBILIDAD
+   - Evité funciones de manipulación de color (p. ej. darken/lighten).
+   - Si cambias $rojo-acento en variables, actualiza también
+     $rojo-acento-oscuro más abajo si quieres mantener el degradado.
+   ------------------------------------------------------------------ */
+/* color derivado (evita funciones de Sass; modifica manualmente si cambias el acento) */
+/* --------------------
+   Reset y base
+   -------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
 body {
-  background-color: #000000;
+  height: 100%;
   margin: 0;
   padding: 0;
 }
 
-.contenedor-login {
-  max-width: 33em;
-  margin: 80px auto;
-  padding: 44px;
-  padding-bottom: 10em;
-  background: #FCE4FF;
-  border-radius: 10px;
-}
-.contenedor-login h1 {
-  text-align: center;
-  margin-bottom: 16px;
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background: #6f274b;
+  color: #1b0f12;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.4;
+  -webkit-text-size-adjust: 100%;
 }
 
+/* Imágenes responsivas */
+img {
+  max-width: 100%;
+  display: block;
+  height: auto;
+}
+
+/* Enlaces por defecto */
+a {
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Listas */
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Encabezados */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  color: #1b0f12;
+  line-height: 1.1;
+}
+
+/* Párrafos */
+p {
+  margin: 0 0 1rem 0;
+}
+
+/* Accesibilidad de foco */
+:focus {
+  outline: 3px solid rgba(0, 0, 0, 0.08);
+  outline-offset: 2px;
+}
+
+/* --------------------
+   Contenedores y layout
+   -------------------- */
+/* contenedor central de la app */
+.container {
+  width: 100%;
+  max-width: 420px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+/* estructura principal */
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px;
+}
+
+/* header (logo / acciones) */
+.app__header {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 6px;
+}
+
+.logo {
+  font-family: "Fredoka One", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  color: #1b0f12;
+  font-size: 16px;
+}
+
+/* main centrado */
+.app__main {
+  width: 100%;
+  max-width: 420px;
+  margin: 32px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+/* --------------------
+   Botones base
+   -------------------- */
+/* estilo base para botones reutilizables */
+.btn {
+  display: inline-block;
+  font-family: "Fredoka One", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  cursor: pointer;
+  text-align: center;
+  color: #1b0f12;
+  background: #f5dbe6;
+  border: 4px solid #1b0f12;
+  box-shadow: 0 4px 0 #1b0f12;
+  border-radius: 4px;
+  padding: 10px 16px;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+}
+
+/* variantes */
+.btn--primary {
+  padding: 22px 56px;
+  font-size: 48px;
+  line-height: 1;
+  width: min(90%, 360px);
+}
+
+.btn--login {
+  display: block;
+  width: 100%;
+  padding: 12px 18px;
+  font-size: 18px;
+  border-width: 4px;
+}
+
+.btn--exit {
+  padding: 10px 26px;
+  font-size: 24px;
+  position: fixed;
+  left: 20px;
+  bottom: 22px;
+  box-shadow: 0 3px 0 #1b0f12;
+  border-width: 3px;
+  z-index: 30;
+  text-transform: lowercase;
+}
+
+/* estados */
+.btn[disabled],
+.btn:disabled {
+  opacity: 0.6;
+  pointer-events: none;
+  box-shadow: none;
+}
+
+/* efecto simple en active (aplicable a todos los .btn) */
+.btn:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 #1b0f12;
+}
+
+/* --------------------
+   Formularios (base)
+   -------------------- */
+label {
+  display: inline-block;
+  margin-bottom: 6px;
+  font-weight: 700;
+  color: #1b0f12;
+}
+
+input[type=text],
+input[type=password],
+input[type=email],
+textarea,
+select {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: 3px solid #1b0f12;
+  background: #ffffff;
+  font-size: 16px;
+  box-shadow: inset 0 -3px 0 rgba(0, 0, 0, 0.04);
+  transition: transform 0.08s ease, box-shadow 0.08s ease;
+  -webkit-transition: transform 0.08s ease, box-shadow 0.08s ease;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 0 rgba(0, 0, 0, 0.08);
+  outline: none;
+}
+
+/* agrupador de campo */
+.field,
 .campo {
   margin-bottom: 12px;
-}
-.campo label {
-  display: block;
-  margin-bottom: 4px;
-  color: #000000;
-}
-.campo input {
-  width: 96%;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
-.btn {
-  width: 100%;
-  padding: 10px;
-  background: #892159;
-  color: #FFFFFF;
-  border: none;
+/* --------------------
+   Tarjetas (card) reusables
+   -------------------- */
+.card {
+  background: #ffffff;
+  border: 4px solid #1b0f12;
   border-radius: 4px;
-  cursor: pointer;
+  padding: 12px;
+  overflow: hidden;
+  box-shadow: 0 6px 0 rgba(0, 0, 0, 0.06);
+}
+
+.card--map {
+  width: 100%;
+  max-width: 340px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.card__title {
+  font-family: "Fredoka One", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  font-size: 20px;
+  color: #1b0f12;
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.card__media {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* marcador reutilizable (pin) - evita funciones Sass */
+.map-pin {
+  position: absolute;
+  width: 36px;
+  height: 36px;
+  border-radius: 50% 50% 50% 50%/40% 40% 60% 60%;
+  /* degradado simple con el color de acento y su versión más oscura definida manualmente */
+  background: radial-gradient(circle at 40% 35%, #ff4b4b, #c80000);
+  box-shadow: 0 3px 0 rgba(0, 0, 0, 0.25);
+  border: 3px solid rgba(255, 255, 255, 0.1);
+  pointer-events: none;
+}
+
+/* --------------------
+   Utilidades
+   -------------------- */
+.center-abs {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.sr-only {
+  position: absolute !important;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+  white-space: nowrap;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.gap-sm {
+  gap: 8px;
+}
+
+.gap-md {
+  gap: 16px;
+}
+
+.text-center {
+  text-align: center;
+}
+
+/* --------------------
+   Responsive (pequeño)
+   -------------------- */
+@media (max-width: 420px) {
+  .btn--primary {
+    font-size: 40px;
+    padding: 18px 36px;
+  }
+  .container {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+  .card--map {
+    max-width: 92vw;
+  }
 }

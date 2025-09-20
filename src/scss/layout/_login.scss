@@ -1,48 +1,128 @@
 @use "../base/variables" as *;
 
-body {
-    background-color: $negro;
-    margin: 0;
-    padding: 0;
-}
-
+/* Contenedor principal del login: centrado absoluto/vertical */
 .contenedor-login {
-    max-width: 33em;
-    margin: 80px auto;
-    padding: 44px;
-    padding-bottom: 10em;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: $espacio-contenedor;
+    /* no tocamos el background global (body lo controla en globales) */
+}
+
+/* Título principal (H1) — estilo tipo "placa" que aparece en la imagen */
+.contenedor-login>h1,
+.contenedor-login>H1 {
+    margin: 0 0 18px 0;
+    font-family: $fuente-encabezado;
+    font-size: 32px;
+    text-align: center;
+    color: $guinda-negro;
     background: $guinda-claro;
-    border-radius: 10px;
-
-    h1 {
-        text-align: center;
-        margin-bottom: 16px;
-    }
+    border: 4px solid $guinda-negro;
+    padding: 12px 16px;
+    border-radius: 3px;
+    box-shadow: 0 $sombra-btn-tamano 0 $guinda-negro;
+    letter-spacing: 0.6px;
 }
 
-.campo {
-    margin-bottom: 12px;
-
-    label {
-        display: block;
-        margin-bottom: 4px;
-        color: $negro;
-    }
-
-    input {
-        width: 96%;
-        padding: 8px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-    }
-}
-
-.btn {
+/* El formulario actúa como "tarjeta" blanca centrada */
+.contenedor-login>form {
     width: 100%;
-    padding: 10px;
-    background: $guinda;
-    color: $blanco;
-    border: none;
+    max-width: 380px;
+    background: $blanco;
+    border: 4px solid $guinda-negro;
+    border-radius: 6px;
+    padding: 20px;
+    box-shadow: 0 6px 0 rgba(0, 0, 0, $opacidad-sombra-tarjeta);
+    box-sizing: border-box;
+}
+
+/* Campos (label + input) */
+.campo {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 14px;
+}
+
+/* Etiqueta */
+.campo label {
+    font-size: 14px;
+    font-weight: 700;
+    color: $guinda-negro;
+}
+
+/* Inputs: aprovechamos las reglas globales pero ajustamos tamaños si es necesario */
+.campo input[type="text"],
+.campo input[type="password"] {
+    padding: 12px 14px;
+    font-size: 16px;
+    border-radius: 6px;
+    border: 3px solid $guinda-negro;
+    /* redundante con globales: mayor especificidad */
+    background: $blanco;
+    box-shadow: inset 0 -3px 0 rgba(0, 0, 0, 0.04);
+    transition: transform .08s ease, box-shadow .08s ease;
+}
+
+/* Focus más definido para inputs dentro del login */
+.campo input:focus {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 0 rgba(0, 0, 0, 0.08);
+    outline: none;
+}
+
+/* Botón submit (usa la clase .btn en tu HTML) */
+/* Usamos selector con mayor especificidad para que el estilo del login prevalezca
+   aunque globales declare .btn después en el bundle */
+.contenedor-login .btn {
+    display: block;
+    width: 100%;
+    padding: 12px 18px;
+    font-size: 18px;
+    font-family: $fuente-encabezado;
+    color: $guinda-negro;
+    background: $guinda-claro;
+    border: 4px solid $guinda-negro;
+    box-shadow: 0 $sombra-btn-tamano 0 $guinda-negro;
     border-radius: 4px;
+    text-align: center;
     cursor: pointer;
+    margin-top: 6px;
+    user-select: none;
+}
+
+/* Estado activo/hover para el botón dentro del login */
+.contenedor-login .btn:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 $guinda-negro;
+}
+
+/* Botón deshabilitado (si aplicas disabled en algún momento) */
+.contenedor-login .btn[disabled],
+.contenedor-login .btn:disabled {
+    opacity: 0.6;
+    pointer-events: none;
+    box-shadow: none;
+}
+
+/* Pequeños ajustes responsivos */
+@media (max-width: 420px) {
+
+    .contenedor-login>h1,
+    .contenedor-login>H1 {
+        font-size: 24px;
+        padding: 10px 12px;
+    }
+
+    .contenedor-login>form {
+        padding: 16px;
+    }
+
+    .contenedor-login .btn {
+        padding: 10px 14px;
+        font-size: 16px;
+    }
 }
