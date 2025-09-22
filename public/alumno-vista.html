@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Alumno</title>
+    <link rel="stylesheet" href="../build/css/app.css" />
+</head>
+
+<body class="app">
+    <header class="app__header" role="banner">
+        <div class="logo" aria-hidden="true">logo</div>
+    </header>
+
+    <main class="app__main pagina-alumno" role="main" aria-label="Detalle del alumno">
+        <!-- Nombre -->
+        <h1 class="titulo-alumno">Genaro Rosales Carrasco</h1>
+
+        <!-- Contenido central: columna izquierda con grado/grupo, centro foto, abajo matrícula -->
+        <section class="detalle-alumno">
+            <div class="lado-izquierdo">
+                <div class="etiqueta">Grado</div>
+                <div class="valor">3</div>
+
+                <div class="etiqueta" style="margin-top:18px;">Grupo</div>
+                <div class="valor">A</div>
+            </div>
+
+            <div class="foto-contenedor">
+                <div class="foto-tarjeta">
+                    <!-- reemplaza src por la foto real -->
+                    <img src="assets/avatar-placeholder.png" alt="Foto del alumno" class="foto-alumno" />
+                </div>
+
+                <div class="matricula">Matrícula: 20211234</div>
+            </div>
+        </section>
+
+        <!-- Cuadrícula de botones de reportes -->
+        <section class="grid-reportes" aria-label="Acciones de reporte">
+            <button type="button" class="boton-reporte" data-tipo="corte-cabello">C. Cabello</button>
+            <button type="button" class="boton-reporte" data-tipo="uniforme">Uniforme</button>
+            <button type="button" class="boton-reporte" data-tipo="credencial">Credencial</button>
+
+            <!-- personalizado con desplegable -->
+            <div class="reporte-personalizado">
+                <button type="button" class="boton-reporte reporte-personalizado-btn" data-tipo="personalizado">
+                    Personalizado
+                </button>
+
+                <div class="opciones-personalizadas" aria-hidden="true">
+                    <button type="button" class="opcion-personalizada" data-tipo="personalizado-grupal">Grupal</button>
+                    <button type="button" class="opcion-personalizada" data-tipo="personalizado-individual">Individual</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Botones fijos en footer -->
+        <!-- <button class="btn btn--exit boton-salir" id="btn-salir" type="button">salir</button> -->
+        <a href="alumnos-vista.html" class="btn btn--exit boton-salir">salir</a>
+        <button class="btn boton-enviar" id="btn-enviar" type="button" disabled>Enviar</button>
+    </main>
+
+    <!-- Script para manejar selección y desplegable -->
+    <script>
+        (function () {
+            const botones = Array.from(document.querySelectorAll('.grid-reportes .boton-reporte'));
+            const personalizadoBtn = document.querySelector('.reporte-personalizado-btn');
+            const opcionesPersonalizadas = document.querySelector('.opciones-personalizadas');
+            const opciones = Array.from(document.querySelectorAll('.opcion-personalizada'));
+            const btnEnviar = document.getElementById('btn-enviar');
+
+            let reporteSeleccionado = null;
+
+            function deseleccionarTodos() {
+                botones.forEach(b => b.classList.remove('seleccionado'));
+                opciones.forEach(o => o.classList.remove('seleccionado'));
+            }
+
+            function actualizarEnviar() {
+                if (reporteSeleccionado) {
+                    btnEnviar.disabled = false;
+                } else {
+                    btnEnviar.disabled = true;
+                }
+            }
+
+            // Click en botones normales
+            botones.forEach(boton => {
+                boton.addEventListener('click', (e) => {
+                    const tipo = boton.getAttribute('data-tipo');
+
+                    // Si es el botón personalizado, togglear despliegue (manejado abajo)
+                    if (boton.classList.contains('reporte-personalizado-btn')) {
+                        opcionesPersonalizadas.style.display = opcionesPersonalizadas.style.display === 'block' ? 'none' : 'block';
+                        opcionesPersonalizadas.setAttribute('aria-hidden', opcionesPersonalizadas.style.display !== 'block');
+                        // no seleccionar aún hasta que escojan una opción
+                        return;
+                    }
+
+                    // seleccionar solo este
+                    deseleccionarTodos();
+                    boton.classList.add('seleccionado');
+                    reporteSeleccionado = tipo;
+                    // ocultar dropdown si estaba abierto
+                    opcionesPersonalizadas.style.display = 'none';
+                    actualizarEnviar();
+                });
+
+                boton.addEventListener('keydown', (ev) => {
+                    if (ev.key === 'Enter' || ev.key === ' ') {
+                        ev.preventDefault();
+                        boton.click();
+                    }
+                });
+            });
+
+            // Opciones personalizadas
+            opciones.forEach(op => {
+                op.addEventListener('click', () => {
+                    deseleccionarTodos();
+                    op.classList.add('seleccionado');
+                    // marcar visual en el boton principal personalizado
+                    personalizadoBtn.classList.add('seleccionado');
+                    reporteSeleccionado = op.getAttribute('data-tipo');
+                    opcionesPersonalizadas.style.display = 'none';
+                    opcionesPersonalizadas.setAttribute('aria-hidden', 'true');
+                    actualizarEnviar();
+                });
+
+                op.addEventListener('keydown', (ev) => {
+                    if (ev.key === 'Enter' || ev.key === ' ') {
+                        ev.preventDefault();
+                        op.click();
+                    }
+                });
+            });
+
+            // cerrar dropdown al hacer click fuera
+            document.addEventListener('click', (e) => {
+                if (!e.target.closest('.reporte-personalizado')) {
+                    opcionesPersonalizadas.style.display = 'none';
+                    opcionesPersonalizadas.setAttribute('aria-hidden', 'true');
+                }
+            });
+
+            btnEnviar.addEventListener('click', () => {
+                if (!reporteSeleccionado) return;
+                // ejemplo: mostrar en consola
+                console.log('Enviar reporte:', reporteSeleccionado);
+                // después de enviar, podrías resetear selección:
+                // deseleccionarTodos();
+                // reporteSeleccionado = null;
+                // actualizarEnviar();
+                // mostrar confirmación si quieres
+                alert('Se enviará el reporte: ' + reporteSeleccionado);
+            });
+
+        })();
+    </script>
+</body>
+
+</html>

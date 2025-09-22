@@ -1,0 +1,309 @@
+@use "../base/variables" as *;
+
+/* -------------------------
+   Layout general y espacio
+   ------------------------- */
+.pagina-alumno {
+    width: 100%;
+    max-width: $ancho-maximo-app;
+    margin: 12px auto 0;
+    padding: 0 $espacio-contenedor;
+    padding-bottom: 40px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+}
+
+/* -------------------------
+   Título y detalle
+   ------------------------- */
+.titulo-alumno {
+    margin: 0;
+    font-family: $fuente-encabezado;
+    font-size: 40px;
+    color: $blanco;
+    text-align: center;
+    background: transparent;
+    text-transform: none;
+}
+
+.detalle-alumno {
+    width: 100%;
+    max-width: 520px;
+    display: flex;
+    gap: 24px;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+/* -------------------------
+   Info lateral y foto
+   ------------------------- */
+.lado-izquierdo {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    min-width: 88px;
+}
+
+.etiqueta {
+    font-family: $fuente-encabezado;
+    font-size: 22px;
+    margin-bottom: 6px;
+    color: $blanco;
+}
+
+.valor {
+    font-family: $fuente-encabezado;
+    font-size: 28px;
+    color: $blanco;
+}
+
+.foto-contenedor {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    width: 320px;
+}
+
+.foto-tarjeta {
+    width: 260px;
+    height: 320px;
+    background: $blanco;
+    border: 4px solid $guinda-negro;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 0 rgba(0, 0, 0, 0.06);
+    border-radius: 4px;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.foto-alumno {
+    width: 60%;
+    height: auto;
+    display: block;
+}
+
+.matricula {
+    font-family: $fuente-encabezado;
+    font-size: 28px;
+    color: $blanco;
+    background: transparent;
+    margin-top: 6px;
+}
+
+/* -------------------------
+   Grid de reportes (2x2)
+   ------------------------- */
+.grid-reportes {
+    width: 100%;
+    max-width: 520px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px 30px;
+    justify-items: center;
+    align-items: center;
+    margin-top: 8px;
+    box-sizing: border-box;
+}
+
+/* Safety-net: asegurar ancho coherente por celda en escritorio */
+.grid-reportes>* {
+    width: 220px;
+    max-width: 92%;
+    box-sizing: border-box;
+}
+
+/* -------------------------
+   Botones de reporte (uniformes)
+   Evitamos salto de línea en el contenido
+   ------------------------- */
+.boton-reporte {
+    background: $guinda-claro;
+    border: 4px solid $guinda-negro;
+    box-shadow: 0 4px 0 $guinda-negro;
+    padding: 12px 18px;
+    border-radius: 6px;
+    font-family: $fuente-encabezado;
+    font-size: 22px;
+    color: $guinda-negro;
+    cursor: pointer;
+    text-align: center;
+    user-select: none;
+    box-sizing: border-box;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* -------------------------
+   Wrapper personalizado (corrección principal)
+   ------------------------- */
+.reporte-personalizado {
+    position: relative;
+    /* necesario para el dropdown absoluto */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 220px;
+    max-width: 92%;
+    box-sizing: border-box;
+}
+
+/* Forzar que el botón dentro del wrapper ocupe todo el ancho */
+.reporte-personalizado .boton-reporte {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px 18px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* -------------------------
+   Dropdown opciones personalizado
+   ------------------------- */
+.opciones-personalizadas {
+    display: none;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: calc(100% + 8px);
+    background: $guinda-claro;
+    border: 4px solid $guinda-negro;
+    box-shadow: 0 4px 0 $guinda-negro;
+    border-radius: 6px;
+    padding: 6px;
+    z-index: 999;
+    min-width: 140px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.opcion-personalizada {
+    display: block;
+    width: 100%;
+    padding: 8px 10px;
+    margin: 6px 0;
+    background: transparent;
+    border: 3px solid $guinda-negro;
+    border-radius: 4px;
+    font-family: $fuente-base;
+    font-size: 16px;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+/* -------------------------
+   Estado seleccionado visual
+   ------------------------- */
+.boton-reporte.seleccionado,
+.opcion-personalizada.seleccionado {
+    background: $blanco;
+    border-color: $borde-seleccion;
+    box-shadow: 0 6px 0 rgba(0, 0, 0, 0.06);
+}
+
+/* -------------------------
+   Acciones finales en flujo (no fijas)
+   ------------------------- */
+.acciones-final {
+    width: 100%;
+    max-width: $ancho-maximo-app;
+    display: flex;
+    gap: 16px;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 14px;
+    padding: 0 $espacio-contenedor;
+    box-sizing: border-box;
+}
+
+/* estilo de los botones allí dentro */
+.acciones-final .btn {
+    width: 48%;
+    padding: 12px 18px;
+    font-size: 18px;
+    box-sizing: border-box;
+}
+
+/* en pantallas pequeñas apilamos verticalmente */
+@media (max-width: 420px) {
+    .pagina-alumno {
+        padding-bottom: 40px;
+    }
+
+    .titulo-alumno {
+        font-size: 32px;
+    }
+
+    .detalle-alumno {
+        flex-direction: column;
+        gap: 12px;
+        align-items: center;
+    }
+
+    .lado-izquierdo {
+        flex-direction: row;
+        gap: 16px;
+        align-items: center;
+    }
+
+    .foto-tarjeta {
+        width: 220px;
+        height: 260px;
+    }
+
+    .matricula {
+        font-size: 22px;
+    }
+
+    /* Grid pasa a 1 columna: cada celda debe ocupar 100% */
+    .grid-reportes {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    /* cada celda usa 100% para que botones sean del mismo ancho */
+    .grid-reportes>* {
+        width: 100%;
+        max-width: none;
+    }
+
+    .boton-reporte {
+        width: 100%;
+        font-size: 20px;
+        padding: 12px 14px;
+    }
+
+    .reporte-personalizado {
+        width: 100%;
+    }
+
+    .reporte-personalizado .boton-reporte {
+        width: 100%;
+    }
+
+    .opciones-personalizadas {
+        left: 50%;
+        transform: translateX(-50%);
+        min-width: 160px;
+    }
+
+    /* acciones finales: apiladas en mobile */
+    .acciones-final {
+        flex-direction: column;
+        gap: 12px;
+        padding: 0;
+    }
+
+    .acciones-final .btn {
+        width: 100%;
+    }
+}

@@ -1,21 +1,25 @@
 // scss/base/_variables.scss
 
 // Paleta y variables (en español)
-$guinda-claro: #f5dbe6 !default;
-$guinda-negro: #1b0f12 !default;
-$blanco: #ffffff !default;
-$fondo-guinda: #6f274b !default;
-$rojo-acento: #ff4b4b !default;
-$rojo-acento-oscuro: #c80000 !default;
+$guinda-claro: #f5dbe6;
+$guinda-negro: #1b0f12;
+$blanco: #ffffff;
+$fondo-guinda: #6f274b;
+$rojo-acento: #ff4b4b;
+$rojo-acento-oscuro: #c80000;
+$borde-rojo: #ff3b30;
+$borde-amarillo: #ffd800;
+$borde-verde: #39d353;
+$borde-seleccion: #ffa600;
 
 // Tipografías
-$fuente-encabezado: 'Fredoka One', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial !default;
-$fuente-base: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial !default;
+$fuente-encabezado: 'Fredoka One', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+$fuente-base: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
 
 // Diseño / escalas
-$ancho-maximo-app: 420px !default;
-$espacio-contenedor: 24px !default;
+$ancho-maximo-app: 420px;
+$espacio-contenedor: 24px;
 
 // Sombras / tamaños
-$sombra-btn-tamano: 4px !default;
-$opacidad-sombra-tarjeta: 0.06 !default;
+$sombra-btn-tamano: 4px;
+$opacidad-sombra-tarjeta: 0.06;
