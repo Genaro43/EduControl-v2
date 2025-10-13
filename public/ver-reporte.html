@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>EduControl</title>
+    <link rel="stylesheet" href="../build/css/app.css" />
+</head>
+
+<body class="app">
+    <header class="app__header" role="banner">
+        <div class="logo" aria-hidden="true">logo</div>
+    </header>
+
+    <main class="app__main pagina-reportes" role="main">
+        <!-- PERFIL -->
+        <section class="perfil">
+            <h1 class="nombre-alumno">Nombre Apellido</h1>
+
+            <div class="perfil-contenedor">
+                <div class="perfil-info">
+                    <div class="campo-info"><strong>Semestre</strong> <span>3</span></div>
+                    <div class="campo-info"><strong>Grupo</strong> <span>A</span></div>
+                    <div class="campo-info"><strong>Matrícula</strong> <span>20211234</span></div>
+                </div>
+
+                <div class="perfil-foto">
+                    <div class="foto-tarjeta">
+                        <img src="../assets/avatar-placeholder.png" alt="Foto del alumno" />
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- LISTA DE REPORTES -->
+        <section id="lista-reportes" class="lista-reportes" aria-live="polite">
+            <!-- Ejemplos -->
+            <article class="reporte-card adeuda" data-matricula="2021001" data-nombre="Ana Pérez" data-grado="3" data-grupo="A" data-horas="16" tabindex="0">
+                <div class="reporte-contenido">
+                    <div class="reporte-tipo">Falta de servicio</div>
+                    <div class="reporte-meta">Aplicó: Profesor X · Última modificación: Profesor Y</div>
+                    <div class="reporte-horas">Horas adeudadas: <span class="horas-valor">16</span></div>
+                </div>
+
+                <div class="reporte-controles">
+                    <button class="btn flecha flecha-up" aria-label="Aumentar horas" disabled>▲</button>
+                    <button class="btn flecha flecha-down" aria-label="Disminuir horas" disabled>▼</button>
+                </div>
+            </article>
+
+            <article class="reporte-card adeuda" data-matricula="2021023" data-nombre="Luis Gómez" data-grado="2" data-grupo="B" data-horas="8" tabindex="0">
+                <div class="reporte-contenido">
+                    <div class="reporte-tipo">Actividad incompleta</div>
+                    <div class="reporte-meta">Aplicó: Profesor A · Última modificación: Profesor B</div>
+                    <div class="reporte-horas">Horas adeudadas: <span class="horas-valor">8</span></div>
+                </div>
+
+                <div class="reporte-controles">
+                    <button class="btn flecha flecha-up" aria-label="Aumentar horas" disabled>▲</button>
+                    <button class="btn flecha flecha-down" aria-label="Disminuir horas" disabled>▼</button>
+                </div>
+            </article>
+
+            <article class="reporte-card pagado" data-matricula="2021056" data-nombre="María Ruiz" data-grado="1" data-grupo="C" data-horas="0" tabindex="0">
+                <div class="reporte-contenido">
+                    <div class="reporte-tipo">Servicio completado</div>
+                    <div class="reporte-meta">Aplicó: Profesor Z · Última modificación: Profesor Z</div>
+                    <div class="reporte-horas">Horas adeudadas: <span class="horas-valor">0</span></div>
+                </div>
+
+                <div class="reporte-controles">
+                    <button class="btn flecha" aria-hidden="true" hidden>▲</button>
+                    <button class="btn flecha" aria-hidden="true" hidden>▼</button>
+                </div>
+            </article>
+        </section>
+
+        <!-- BOTONES - Guardar / Cancelar no fijos -->
+        <div class="acciones-final">
+            <button class="btn boton-salir" type="button">salir</button>
+
+            <!-- Guardar/Cancelar afectan la tarjeta seleccionada -->
+            <div style="display:flex; gap:12px; width:48%; justify-content:flex-end;">
+                <button id="btn-cancelar" class="btn" type="button" disabled>Cancelar</button>
+                <button id="btn-guardar" class="btn" type="button" disabled>Guardar</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- JS: selección, flechas (temporal), guardar/cancelar -->
+    <script>
+        (function () {
+            const lista = document.getElementById('lista-reportes');
+            const btnGuardar = document.getElementById('btn-guardar');
+            const btnCancelar = document.getElementById('btn-cancelar');
+
+            let tarjetaSeleccionada = null;
+            let originalHoras = 0;
+            let tempHoras = 0;
+
+            // ordenar mayor->menor
+            function ordenar() {
+                const cards = Array.from(lista.querySelectorAll('.reporte-card'));
+                cards.sort((a, b) => parseInt(b.dataset.horas || '0', 10) - parseInt(a.dataset.horas || '0', 10));
+                cards.forEach(c => lista.appendChild(c));
+            }
+
+            // activar/desactivar flechas de una tarjeta
+            function setFlechas(tarjeta, activar) {
+                const flechas = tarjeta.querySelectorAll('.flecha');
+                flechas.forEach(f => {
+                    if (activar) {
+                        f.removeAttribute('disabled');
+                    } else {
+                        f.setAttribute('disabled', '');
+                    }
+                });
+            }
+
+            // marcar selección visual
+            function seleccionarTarjeta(tarjeta) {
+                if (tarjetaSeleccionada === tarjeta) {
+                    // segundo clic = cancelar
+                    cancelarSeleccion();
+                    return;
+                }
+
+                // deseleccionar previa (revertir)
+                if (tarjetaSeleccionada) cancelarSeleccion();
+
+                tarjetaSeleccionada = tarjeta;
+                tarjetaSeleccionada.classList.add('seleccionado');
+
+                originalHoras = parseInt(tarjetaSeleccionada.dataset.horas || '0', 10);
+                tempHoras = originalHoras;
+
+                setFlechas(tarjetaSeleccionada, true);
+                btnGuardar.disabled = false;
+                btnCancelar.disabled = false;
+            }
+
+            // cancelar: revertir valores temporales y desactivar
+            function cancelarSeleccion() {
+                if (!tarjetaSeleccionada) return;
+                // revertir texto visible
+                const span = tarjetaSeleccionada.querySelector('.horas-valor');
+                if (span) span.textContent = String(originalHoras);
+                tempHoras = originalHoras;
+
+                setFlechas(tarjetaSeleccionada, false);
+                tarjetaSeleccionada.classList.remove('seleccionado');
+                tarjetaSeleccionada = null;
+                btnGuardar.disabled = true;
+                btnCancelar.disabled = true;
+            }
+
+            // guardar cambios: actualizar dataset y reordenar
+            function guardarCambios() {
+                if (!tarjetaSeleccionada) return;
+                const horasFinal = Math.max(0, Math.floor(tempHoras));
+                tarjetaSeleccionada.dataset.horas = String(horasFinal);
+                const span = tarjetaSeleccionada.querySelector('.horas-valor');
+                if (span) span.textContent = String(horasFinal);
+
+                // actualizar clase (adeuda/pagado)
+                if (horasFinal <= 0) {
+                    tarjetaSeleccionada.classList.remove('adeuda');
+                    tarjetaSeleccionada.classList.add('pagado');
+                } else {
+                    tarjetaSeleccionada.classList.remove('pagado');
+                    tarjetaSeleccionada.classList.add('adeuda');
+                }
+
+                // deseleccionar y reordenar
+                setFlechas(tarjetaSeleccionada, false);
+                tarjetaSeleccionada.classList.remove('seleccionado');
+                tarjetaSeleccionada = null;
+                btnGuardar.disabled = true;
+                btnCancelar.disabled = true;
+                ordenar();
+            }
+
+            // click en lista: selección o flechas
+            lista.addEventListener('click', (e) => {
+                // flechas
+                const up = e.target.closest('.flecha-up');
+                const down = e.target.closest('.flecha-down');
+                if (up || down) {
+                    const card = e.target.closest('.reporte-card');
+                    if (!card) return;
+                    // solo funcionan si esa tarjeta está seleccionada
+                    if (card !== tarjetaSeleccionada) return;
+                    // update temporal
+                    const current = tempHoras;
+                    tempHoras = up ? current + 1 : Math.max(0, current - 1);
+                    const span = card.querySelector('.horas-valor');
+                    if (span) span.textContent = String(tempHoras);
+                    return;
+                }
+
+                // selección por clic en tarjeta
+                const tarjeta = e.target.closest('.reporte-card');
+                if (tarjeta) {
+                    if (!tarjeta.classList.contains('adeuda')) {
+                        // si no adeuda, no permitir seleccionar
+                        return;
+                    }
+                    seleccionarTarjeta(tarjeta);
+                }
+            });
+
+            // teclas (Enter) para seleccionar
+            lista.addEventListener('keydown', (ev) => {
+                if (ev.key === 'Enter' || ev.key === ' ') {
+                    const tarjeta = ev.target.closest('.reporte-card');
+                    if (tarjeta && tarjeta.classList.contains('adeuda')) {
+                        ev.preventDefault();
+                        seleccionarTarjeta(tarjeta);
+                    }
+                }
+            });
+
+            // botones guardar/cancelar
+            btnGuardar.addEventListener('click', guardarCambios);
+            btnCancelar.addEventListener('click', cancelarSeleccion);
+
+            // inicial
+            // aseguramos flechas inactivas y orden inicial
+            document.querySelectorAll('.reporte-card').forEach(c => setFlechas(c, false));
+            ordenar();
+        })();
+    </script>
+</body>
+
+</html>

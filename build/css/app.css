@@ -1,5 +1,6 @@
 @charset "UTF-8";
-/* Contenedor principal del login: centrado absoluto/vertical */
+
+/* Contenedor principal: centra verticalmente */
 .contenedor-login {
   min-height: 100vh;
   display: flex;
@@ -7,99 +8,98 @@
   align-items: center;
   justify-content: center;
   padding: 24px;
-  /* no tocamos el background global (body lo controla en globales) */
+  gap: 18px;
 }
 
-/* Título principal (H1) — estilo tipo "placa" que aparece en la imagen */
-.contenedor-login > h1,
-.contenedor-login > H1 {
-  margin: 0 0 18px 0;
+/* Título (usa clamp para escalar entre tamaños) */
+.contenedor-login>h1,
+.contenedor-login>H1 {
+  margin: 0;
   font-family: "Fredoka One", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-  font-size: 32px;
+  font-size: clamp(28px, 6.5vw, 36px);
+  /* escala entre 28 y 36 */
   text-align: center;
-  color: #1b0f12;
+  color: #93466F;
   background: #f5dbe6;
-  border: 4px solid #1b0f12;
-  padding: 12px 16px;
+  border: 4px solid #93466F;
+  padding: 12px 18px;
   border-radius: 3px;
-  box-shadow: 0 4px 0 #1b0f12;
+  box-shadow: 0 4px 0 #93466F;
   letter-spacing: 0.6px;
 }
 
-/* El formulario actúa como "tarjeta" blanca centrada */
-.contenedor-login > form {
+/* Tarjeta del formulario */
+.contenedor-login>form {
   width: 100%;
-  max-width: 380px;
+  max-width: 420px;
+  /* permitimos un poco más en pantallas grandes */
   background: #ffffff;
-  border: 4px solid #1b0f12;
-  border-radius: 6px;
-  padding: 20px;
+  border: 4px solid #93466F;
+  border-radius: 8px;
+  padding: 22px;
   box-shadow: 0 6px 0 rgba(0, 0, 0, 0.06);
   box-sizing: border-box;
 }
 
-/* Campos (label + input) */
+/* Campos */
 .campo {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  margin-bottom: 14px;
+  gap: 10px;
+  margin-bottom: 16px;
 }
 
 /* Etiqueta */
 .campo label {
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 700;
-  color: #1b0f12;
+  color: #93466F;
 }
 
-/* Inputs: aprovechamos las reglas globales pero ajustamos tamaños si es necesario */
+/* Inputs: más grandes y cómodos en móvil */
 .campo input[type=text],
 .campo input[type=password] {
-  padding: 12px 14px;
-  font-size: 16px;
-  border-radius: 6px;
-  border: 3px solid #1b0f12;
-  /* redundante con globales: mayor especificidad */
+  padding: 14px 14px;
+  font-size: 18px;
+  border-radius: 8px;
+  border: 3px solid #93466F;
   background: #ffffff;
   box-shadow: inset 0 -3px 0 rgba(0, 0, 0, 0.04);
   transition: transform 0.08s ease, box-shadow 0.08s ease;
 }
 
-/* Focus más definido para inputs dentro del login */
+/* Focus */
 .campo input:focus {
   transform: translateY(-1px);
   box-shadow: 0 4px 0 rgba(0, 0, 0, 0.08);
   outline: none;
 }
 
-/* Botón submit (usa la clase .btn en tu HTML) */
-/* Usamos selector con mayor especificidad para que el estilo del login prevalezca
-   aunque globales declare .btn después en el bundle */
+/* Botón submit: ocupa todo el ancho del form */
 .contenedor-login .btn {
   display: block;
   width: 100%;
-  padding: 12px 18px;
+  padding: 14px 18px;
   font-size: 18px;
   font-family: "Fredoka One", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-  color: #1b0f12;
+  color: #93466F;
   background: #f5dbe6;
-  border: 4px solid #1b0f12;
-  box-shadow: 0 4px 0 #1b0f12;
-  border-radius: 4px;
+  border: 4px solid #93466F;
+  box-shadow: 0 4px 0 #93466F;
+  border-radius: 6px;
   text-align: center;
   cursor: pointer;
-  margin-top: 6px;
+  margin-top: 8px;
   user-select: none;
 }
 
-/* Estado activo/hover para el botón dentro del login */
+/* Botón activo */
 .contenedor-login .btn:active {
   transform: translateY(2px);
-  box-shadow: 0 2px 0 #1b0f12;
+  box-shadow: 0 2px 0 #93466F;
 }
 
-/* Botón deshabilitado (si aplicas disabled en algún momento) */
+/* Disabled */
 .contenedor-login .btn[disabled],
 .contenedor-login .btn:disabled {
   opacity: 0.6;
@@ -107,21 +107,51 @@
   box-shadow: none;
 }
 
-/* Pequeños ajustes responsivos */
+/* Ajustes responsivos para móviles */
 @media (max-width: 420px) {
-  .contenedor-login > h1,
-  .contenedor-login > H1 {
-    font-size: 24px;
-    padding: 10px 12px;
-  }
-  .contenedor-login > form {
+
+  /* reducir padding global para móviles, pero aumentar legibilidad */
+  .contenedor-login {
     padding: 16px;
+    gap: 14px;
   }
-  .contenedor-login .btn {
+
+  .contenedor-login>h1,
+  .contenedor-login>H1 {
+    font-size: clamp(26px, 8.5vw, 34px);
+    /* un poco más grande visualmente en móviles */
     padding: 10px 14px;
-    font-size: 16px;
+  }
+
+  .contenedor-login>form {
+    padding: 18px;
+    max-width: 92vw;
+    /* usar casi todo el ancho del teléfono */
+    border-radius: 8px;
+  }
+
+  .campo {
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+
+  .campo label {
+    font-size: 15px;
+  }
+
+  .campo input[type=text],
+  .campo input[type=password] {
+    padding: 14px 12px;
+    font-size: 18px;
+  }
+
+  .contenedor-login .btn {
+    padding: 14px 16px;
+    font-size: 18px;
+    border-radius: 6px;
   }
 }
+
 .prefectos-page {
   width: 100%;
   max-width: 420px;
@@ -175,14 +205,17 @@
     padding: 18px 36px;
     width: 92%;
   }
+
   .prefectos-page {
     margin: 8px auto 100px;
     gap: 18px;
   }
+
   .map-container {
     min-height: 40vh;
   }
 }
+
 /* ------------------------------------------------------------------
    NOTA DE COMPATIBILIDAD
    - Evité funciones de manipulación de color (p. ej. darken/lighten).
@@ -209,7 +242,7 @@ body {
 body {
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
   background: #6f274b;
-  color: #1b0f12;
+  color: #93466F;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   line-height: 1.4;
@@ -246,7 +279,7 @@ h4,
 h5,
 h6 {
   margin: 0;
-  color: #1b0f12;
+  color: #93466F;
   line-height: 1.1;
 }
 
@@ -293,7 +326,7 @@ p {
 
 .logo {
   font-family: "Fredoka One", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-  color: #1b0f12;
+  color: #93466F;
   font-size: 16px;
 }
 
@@ -317,10 +350,10 @@ p {
   font-family: "Fredoka One", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
   cursor: pointer;
   text-align: center;
-  color: #1b0f12;
+  color: #93466F;
   background: #f5dbe6;
-  border: 4px solid #1b0f12;
-  box-shadow: 0 4px 0 #1b0f12;
+  border: 4px solid #93466F;
+  box-shadow: 0 4px 0 #93466F;
   border-radius: 4px;
   padding: 10px 16px;
   text-decoration: none;
@@ -351,7 +384,7 @@ p {
   position: fixed;
   left: 20px;
   bottom: 22px;
-  box-shadow: 0 3px 0 #1b0f12;
+  box-shadow: 0 3px 0 #93466F;
   border-width: 3px;
   z-index: 30;
   text-transform: lowercase;
@@ -368,7 +401,7 @@ p {
 /* efecto simple en active (aplicable a todos los .btn) */
 .btn:active {
   transform: translateY(2px);
-  box-shadow: 0 2px 0 #1b0f12;
+  box-shadow: 0 2px 0 #93466F;
 }
 
 /* --------------------
@@ -378,7 +411,7 @@ label {
   display: inline-block;
   margin-bottom: 6px;
   font-weight: 700;
-  color: #1b0f12;
+  color: #93466F;
 }
 
 input[type=text],
@@ -389,7 +422,7 @@ select {
   width: 100%;
   padding: 10px 12px;
   border-radius: 6px;
-  border: 3px solid #1b0f12;
+  border: 3px solid #93466F;
   background: #ffffff;
   font-size: 16px;
   box-shadow: inset 0 -3px 0 rgba(0, 0, 0, 0.04);
@@ -419,7 +452,7 @@ select:focus {
    -------------------- */
 .card {
   background: #ffffff;
-  border: 4px solid #1b0f12;
+  border: 4px solid #93466F;
   border-radius: 4px;
   padding: 12px;
   overflow: hidden;
@@ -437,7 +470,7 @@ select:focus {
 .card__title {
   font-family: "Fredoka One", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
   font-size: 20px;
-  color: #1b0f12;
+  color: #93466F;
   text-align: center;
   margin-bottom: 8px;
 }
@@ -518,14 +551,17 @@ select:focus {
     font-size: 40px;
     padding: 18px 36px;
   }
+
   .container {
     padding-left: 12px;
     padding-right: 12px;
   }
+
   .card--map {
     max-width: 92vw;
   }
 }
+
 /* Página */
 .alumnos-page {
   width: 100%;
@@ -557,13 +593,12 @@ select:focus {
   width: 100%;
   padding: 10px 14px;
   background: #f5dbe6;
-  /* rosado claro como en la imagen */
-  border: 4px solid #1b0f12;
+  border: 4px solid #93466F;
   border-radius: 4px;
   font-family: "Fredoka One", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
   font-size: 18px;
-  color: #1b0f12;
-  box-shadow: 0 4px 0 #1b0f12;
+  color: #93466F;
+  box-shadow: 0 4px 0 #93466F;
 }
 
 /* input grande para nombre (más alto y tipografía mayor) */
@@ -590,11 +625,11 @@ select:focus {
   width: 100%;
   padding: 10px 12px;
   background: #f5dbe6;
-  border: 4px solid #1b0f12;
+  border: 4px solid #93466F;
   border-radius: 6px;
   font-family: "Fredoka One", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
   font-size: 20px;
-  box-shadow: 0 4px 0 #1b0f12;
+  box-shadow: 0 4px 0 #93466F;
   text-align: center;
 }
 
@@ -607,7 +642,6 @@ select:focus {
   align-items: center;
 }
 
-/* Tarjeta alumno grande (blanca con borde de color) */
 .alumno-card {
   width: 92%;
   max-width: 560px;
@@ -630,11 +664,10 @@ select:focus {
   transform: translateY(-2px);
 }
 
-/* Tipografía del nombre grande como en la imagen */
 .alumno-nombre {
   font-family: "Fredoka One", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
   font-size: 40px;
-  color: #1b0f12;
+  color: #93466F;
   letter-spacing: 0.4px;
 }
 
@@ -642,7 +675,7 @@ select:focus {
 .alumno-meta {
   margin-top: 8px;
   font-size: 16px;
-  color: #1b0f12;
+  color: #93466F;
 }
 
 /* Bordes según reportes (clases de ejemplo) */
@@ -680,10 +713,6 @@ select:focus {
   display: flex;
 }
 
-/* alternativa: si quieres mostrar siempre acciones debajo como en la imagen al pulsar,
-   la clase .activo se añade mediante JS (ya incluido en el HTML). */
-/* ----- Botón salir (se basa en btn--exit de globales) ----- */
-/* puedes ajustar margen si hace falta */
 .btn--exit {
   left: 18px;
   bottom: 18px;
@@ -695,17 +724,21 @@ select:focus {
     font-size: 32px;
     padding: 14px 12px;
   }
+
   .alumno-nombre {
     font-size: 30px;
   }
+
   .select {
     font-size: 18px;
     padding: 8px 10px;
   }
+
   .alumno-card {
     padding: 12px 12px;
   }
 }
+
 /* -------------------------
    Layout general y espacio
    ------------------------- */
@@ -780,7 +813,7 @@ select:focus {
   width: 260px;
   height: 320px;
   background: #ffffff;
-  border: 4px solid #1b0f12;
+  border: 4px solid #93466F;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -820,7 +853,7 @@ select:focus {
 }
 
 /* Safety-net: asegurar ancho coherente por celda en escritorio */
-.grid-reportes > * {
+.grid-reportes>* {
   width: 220px;
   max-width: 92%;
   box-sizing: border-box;
@@ -832,18 +865,17 @@ select:focus {
    ------------------------- */
 .boton-reporte {
   background: #f5dbe6;
-  border: 4px solid #1b0f12;
-  box-shadow: 0 4px 0 #1b0f12;
+  border: 4px solid #93466F;
+  box-shadow: 0 4px 0 #93466F;
   padding: 12px 18px;
   border-radius: 6px;
   font-family: "Fredoka One", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
   font-size: 22px;
-  color: #1b0f12;
+  color: #93466F;
   cursor: pointer;
   text-align: center;
   user-select: none;
   box-sizing: border-box;
-  /* Evitar quiebre entre palabras o letras. Si no cabe, se recortará con ellipsis */
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -883,8 +915,8 @@ select:focus {
   transform: translateX(-50%);
   top: calc(100% + 8px);
   background: #f5dbe6;
-  border: 4px solid #1b0f12;
-  box-shadow: 0 4px 0 #1b0f12;
+  border: 4px solid #93466F;
+  box-shadow: 0 4px 0 #93466F;
   border-radius: 6px;
   padding: 6px;
   z-index: 999;
@@ -899,7 +931,7 @@ select:focus {
   padding: 8px 10px;
   margin: 6px 0;
   background: transparent;
-  border: 3px solid #1b0f12;
+  border: 3px solid #93466F;
   border-radius: 4px;
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
   font-size: 16px;
@@ -945,58 +977,786 @@ select:focus {
   .pagina-alumno {
     padding-bottom: 40px;
   }
+
   .titulo-alumno {
     font-size: 32px;
   }
+
   .detalle-alumno {
     flex-direction: column;
     gap: 12px;
     align-items: center;
   }
+
   .lado-izquierdo {
     flex-direction: row;
     gap: 16px;
     align-items: center;
   }
+
   .foto-tarjeta {
     width: 220px;
     height: 260px;
   }
+
   .matricula {
     font-size: 22px;
   }
+
   /* Grid pasa a 1 columna: cada celda debe ocupar 100% */
   .grid-reportes {
     grid-template-columns: 1fr;
     gap: 12px;
   }
+
   /* cada celda usa 100% para que botones sean del mismo ancho */
-  .grid-reportes > * {
+  .grid-reportes>* {
     width: 100%;
     max-width: none;
   }
+
   .boton-reporte {
     width: 100%;
     font-size: 20px;
     padding: 12px 14px;
   }
+
   .reporte-personalizado {
     width: 100%;
   }
+
   .reporte-personalizado .boton-reporte {
     width: 100%;
   }
+
   .opciones-personalizadas {
     left: 50%;
     transform: translateX(-50%);
     min-width: 160px;
   }
+
   /* acciones finales: apiladas en mobile */
   .acciones-final {
     flex-direction: column;
     gap: 12px;
     padding: 0;
   }
+
+  .acciones-final .btn {
+    width: 100%;
+  }
+}
+
+/* Layout principal */
+.pagina-orientacion {
+  width: 100%;
+  max-width: 420px;
+  margin: 12px auto 40px;
+  padding: 0 24px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
+}
+
+/* Filtros */
+.filtros {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+}
+
+.fila-filtros {
+  width: 100%;
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  align-items: center;
+}
+
+.input-filtro {
+  flex: 1;
+  max-width: 180px;
+  padding: 10px 12px;
+  background: #f5dbe6;
+  border: 4px solid #93466F;
+  border-radius: 6px;
+  font-family: "Fredoka One", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  font-size: 16px;
+  box-shadow: 0 4px 0 #93466F;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.input-grande {
+  max-width: 320px;
+  font-size: 20px;
+  padding: 14px 14px;
+}
+
+.fila-selects {
+  width: 100%;
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+}
+
+.select-filtro {
+  width: 140px;
+  padding: 10px 12px;
+  background: #f5dbe6;
+  border: 4px solid #93466F;
+  border-radius: 6px;
+  font-family: "Fredoka One", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  font-size: 18px;
+  box-shadow: 0 4px 0 #93466F;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+/* Lista de tarjetas */
+.lista-orientacion {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  align-items: center;
+}
+
+/* Tarjeta alumno */
+.tarjeta-alumno {
+  width: 92%;
+  max-width: 560px;
+  background: #ffffff;
+  border: 6px solid #93466F;
+  border-radius: 6px;
+  padding: 14px 18px;
+  box-shadow: 0 6px 0 rgba(0, 0, 0, 0.06);
+  position: relative;
+  box-sizing: border-box;
+}
+
+.tarjeta-alumno .contenido-tarjeta {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.nombre {
+  font-family: "Fredoka One", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  font-size: 34px;
+  color: #93466F;
+}
+
+.meta {
+  font-size: 14px;
+  color: #93466F;
+}
+
+/* Indicador de horas (esquina superior derecha) */
+.badge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: #ff4b4b;
+  color: #fff;
+  padding: 6px 8px;
+  border-radius: 6px;
+  font-weight: 700;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  font-size: 14px;
+  box-shadow: 0 3px 0 rgba(0, 0, 0, 0.12);
+}
+
+/* Colores según deuda */
+.adeuda-alta {
+  border-color: #ff3b30;
+}
+
+/* mucha deuda */
+.adeuda-media {
+  border-color: #ffd800;
+}
+
+/* mediana */
+.adeuda-baja {
+  border-color: #39d353;
+}
+
+/* poca */
+/* Acciones finales (en flujo) */
+.acciones-final {
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+  padding: 0 24px;
+  box-sizing: border-box;
+}
+
+.acciones-final .btn {
+  width: 48%;
+  padding: 12px 16px;
+  font-size: 16px;
+}
+
+/* Responsive */
+@media (max-width: 420px) {
+  .pagina-orientacion {
+    padding: 0 12px;
+    gap: 16px;
+  }
+
+  .fila-filtros {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .input-filtro {
+    max-width: 100%;
+    width: 100%;
+    font-size: 18px;
+    padding: 12px;
+  }
+
+  .input-grande {
+    font-size: 22px;
+    padding: 14px;
+  }
+
+  .fila-selects {
+    flex-direction: row;
+    gap: 10px;
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .select-filtro {
+    width: 48%;
+    padding: 12px;
+    font-size: 18px;
+  }
+
+  .tarjeta-alumno {
+    width: 100%;
+    padding: 16px;
+  }
+
+  .nombre {
+    font-size: 30px;
+  }
+
+  .badge {
+    top: 10px;
+    right: 10px;
+    padding: 6px 8px;
+    font-size: 13px;
+  }
+
+  .acciones-final {
+    flex-direction: column;
+    gap: 10px;
+    padding: 0;
+  }
+
+  .acciones-final .btn {
+    width: 100%;
+  }
+}
+
+/* scss/layout/_jefe-grupo.scss */
+/* Página */
+.jefe-grupo-page,
+.jefe-grupo-page * {
+  box-sizing: border-box;
+}
+
+/* contenedor */
+.jefe-grupo-page {
+  width: 100%;
+  max-width: 420px;
+  margin: 12px auto 40px;
+  padding: 0 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+/* perfil */
+.perfil {
+  text-align: center;
+  width: 100%;
+}
+
+.nombre-alumno {
+  font-family: "Fredoka One", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  font-size: 36px;
+  color: #ffffff;
+  margin: 0 0 6px 0;
+}
+
+.perfil-contenedor {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+}
+
+.perfil-info {
+  text-align: left;
+  min-width: 140px;
+}
+
+.campo-info {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  color: #ffffff;
+  margin-bottom: 6px;
+}
+
+.campo-info strong {
+  display: inline-block;
+  width: 82px;
+}
+
+/* foto */
+.perfil-foto .foto-tarjeta {
+  width: 160px;
+  height: 200px;
+  background: #ffffff;
+  border: 4px solid #93466F;
+  box-shadow: 0 6px 0 rgba(0, 0, 0, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.perfil-foto img {
+  width: 70%;
+  height: auto;
+  display: block;
+}
+
+/* botón aulas */
+.boton-aulas {
+  margin-top: 12px;
+  padding: 10px 20px;
+  font-family: "Fredoka One", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  font-size: 22px;
+}
+
+/* lista de reportes */
+.reportes-lista {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+}
+
+/* tarjeta base */
+.reporte-card {
+  width: 92%;
+  max-width: 560px;
+  background: #ffffff;
+  border: 6px solid #93466F;
+  border-radius: 6px;
+  padding: 14px 18px;
+  box-shadow: 0 6px 0 rgba(0, 0, 0, 0.06);
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+/* contenido dentro */
+.reporte-contenido {
+  flex: 1 1 auto;
+}
+
+.reporte-tipo {
+  font-family: "Fredoka One", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  font-size: 20px;
+  color: #93466F;
+  margin-bottom: 6px;
+}
+
+.reporte-meta {
+  font-size: 14px;
+  color: #93466F;
+  margin-bottom: 8px;
+}
+
+.reporte-horas {
+  font-family: "Fredoka One", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  font-size: 18px;
+  color: #93466F;
+}
+
+.horas-valor {
+  font-weight: 700;
+}
+
+/* indicador esquina: triángulo */
+.reporte-card::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-width: 0 24px 24px 0;
+  border-style: solid;
+  border-color: transparent #f5dbe6 transparent transparent;
+}
+
+/* estados: adeuda (rojo) y pagado (verde) */
+.reporte-card.adeuda {
+  border-color: #ff3b30;
+}
+
+.reporte-card.adeuda::after {
+  border-color: transparent #ff3b30 transparent transparent;
+}
+
+.reporte-card.pagado {
+  border-color: #39d353;
+}
+
+.reporte-card.pagado::after {
+  border-color: transparent #39d353 transparent transparent;
+}
+
+/* foco */
+.reporte-card:focus {
+  outline: 3px solid rgba(0, 0, 0, 0.08);
+  outline-offset: 4px;
+}
+
+/* acciones finales */
+.acciones-final {
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+  padding: 0 24px;
+  box-sizing: border-box;
+}
+
+.acciones-final .btn {
+  width: 48%;
+  padding: 12px 16px;
+}
+
+/* responsive */
+@media (max-width: 420px) {
+  .nombre-alumno {
+    font-size: 28px;
+  }
+
+  .perfil-contenedor {
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .perfil-info {
+    text-align: center;
+    min-width: auto;
+  }
+
+  .perfil-info strong {
+    width: auto;
+    display: block;
+  }
+
+  .perfil-foto .foto-tarjeta {
+    width: 200px;
+    height: 240px;
+  }
+
+  .reporte-card {
+    width: 100%;
+    padding: 12px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .horas-valor {
+    font-size: 18px;
+  }
+
+  .acciones-final {
+    flex-direction: column;
+    gap: 10px;
+    padding: 0;
+  }
+
+  .acciones-final .btn {
+    width: 100%;
+  }
+}
+
+/* página */
+.pagina-reportes {
+  width: 100%;
+  max-width: 420px;
+  margin: 12px auto 40px;
+  padding: 0 24px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+/* perfil */
+.perfil {
+  width: 100%;
+  text-align: center;
+}
+
+.nombre-alumno {
+  font-family: "Fredoka One", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  font-size: 36px;
+  color: #ffffff;
+  margin: 0 0 6px 0;
+}
+
+.perfil-contenedor {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+}
+
+.perfil-info {
+  text-align: left;
+  min-width: 140px;
+}
+
+.campo-info {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  color: #ffffff;
+  margin-bottom: 6px;
+}
+
+.campo-info strong {
+  display: inline-block;
+  width: 82px;
+}
+
+.perfil-foto .foto-tarjeta {
+  width: 160px;
+  height: 200px;
+  background: #ffffff;
+  border: 4px solid #93466F;
+  box-shadow: 0 6px 0 rgba(0, 0, 0, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.perfil-foto img {
+  width: 70%;
+  height: auto;
+  display: block;
+}
+
+/* lista */
+.lista-reportes {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+}
+
+/* tarjeta */
+.reporte-card {
+  width: 92%;
+  max-width: 560px;
+  background: #ffffff;
+  border: 6px solid #93466F;
+  border-radius: 6px;
+  padding: 14px 18px;
+  box-shadow: 0 6px 0 rgba(0, 0, 0, 0.06);
+  position: relative;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.reporte-contenido {
+  flex: 1 1 auto;
+}
+
+.reporte-tipo {
+  font-family: "Fredoka One", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  font-size: 20px;
+  color: #93466F;
+  margin-bottom: 6px;
+}
+
+.reporte-meta {
+  font-size: 14px;
+  color: #93466F;
+  margin-bottom: 8px;
+}
+
+.reporte-horas {
+  font-family: "Fredoka One", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  font-size: 18px;
+  color: #93466F;
+}
+
+.horas-valor {
+  font-weight: 700;
+}
+
+/* triángulo indicador */
+.reporte-card::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-width: 0 24px 24px 0;
+  border-style: solid;
+  border-color: transparent #f5dbe6 transparent transparent;
+}
+
+/* estados */
+.reporte-card.adeuda {
+  border-color: #ff3b30;
+}
+
+.reporte-card.adeuda::after {
+  border-color: transparent #ff3b30 transparent transparent;
+}
+
+.reporte-card.pagado {
+  border-color: #39d353;
+}
+
+.reporte-card.pagado::after {
+  border-color: transparent #39d353 transparent transparent;
+}
+
+/* tarjeta seleccionada (resalta naranja) */
+.reporte-card.seleccionado {
+  border-color: #ff9f43;
+  box-shadow: 0 8px 0 rgba(255, 159, 67, 0.07);
+}
+
+/* controles flecha */
+.reporte-controles {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+}
+
+.flecha {
+  padding: 6px 10px;
+  font-size: 16px;
+  border-radius: 6px;
+  border: 4px solid #93466F;
+  background: #f5dbe6;
+  box-shadow: 0 4px 0 #93466F;
+  cursor: pointer;
+  line-height: 1;
+}
+
+/* estado inactivo (apagado) */
+.flecha[disabled] {
+  opacity: 0.38;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* active */
+.flecha:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 #93466F;
+}
+
+/* ocultar flechas en pagado */
+.reporte-card.pagado .flecha {
+  display: none;
+}
+
+/* acciones finales */
+.acciones-final {
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+  padding: 0 24px;
+  box-sizing: border-box;
+}
+
+.acciones-final .btn {
+  width: auto;
+  padding: 12px 16px;
+}
+
+/* responsive */
+@media (max-width: 420px) {
+  .perfil-contenedor {
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .perfil-info {
+    text-align: center;
+    min-width: auto;
+  }
+
+  .perfil-info strong {
+    width: auto;
+    display: block;
+  }
+
+  .perfil-foto .foto-tarjeta {
+    width: 200px;
+    height: 240px;
+  }
+
+  .reporte-card {
+    width: 100%;
+    padding: 12px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .reporte-controles {
+    flex-direction: row;
+    gap: 10px;
+    margin-top: 10px;
+  }
+
+  .flecha {
+    padding: 8px 14px;
+    font-size: 18px;
+  }
+
+  .acciones-final {
+    flex-direction: column;
+    gap: 10px;
+    padding: 0;
+  }
+
   .acciones-final .btn {
     width: 100%;
   }

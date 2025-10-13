@@ -1,0 +1,235 @@
+@use "../base/variables" as *;
+
+/* Página */
+.jefe-grupo-page,
+.jefe-grupo-page * {
+    box-sizing: border-box;
+}
+
+/* contenedor */
+.jefe-grupo-page {
+    width: 100%;
+    max-width: $ancho-maximo-app;
+    margin: 12px auto 40px;
+    padding: 0 $espacio-contenedor;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+/* perfil */
+.perfil {
+    text-align: center;
+    width: 100%;
+}
+
+.nombre-alumno {
+    font-family: $fuente-encabezado;
+    font-size: 36px;
+    color: $blanco;
+    margin: 0 0 6px 0;
+}
+
+.perfil-contenedor {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+}
+
+.perfil-info {
+    text-align: left;
+    min-width: 140px;
+}
+
+.campo-info {
+    font-family: $fuente-base;
+    color: $blanco;
+    margin-bottom: 6px;
+}
+
+.campo-info strong {
+    display: inline-block;
+    width: 82px;
+}
+
+/* foto */
+.perfil-foto .foto-tarjeta {
+    width: 160px;
+    height: 200px;
+    background: $blanco;
+    border: 4px solid $guinda-negro;
+    box-shadow: 0 6px 0 rgba(0, 0, 0, 0.06);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.perfil-foto img {
+    width: 70%;
+    height: auto;
+    display: block;
+}
+
+/* botón aulas */
+.boton-aulas {
+    margin-top: 12px;
+    padding: 10px 20px;
+    font-family: $fuente-encabezado;
+    font-size: 22px;
+}
+
+/* lista de reportes */
+.reportes-lista {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+}
+
+/* tarjeta base */
+.reporte-card {
+    width: 92%;
+    max-width: 560px;
+    background: $blanco;
+    border: 6px solid $guinda-negro;
+    border-radius: 6px;
+    padding: 14px 18px;
+    box-shadow: 0 6px 0 rgba(0, 0, 0, 0.06);
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    align-items: flex-start;
+}
+
+/* contenido dentro */
+.reporte-contenido {
+    flex: 1 1 auto;
+}
+
+.reporte-tipo {
+    font-family: $fuente-encabezado;
+    font-size: 20px;
+    color: $guinda-negro;
+    margin-bottom: 6px;
+}
+
+.reporte-meta {
+    font-size: 14px;
+    color: $guinda-negro;
+    margin-bottom: 8px;
+}
+
+.reporte-horas {
+    font-family: $fuente-encabezado;
+    font-size: 18px;
+    color: $guinda-negro;
+}
+
+.horas-valor {
+    font-weight: 700;
+}
+
+/* indicador esquina: triángulo */
+.reporte-card::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-width: 0 24px 24px 0;
+    border-style: solid;
+    border-color: transparent $guinda-claro transparent transparent;
+}
+
+/* estados: adeuda (rojo) y pagado (verde) */
+.reporte-card.adeuda {
+    border-color: #ff3b30;
+}
+
+.reporte-card.adeuda::after {
+    border-color: transparent #ff3b30 transparent transparent;
+}
+
+.reporte-card.pagado {
+    border-color: #39d353;
+}
+
+.reporte-card.pagado::after {
+    border-color: transparent #39d353 transparent transparent;
+}
+
+/* foco */
+.reporte-card:focus {
+    outline: 3px solid rgba(0, 0, 0, 0.08);
+    outline-offset: 4px;
+}
+
+/* acciones finales */
+.acciones-final {
+    width: 100%;
+    max-width: $ancho-maximo-app;
+    display: flex;
+    gap: 12px;
+    justify-content: space-between;
+    padding: 0 $espacio-contenedor;
+    box-sizing: border-box;
+}
+
+.acciones-final .btn {
+    width: 48%;
+    padding: 12px 16px;
+}
+
+/* responsive */
+@media (max-width:420px) {
+    .nombre-alumno {
+        font-size: 28px;
+    }
+
+    .perfil-contenedor {
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .perfil-info {
+        text-align: center;
+        min-width: auto;
+    }
+
+    .perfil-info strong {
+        width: auto;
+        display: block;
+    }
+
+    .perfil-foto .foto-tarjeta {
+        width: 200px;
+        height: 240px;
+    }
+
+    .reporte-card {
+        width: 100%;
+        padding: 12px;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .horas-valor {
+        font-size: 18px;
+    }
+
+    .acciones-final {
+        flex-direction: column;
+        gap: 10px;
+        padding: 0;
+    }
+
+    .acciones-final .btn {
+        width: 100%;
+    }
+}

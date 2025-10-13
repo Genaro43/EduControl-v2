@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Alumno — EduControl</title>
+    <link rel="stylesheet" href="../build/css/app.css" />
+</head>
+
+<body class="app">
+    <header class="app__header" role="banner">
+        <div class="logo" aria-hidden="true">logo</div>
+    </header>
+
+    <main class="app__main jefe-grupo-page" role="main">
+        <!-- Perfil -->
+        <section class="perfil">
+            <h1 class="nombre-alumno">Nombre Apellido</h1>
+
+            <div class="perfil-contenedor">
+                <div class="perfil-info">
+                    <div class="campo-info"><strong>Semestre</strong> <span>3</span></div>
+                    <div class="campo-info"><strong>Grupo</strong> <span>A</span></div>
+                    <div class="campo-info"><strong>Matrícula</strong> <span>20211234</span></div>
+                </div>
+
+                <div class="perfil-foto">
+                    <div class="foto-tarjeta">
+                        <img src="assets/avatar-placeholder.png" alt="Foto del alumno" />
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- Reportes (solo vista, ordenados) -->
+        <section class="reportes-lista" id="reportes-lista" aria-live="polite">
+            <!-- adeuda > 0 -->
+            <article class="reporte-card adeuda" data-horas="16" data-id="r1" tabindex="0">
+                <div class="reporte-contenido">
+                    <div class="reporte-tipo">Tipo: Falta de servicio</div>
+                    <div class="reporte-meta">Aplicó: Profesor X · Última modificación: Profesor Y</div>
+                    <div class="reporte-horas">Horas adeudadas: <span class="horas-valor">16</span></div>
+                </div>
+            </article>
+
+            <article class="reporte-card adeuda" data-horas="8" data-id="r2" tabindex="0">
+                <div class="reporte-contenido">
+                    <div class="reporte-tipo">Tipo: Actividad incompleta</div>
+                    <div class="reporte-meta">Aplicó: Profesor A · Última modificación: Profesor B</div>
+                    <div class="reporte-horas">Horas adeudadas: <span class="horas-valor">8</span></div>
+                </div>
+            </article>
+
+            <!-- pagado = 0 -->
+            <article class="reporte-card pagado" data-horas="0" data-id="r3" tabindex="0">
+                <div class="reporte-contenido">
+                    <div class="reporte-tipo">Tipo: Servicio completado</div>
+                    <div class="reporte-meta">Aplicó: Profesor Z · Última modificación: Profesor Z</div>
+                    <div class="reporte-horas">Horas adeudadas: <span class="horas-valor">0</span></div>
+                </div>
+            </article>
+        </section>
+
+        <!-- Acciones finales -->
+        <div class="acciones-final">
+            <button class="btn boton-salir" type="button">salir</button>
+        </div>
+    </main>
+
+    <!-- JS: ordenar tarjetas por horas (mayor arriba). Sólo lectura. -->
+    <script>
+        (function () {
+            const lista = document.getElementById('reportes-lista');
+
+            function ordenarPorHoras() {
+                const cards = Array.from(lista.querySelectorAll('.reporte-card'));
+                cards.sort((a, b) => {
+                    const ha = parseInt(a.dataset.horas || '0', 10);
+                    const hb = parseInt(b.dataset.horas || '0', 10);
+                    return hb - ha;
+                });
+                cards.forEach(c => lista.appendChild(c));
+            }
+
+            ordenarPorHoras();
+        })();
+    </script>
+</body>
+
+</html>

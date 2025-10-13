@@ -1,0 +1,223 @@
+@use "../base/variables" as *;
+
+/* Layout principal */
+.pagina-orientacion {
+    width: 100%;
+    max-width: $ancho-maximo-app;
+    margin: 12px auto 40px;
+    padding: 0 $espacio-contenedor;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 22px;
+}
+
+/* Filtros */
+.filtros {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+}
+
+.fila-filtros {
+    width: 100%;
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    align-items: center;
+}
+
+.input-filtro {
+    flex: 1;
+    max-width: 180px;
+    padding: 10px 12px;
+    background: $guinda-claro;
+    border: 4px solid $guinda-negro;
+    border-radius: 6px;
+    font-family: $fuente-encabezado;
+    font-size: 16px;
+    box-shadow: 0 4px 0 $guinda-negro;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.input-grande {
+    max-width: 320px;
+    font-size: 20px;
+    padding: 14px 14px;
+}
+
+.fila-selects {
+    width: 100%;
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+}
+
+.select-filtro {
+    width: 140px;
+    padding: 10px 12px;
+    background: $guinda-claro;
+    border: 4px solid $guinda-negro;
+    border-radius: 6px;
+    font-family: $fuente-encabezado;
+    font-size: 18px;
+    box-shadow: 0 4px 0 $guinda-negro;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+/* Lista de tarjetas */
+.lista-orientacion {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    align-items: center;
+}
+
+/* Tarjeta alumno */
+.tarjeta-alumno {
+    width: 92%;
+    max-width: 560px;
+    background: $blanco;
+    border: 6px solid $guinda-negro;
+    border-radius: 6px;
+    padding: 14px 18px;
+    box-shadow: 0 6px 0 rgba(0, 0, 0, 0.06);
+    position: relative;
+    box-sizing: border-box;
+}
+
+.tarjeta-alumno .contenido-tarjeta {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.nombre {
+    font-family: $fuente-encabezado;
+    font-size: 34px;
+    color: $guinda-negro;
+}
+
+.meta {
+    font-size: 14px;
+    color: $guinda-negro;
+}
+
+/* Indicador de horas (esquina superior derecha) */
+.badge {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: #ff4b4b;
+    color: #fff;
+    padding: 6px 8px;
+    border-radius: 6px;
+    font-weight: 700;
+    font-family: $fuente-base;
+    font-size: 14px;
+    box-shadow: 0 3px 0 rgba(0, 0, 0, 0.12);
+}
+
+/* Colores según deuda */
+.adeuda-alta {
+    border-color: #ff3b30;
+}
+
+/* mucha deuda */
+.adeuda-media {
+    border-color: #ffd800;
+}
+
+/* mediana */
+.adeuda-baja {
+    border-color: #39d353;
+}
+
+/* poca */
+
+/* Acciones finales (en flujo) */
+.acciones-final {
+    width: 100%;
+    max-width: $ancho-maximo-app;
+    display: flex;
+    gap: 12px;
+    justify-content: space-between;
+    padding: 0 $espacio-contenedor;
+    box-sizing: border-box;
+}
+
+.acciones-final .btn {
+    width: 48%;
+    padding: 12px 16px;
+    font-size: 16px;
+}
+
+/* Responsive */
+@media (max-width: 420px) {
+    .pagina-orientacion {
+        padding: 0 12px;
+        gap: 16px;
+    }
+
+    .fila-filtros {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .input-filtro {
+        max-width: 100%;
+        width: 100%;
+        font-size: 18px;
+        padding: 12px;
+    }
+
+    .input-grande {
+        font-size: 22px;
+        padding: 14px;
+    }
+
+    .fila-selects {
+        flex-direction: row;
+        gap: 10px;
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .select-filtro {
+        width: 48%;
+        padding: 12px;
+        font-size: 18px;
+    }
+
+    .tarjeta-alumno {
+        width: 100%;
+        padding: 16px;
+    }
+
+    .nombre {
+        font-size: 30px;
+    }
+
+    .badge {
+        top: 10px;
+        right: 10px;
+        padding: 6px 8px;
+        font-size: 13px;
+    }
+
+    .acciones-final {
+        flex-direction: column;
+        gap: 10px;
+        padding: 0;
+    }
+
+    .acciones-final .btn {
+        width: 100%;
+    }
+}
