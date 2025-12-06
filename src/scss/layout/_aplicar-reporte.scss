@@ -303,4 +303,126 @@
     .acciones-final .btn {
         width: 100%;
     }
+
+    .er-modal-card {
+        max-width: 96%;
+        padding: 12px;
+    }
+
+    .er-modal-titulo {
+        font-size: 18px;
+        padding: 6px 10px;
+    }
+
+    .er-input-horas {
+        font-size: 16px;
+        padding: 10px;
+    }
+
+    .er-textarea {
+        min-height: 64px;
+    }
+}
+
+.er-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1200;
+    padding: 18px;
+}
+
+.er-modal-card {
+    width: 100%;
+    max-width: 520px;
+    background: $blanco;
+    border: 4px solid $guinda-negro;
+    border-radius: 6px;
+    box-shadow: 0 8px 0 rgba(0, 0, 0, 0.08);
+    box-sizing: border-box;
+    padding: 16px;
+}
+
+/* header */
+.er-modal-titulo {
+    margin: 0 0 10px 0;
+    font-family: $fuente-encabezado;
+    font-size: 20px;
+    color: $guinda-negro;
+    background: $guinda-claro;
+    border: 4px solid $guinda-negro;
+    display: inline-block;
+    padding: 8px 12px;
+    border-radius: 3px;
+    box-shadow: 0 $sombra-btn-tamano 0 $guinda-negro;
+}
+
+/* body rows */
+.er-modal-body {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 8px;
+}
+
+.er-row {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.er-row strong {
+    font-family: $fuente-encabezado;
+    color: $guinda-negro;
+    font-size: 14px;
+}
+
+/* inputs */
+.er-input-horas {
+    width: 100%;
+    padding: 10px 12px;
+    font-size: 16px;
+    border-radius: 6px;
+    border: 3px solid $guinda-negro;
+    box-sizing: border-box;
+    background: $blanco;
+}
+
+.er-textarea {
+    width: 100%;
+    min-height: 80px;
+    padding: 10px 12px;
+    border-radius: 6px;
+    border: 3px solid $guinda-negro;
+    font-size: 15px;
+    box-sizing: border-box;
+    resize: vertical;
+}
+
+/* footer */
+.er-modal-footer {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    margin-top: 12px;
+}
+
+.er-btn-cancel {
+    background: transparent;
+    color: $guinda-negro;
+    border: 3px solid $guinda-negro;
+    padding: 8px 12px;
+    border-radius: 6px;
+}
+
+.er-btn-confirm {
+    background: $guinda-claro;
+    color: $guinda-negro;
+    border: 4px solid $guinda-negro;
+    padding: 10px 14px;
+    border-radius: 6px;
+    box-shadow: 0 $sombra-btn-tamano 0 $guinda-negro;
 }

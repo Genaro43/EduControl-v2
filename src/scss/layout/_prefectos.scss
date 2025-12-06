@@ -24,25 +24,23 @@
     /* Mantiene el estilo base (.btn) heredado de globales */
 }
 
-.tarjeta-mapa {
-    width: 100%;
-    max-width: 360px;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-// .map-container img {
-//     max-width: 94%;
-//     max-height: 94%;
-//     object-fit: cover;
-//     display: block;
-//     filter: grayscale(90%) contrast(105%);
-//     opacity: 0.96;
-//     border-radius: 2px;
-//     border: 2px solid transparent;
+// .tarjeta-mapa {
+//     max-width: 55rem;
+//     max-height: 600rem;
+//     box-sizing: border-box;
+//     display: flex;
+//     flex-direction: column;
+//     align-items: center;
 // }
+
+.tarjeta-mapa img {
+    max-width: 57rem;
+    max-height: 600rem;
+    object-fit: cover;
+    display: block;
+    border-radius: 2px;
+    border: 2px solid transparent;
+}
 
 .btn--exit {
     left: 18px;

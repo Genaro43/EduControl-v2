@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>EduControl</title>
+    <title>Ver reportes — EduControl</title>
     <link rel="stylesheet" href="../build/css/app.css" />
 </head>
 
@@ -14,221 +14,303 @@
     </header>
 
     <main class="app__main pagina-reportes" role="main">
-        <!-- PERFIL -->
         <section class="perfil">
-            <h1 class="nombre-alumno">Nombre Apellido</h1>
+            <h1 class="nombre-alumno">Genaro Rosales Carrasco</h1>
 
             <div class="perfil-contenedor">
                 <div class="perfil-info">
-                    <div class="campo-info"><strong>Semestre</strong> <span>3</span></div>
-                    <div class="campo-info"><strong>Grupo</strong> <span>A</span></div>
-                    <div class="campo-info"><strong>Matrícula</strong> <span>20211234</span></div>
+                    <div class="campo-info"><strong>Semestre</strong> <span>5</span></div>
+                    <div class="campo-info"><strong>Grupo</strong> <span>j</span></div>
+                    <div class="campo-info"><strong>Matrícula</strong> <span class="matricula">20211234</span></div>
                 </div>
 
                 <div class="perfil-foto">
                     <div class="foto-tarjeta">
-                        <img src="../assets/avatar-placeholder.png" alt="Foto del alumno" />
+                        <img src="../src/img/122171.jpg" alt="Foto del alumno" />
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- LISTA DE REPORTES -->
-        <section id="lista-reportes" class="lista-reportes" aria-live="polite">
-            <!-- Ejemplos -->
-            <article class="reporte-card adeuda" data-matricula="2021001" data-nombre="Ana Pérez" data-grado="3" data-grupo="A" data-horas="16" tabindex="0">
-                <div class="reporte-contenido">
-                    <div class="reporte-tipo">Falta de servicio</div>
-                    <div class="reporte-meta">Aplicó: Profesor X · Última modificación: Profesor Y</div>
-                    <div class="reporte-horas">Horas adeudadas: <span class="horas-valor">16</span></div>
-                </div>
+        <section id="lista-reportes" class="lista-reportes" aria-live="polite"></section>
 
-                <div class="reporte-controles">
-                    <button class="btn flecha flecha-up" aria-label="Aumentar horas" disabled>▲</button>
-                    <button class="btn flecha flecha-down" aria-label="Disminuir horas" disabled>▼</button>
-                </div>
-            </article>
-
-            <article class="reporte-card adeuda" data-matricula="2021023" data-nombre="Luis Gómez" data-grado="2" data-grupo="B" data-horas="8" tabindex="0">
-                <div class="reporte-contenido">
-                    <div class="reporte-tipo">Actividad incompleta</div>
-                    <div class="reporte-meta">Aplicó: Profesor A · Última modificación: Profesor B</div>
-                    <div class="reporte-horas">Horas adeudadas: <span class="horas-valor">8</span></div>
-                </div>
-
-                <div class="reporte-controles">
-                    <button class="btn flecha flecha-up" aria-label="Aumentar horas" disabled>▲</button>
-                    <button class="btn flecha flecha-down" aria-label="Disminuir horas" disabled>▼</button>
-                </div>
-            </article>
-
-            <article class="reporte-card pagado" data-matricula="2021056" data-nombre="María Ruiz" data-grado="1" data-grupo="C" data-horas="0" tabindex="0">
-                <div class="reporte-contenido">
-                    <div class="reporte-tipo">Servicio completado</div>
-                    <div class="reporte-meta">Aplicó: Profesor Z · Última modificación: Profesor Z</div>
-                    <div class="reporte-horas">Horas adeudadas: <span class="horas-valor">0</span></div>
-                </div>
-
-                <div class="reporte-controles">
-                    <button class="btn flecha" aria-hidden="true" hidden>▲</button>
-                    <button class="btn flecha" aria-hidden="true" hidden>▼</button>
-                </div>
-            </article>
-        </section>
-
-        <!-- BOTONES - Guardar / Cancelar no fijos -->
         <div class="acciones-final">
-            <button class="btn boton-salir" type="button">salir</button>
-
-            <!-- Guardar/Cancelar afectan la tarjeta seleccionada -->
-            <div style="display:flex; gap:12px; width:48%; justify-content:flex-end;">
-                <button id="btn-cancelar" class="btn" type="button" disabled>Cancelar</button>
-                <button id="btn-guardar" class="btn" type="button" disabled>Guardar</button>
-            </div>
+            <a class="btn boton-salir" id="btn-regresar" href="alumnos-vista.html">regresar</a>
         </div>
     </main>
 
-    <!-- JS: selección, flechas (temporal), guardar/cancelar -->
     <script>
         (function () {
-            const lista = document.getElementById('lista-reportes');
-            const btnGuardar = document.getElementById('btn-guardar');
-            const btnCancelar = document.getElementById('btn-cancelar');
+            const STORAGE_KEY = 'edu_reportes';
+            const $lista = document.getElementById('lista-reportes');
 
-            let tarjetaSeleccionada = null;
-            let originalHoras = 0;
-            let tempHoras = 0;
-
-            // ordenar mayor->menor
-            function ordenar() {
-                const cards = Array.from(lista.querySelectorAll('.reporte-card'));
-                cards.sort((a, b) => parseInt(b.dataset.horas || '0', 10) - parseInt(a.dataset.horas || '0', 10));
-                cards.forEach(c => lista.appendChild(c));
+            // Leer raw
+            function leerRaw() {
+                try {
+                    const s = localStorage.getItem(STORAGE_KEY);
+                    console.debug('leerRaw -> localStorage.' + STORAGE_KEY + ':', s);
+                    return s ? JSON.parse(s) : null;
+                } catch (e) {
+                    console.warn('leerRaw: JSON parse error', e);
+                    return null;
+                }
             }
 
-            // activar/desactivar flechas de una tarjeta
-            function setFlechas(tarjeta, activar) {
-                const flechas = tarjeta.querySelectorAll('.flecha');
-                flechas.forEach(f => {
-                    if (activar) {
-                        f.removeAttribute('disabled');
-                    } else {
-                        f.setAttribute('disabled', '');
+            // Normalizar
+            function normalizar(r, fallbackId) {
+                return {
+                    id: String(r && (r.id || r._id) ? (r.id || r._id) : (fallbackId || ('r' + Date.now() + Math.floor(Math.random() * 10000)))),
+                    matricula: String((r && (r.matricula || r.matr || r.matric)) || '').trim(),
+                    tipo: (r && r.tipo) || 'reporte',
+                    descripcion: (r && r.descripcion) || '',
+                    horas: Number((r && (typeof r.horas !== 'undefined' ? r.horas : r.hours)) || 0),
+                    aplicadoPor: (r && (r.aplicadoPor || r.aplicador)) || '',
+                    ultimaMod: (r && (r.ultimaMod || r.updatedBy)) || '',
+                    createdAt: (r && r.createdAt) || new Date().toISOString(),
+                    updatedAt: (r && r.updatedAt) || new Date().toISOString()
+                };
+            }
+
+            // Normalizar todo
+            function leerReportesNormalizados() {
+                const raw = leerRaw();
+                if (!raw) return [];
+                if (Array.isArray(raw)) {
+                    return raw.map((r, i) => normalizar(r, r && r.id ? r.id : ('a' + i)));
+                }
+                if (typeof raw === 'object') {
+                    return Object.keys(raw).map(k => {
+                        const v = raw[k];
+                        if (typeof v === 'number') return normalizar({ id: k, horas: v }, k);
+                        if (typeof v === 'object') {
+                            const clone = Object.assign({}, v);
+                            if (!clone.id) clone.id = k;
+                            return normalizar(clone, k);
+                        }
+                        return normalizar({ id: k }, k);
+                    });
+                }
+                return [];
+            }
+
+            // Guardar reporte (obj keyed)
+            function guardarReporteCompleto(report) {
+                const raw = leerRaw();
+                let obj = {};
+                if (raw && typeof raw === 'object' && !Array.isArray(raw)) obj = Object.assign({}, raw);
+                if (Array.isArray(raw)) {
+                    raw.forEach(item => {
+                        const nr = normalizar(item);
+                        obj[nr.id] = nr;
+                    });
+                }
+                obj[report.id] = report;
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(obj));
+                console.debug('guardarReporteCompleto -> saved id=', report.id);
+            }
+
+            // Obtener matrícula objetivo: PRIORIDAD DOM (.matricula) -> si no existe usar ?matricula=
+            function obtenerMatriculaObjetivo() {
+                // Intentar DOM primero
+                const el = document.querySelector('.matricula');
+                if (el) {
+                    const digits = (el.textContent || '').match(/\d+/);
+                    if (digits) {
+                        console.debug('obtenerMatriculaObjetivo -> usando DOM .matricula:', digits[0]);
+                        return digits[0];
                     }
+                }
+
+                // Fallback: query param
+                try {
+                    const url = new URL(location.href);
+                    const q = url.searchParams.get('matricula') || '';
+                    if (q) {
+                        const digits = (q + '').match(/\d+/);
+                        if (digits) {
+                            console.debug('obtenerMatriculaObjetivo -> usando query param:', digits[0]);
+                            return digits[0];
+                        }
+                    }
+                } catch (e) { /* ignore */ }
+
+                console.debug('obtenerMatriculaObjetivo -> no matricula encontrada');
+                return '';
+            }
+
+            // Comparar matriculas (solo dígitos)
+            function matriculaIgual(a, b) {
+                const an = (String(a || '')).match(/\d+/);
+                const bn = (String(b || '')).match(/\d+/);
+                if (!an || !bn) return false;
+                return an[0] === bn[0];
+            }
+
+            function esc(s) { return String(s || ''); }
+
+            function crearTarjeta(report) {
+                const horas = Number(report.horas || 0);
+                const art = document.createElement('article');
+                art.className = 'reporte-card ' + (horas > 0 ? 'adeuda' : 'pagado');
+                art.dataset.id = report.id;
+                art.dataset.horas = String(horas);
+                art.dataset.matricula = String(report.matricula || '');
+                art.tabIndex = 0;
+
+                const contenido = document.createElement('div');
+                contenido.className = 'reporte-contenido';
+                contenido.innerHTML = `
+        <div class="reporte-tipo">${esc(report.tipo)}</div>
+        <div class="reporte-meta">Aplicó: ${esc(report.aplicadoPor)} · Última modificación: ${esc(report.ultimaMod)}</div>
+        <div class="reporte-horas">Horas adeudadas: <span class="horas-valor">${horas}</span></div>
+        <div class="reporte-desc">${esc(report.descripcion)}</div>
+      `;
+                const controles = document.createElement('div');
+                controles.className = 'reporte-controles';
+
+                const btnUp = document.createElement('button');
+                btnUp.className = 'btn flecha flecha-up';
+                btnUp.type = 'button';
+                btnUp.textContent = '▲';
+                btnUp.setAttribute('disabled', '');
+
+                const btnDown = document.createElement('button');
+                btnDown.className = 'btn flecha flecha-down';
+                btnDown.type = 'button';
+                btnDown.textContent = '▼';
+                btnDown.setAttribute('disabled', '');
+
+                controles.appendChild(btnUp);
+                controles.appendChild(btnDown);
+
+                art.appendChild(contenido);
+                art.appendChild(controles);
+                art._report = report;
+                return art;
+            }
+
+            // Mostrar logs con detalle de qué reportes fueron cargados y sus matrículas
+            function debugListado(all) {
+                console.group('DEBUG: listado de reportes normalizados');
+                all.forEach(r => console.log('id=%s matricula=%s horas=%s tipo=%s', r.id, r.matricula, r.horas, r.tipo));
+                console.groupEnd();
+            }
+
+            function render() {
+                $lista.innerHTML = '';
+                const all = leerReportesNormalizados();
+                debugListado(all);
+
+                const target = obtenerMatriculaObjetivo();
+                const filtrados = target ? all.filter(r => matriculaIgual(r.matricula, target)) : all.slice();
+
+                console.debug('render -> targetMat=', target, 'total=', all.length, 'filtrados=', filtrados.length);
+                if (!filtrados.length) {
+                    $lista.innerHTML = '<div style="padding:16px;color:#666;">No hay reportes para esta matrícula.</div>';
+                    return;
+                }
+
+                filtrados.sort((a, b) => (Number(b.horas) || 0) - (Number(a.horas) || 0) || (new Date(b.createdAt) - new Date(a.createdAt)));
+
+                filtrados.forEach(r => $lista.appendChild(crearTarjeta(r)));
+
+                // asegurar flechas desactivadas
+                document.querySelectorAll('.reporte-card').forEach(c => c.querySelectorAll('.flecha').forEach(f => f.setAttribute('disabled', '')));
+            }
+
+            // Edición (igual que antes)
+            let tarjetaActiva = null;
+            let horasTemp = 0;
+
+            function setFlechas(tarjeta, activar) {
+                tarjeta.querySelectorAll('.flecha').forEach(b => {
+                    if (activar) b.removeAttribute('disabled'); else b.setAttribute('disabled', '');
                 });
             }
 
-            // marcar selección visual
-            function seleccionarTarjeta(tarjeta) {
-                if (tarjetaSeleccionada === tarjeta) {
-                    // segundo clic = cancelar
-                    cancelarSeleccion();
-                    return;
-                }
-
-                // deseleccionar previa (revertir)
-                if (tarjetaSeleccionada) cancelarSeleccion();
-
-                tarjetaSeleccionada = tarjeta;
-                tarjetaSeleccionada.classList.add('seleccionado');
-
-                originalHoras = parseInt(tarjetaSeleccionada.dataset.horas || '0', 10);
-                tempHoras = originalHoras;
-
-                setFlechas(tarjetaSeleccionada, true);
-                btnGuardar.disabled = false;
-                btnCancelar.disabled = false;
-            }
-
-            // cancelar: revertir valores temporales y desactivar
-            function cancelarSeleccion() {
-                if (!tarjetaSeleccionada) return;
-                // revertir texto visible
-                const span = tarjetaSeleccionada.querySelector('.horas-valor');
-                if (span) span.textContent = String(originalHoras);
-                tempHoras = originalHoras;
-
-                setFlechas(tarjetaSeleccionada, false);
-                tarjetaSeleccionada.classList.remove('seleccionado');
-                tarjetaSeleccionada = null;
-                btnGuardar.disabled = true;
-                btnCancelar.disabled = true;
-            }
-
-            // guardar cambios: actualizar dataset y reordenar
-            function guardarCambios() {
-                if (!tarjetaSeleccionada) return;
-                const horasFinal = Math.max(0, Math.floor(tempHoras));
-                tarjetaSeleccionada.dataset.horas = String(horasFinal);
-                const span = tarjetaSeleccionada.querySelector('.horas-valor');
-                if (span) span.textContent = String(horasFinal);
-
-                // actualizar clase (adeuda/pagado)
-                if (horasFinal <= 0) {
-                    tarjetaSeleccionada.classList.remove('adeuda');
-                    tarjetaSeleccionada.classList.add('pagado');
-                } else {
-                    tarjetaSeleccionada.classList.remove('pagado');
-                    tarjetaSeleccionada.classList.add('adeuda');
-                }
-
-                // deseleccionar y reordenar
-                setFlechas(tarjetaSeleccionada, false);
-                tarjetaSeleccionada.classList.remove('seleccionado');
-                tarjetaSeleccionada = null;
-                btnGuardar.disabled = true;
-                btnCancelar.disabled = true;
-                ordenar();
-            }
-
-            // click en lista: selección o flechas
-            lista.addEventListener('click', (e) => {
-                // flechas
+            $lista.addEventListener('click', function (e) {
                 const up = e.target.closest('.flecha-up');
                 const down = e.target.closest('.flecha-down');
+
                 if (up || down) {
                     const card = e.target.closest('.reporte-card');
-                    if (!card) return;
-                    // solo funcionan si esa tarjeta está seleccionada
-                    if (card !== tarjetaSeleccionada) return;
-                    // update temporal
-                    const current = tempHoras;
-                    tempHoras = up ? current + 1 : Math.max(0, current - 1);
-                    const span = card.querySelector('.horas-valor');
-                    if (span) span.textContent = String(tempHoras);
+                    if (!card || card !== tarjetaActiva) return;
+                    horasTemp = up ? horasTemp + 1 : Math.max(0, horasTemp - 1);
+                    const span = card.querySelector('.horas-valor'); if (span) span.textContent = String(horasTemp);
                     return;
                 }
 
-                // selección por clic en tarjeta
                 const tarjeta = e.target.closest('.reporte-card');
-                if (tarjeta) {
-                    if (!tarjeta.classList.contains('adeuda')) {
-                        // si no adeuda, no permitir seleccionar
-                        return;
-                    }
-                    seleccionarTarjeta(tarjeta);
+                if (!tarjeta) return;
+                if (!tarjeta.classList.contains('adeuda')) return;
+
+                if (!tarjetaActiva) {
+                    tarjetaActiva = tarjeta;
+                    tarjetaActiva.classList.add('seleccionado');
+                    horasTemp = Number(tarjetaActiva.dataset.horas || 0);
+                    setFlechas(tarjetaActiva, true);
+                    document.querySelectorAll('.reporte-card.seleccionado').forEach(c => { if (c !== tarjetaActiva) c.classList.remove('seleccionado'); });
+                    return;
+                }
+
+                if (tarjetaActiva === tarjeta) {
+                    const id = tarjetaActiva.dataset.id;
+                    const all = leerReportesNormalizados();
+                    let rep = all.find(r => String(r.id) === String(id)) || tarjetaActiva._report || { id, matricula: tarjetaActiva.dataset.matricula || '' };
+                    rep.horas = Number(horasTemp);
+                    rep.ultimaMod = sessionStorage.getItem('edu_user') || rep.ultimaMod || 'demo';
+                    rep.updatedAt = new Date().toISOString();
+
+                    guardarReporteCompleto(rep);
+
+                    tarjetaActiva.dataset.horas = String(rep.horas);
+                    const span = tarjetaActiva.querySelector('.horas-valor'); if (span) span.textContent = String(rep.horas);
+                    if (rep.horas <= 0) { tarjetaActiva.classList.remove('adeuda'); tarjetaActiva.classList.add('pagado'); }
+                    else { tarjetaActiva.classList.remove('pagado'); tarjetaActiva.classList.add('adeuda'); }
+
+                    setFlechas(tarjetaActiva, false);
+                    tarjetaActiva.classList.remove('seleccionado');
+                    tarjetaActiva = null;
+                    horasTemp = 0;
+
+                    render();
+                    return;
+                }
+
+                if (tarjetaActiva && tarjetaActiva !== tarjeta) {
+                    const prev = tarjetaActiva;
+                    const spanPrev = prev.querySelector('.horas-valor'); if (spanPrev) spanPrev.textContent = String(prev.dataset.horas || '0');
+                    setFlechas(prev, false);
+                    prev.classList.remove('seleccionado');
+
+                    tarjetaActiva = tarjeta;
+                    tarjetaActiva.classList.add('seleccionado');
+                    horasTemp = Number(tarjetaActiva.dataset.horas || 0);
+                    setFlechas(tarjetaActiva, true);
+                    return;
                 }
             });
 
-            // teclas (Enter) para seleccionar
-            lista.addEventListener('keydown', (ev) => {
-                if (ev.key === 'Enter' || ev.key === ' ') {
-                    const tarjeta = ev.target.closest('.reporte-card');
-                    if (tarjeta && tarjeta.classList.contains('adeuda')) {
-                        ev.preventDefault();
-                        seleccionarTarjeta(tarjeta);
-                    }
+            $lista.addEventListener('keydown', function (e) {
+                const card = e.target.closest('.reporte-card'); if (!card) return;
+                if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); card.click(); }
+                if ((e.key === 'ArrowUp' || e.key === 'ArrowDown') && card === tarjetaActiva) {
+                    e.preventDefault();
+                    horasTemp = (e.key === 'ArrowUp') ? horasTemp + 1 : Math.max(0, horasTemp - 1);
+                    const span = card.querySelector('.horas-valor'); if (span) span.textContent = String(horasTemp);
                 }
             });
 
-            // botones guardar/cancelar
-            btnGuardar.addEventListener('click', guardarCambios);
-            btnCancelar.addEventListener('click', cancelarSeleccion);
+            window.addEventListener('storage', function (e) {
+                if (e.key === STORAGE_KEY) {
+                    console.debug('storage event detected -> re-render');
+                    render();
+                }
+            });
 
-            // inicial
-            // aseguramos flechas inactivas y orden inicial
-            document.querySelectorAll('.reporte-card').forEach(c => setFlechas(c, false));
-            ordenar();
+            render();
+
+            window.__edu_reportes_helpers = { leerRaw, leerReportesNormalizados, guardarReporteCompleto };
         })();
     </script>
 </body>

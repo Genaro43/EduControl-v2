@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Orientación</title>
+    <title>Orientación — Demo</title>
     <link rel="stylesheet" href="../build/css/app.css" />
 </head>
 
@@ -14,7 +14,7 @@
     </header>
 
     <main class="app__main pagina-orientacion" role="main">
-        <!-- filtros -->
+        <!-- filtros (estáticos: no hay JS de filtrado aquí, solo HTML) -->
         <section class="filtros">
             <div class="fila-filtros">
                 <input id="f-matricula" class="input-filtro" type="text" placeholder="matrícula" />
@@ -38,80 +38,67 @@
             </div>
         </section>
 
-        <!-- lista de alumnos (tarjetas) -->
+        <!-- tarjetas estáticas: solo HTML. JS actualizará badge y clase según reportes en localStorage -->
         <section id="lista-alumnos" class="lista-orientacion" aria-live="polite">
-            <!-- ejemplos: cada tarjeta tiene data-atributos para filtrar -->
-            <article class="tarjeta-alumno adeuda-alta" data-matricula="2021001" data-nombre="Ana Pérez" data-grado="3" data-grupo="A" data-horas="16" tabindex="0">
+
+            <!-- 1 Genaro -->
+            <article class="tarjeta-alumno adeuda-baja" data-matricula="2025001" data-nombre="Genaro Rosales Carrasco" data-grado="5" data-grupo="J" data-horas="0" tabindex="0">
                 <div class="contenido-tarjeta">
-                    <div class="nombre">Ana Pérez</div>
-                    <div class="meta">Matrícula: 2021001</div>
-                    <div class="meta">Grado 3 · Grupo A</div>
+                    <div class="nombre">Genaro Rosales Carrasco</div>
+                    <div class="meta">Matrícula: 2025001</div>
+                    <div class="meta">Grado 5 · Grupo J</div>
                 </div>
-                <div class="badge">16h</div>
+                <div class="badge">0h</div>
             </article>
 
-            <article class="tarjeta-alumno adeuda-media" data-matricula="2021023" data-nombre="Luis Gómez" data-grado="2" data-grupo="B" data-horas="8" tabindex="0">
+            <!-- 2 Erin -->
+            <article class="tarjeta-alumno adeuda-baja" data-matricula="2025002" data-nombre="Erin Eliel Hernandez Contreras" data-grado="5" data-grupo="J" data-horas="0" tabindex="0">
                 <div class="contenido-tarjeta">
-                    <div class="nombre">Luis Gómez</div>
-                    <div class="meta">Matrícula: 2021023</div>
-                    <div class="meta">Grado 2 · Grupo B</div>
+                    <div class="nombre">Erin Eliel Hernandez Contreras</div>
+                    <div class="meta">Matrícula: 2025002</div>
+                    <div class="meta">Grado 5 · Grupo J</div>
                 </div>
-                <div class="badge">8h</div>
+                <div class="badge">0h</div>
             </article>
 
-            <article class="tarjeta-alumno adeuda-baja" data-matricula="2021056" data-nombre="María Ruiz" data-grado="1" data-grupo="C" data-horas="2" tabindex="0">
+            <!-- 3 Karen -->
+            <article class="tarjeta-alumno adeuda-baja" data-matricula="2025003" data-nombre="Karen Martinez Espiritu" data-grado="5" data-grupo="J" data-horas="0" tabindex="0">
                 <div class="contenido-tarjeta">
-                    <div class="nombre">María Ruiz</div>
-                    <div class="meta">Matrícula: 2021056</div>
-                    <div class="meta">Grado 1 · Grupo C</div>
+                    <div class="nombre">Karen Martinez Espiritu</div>
+                    <div class="meta">Matrícula: 2025003</div>
+                    <div class="meta">Grado 5 · Grupo J</div>
                 </div>
-                <div class="badge">2h</div>
+                <div class="badge">0h</div>
             </article>
+
+            <!-- 4 Joaly -->
+            <article class="tarjeta-alumno adeuda-baja" data-matricula="2025004" data-nombre="Joaly Thaiel Gonzalez Cruz" data-grado="5" data-grupo="J" data-horas="0" tabindex="0">
+                <div class="contenido-tarjeta">
+                    <div class="nombre">Joaly Thaiel Gonzalez Cruz</div>
+                    <div class="meta">Matrícula: 2025004</div>
+                    <div class="meta">Grado 5 · Grupo J</div>
+                </div>
+                <div class="badge">0h</div>
+            </article>
+
+            <!-- 5 Joseph -->
+            <article class="tarjeta-alumno adeuda-baja" data-matricula="2025005" data-nombre="Joseph Emanuel Mendez Mora" data-grado="5" data-grupo="J" data-horas="0" tabindex="0">
+                <div class="contenido-tarjeta">
+                    <div class="nombre">Joseph Emanuel Mendez Mora</div>
+                    <div class="meta">Matrícula: 2025005</div>
+                    <div class="meta">Grado 5 · Grupo J</div>
+                </div>
+                <div class="badge">0h</div>
+            </article>
+
         </section>
 
-        <!-- acciones finales (no fijas) -->
         <div class="acciones-final">
-            <button class="btn boton-salir" type="button">salir</button>
-            <button class="btn boton-acciones" type="button" id="btn-exportar">Exportar</button>
+            <a class="btn boton-salir" href="prefectos.html">salir</a>
+            <button class="btn boton-acciones" id="btn-exportar">Exportar</button>
         </div>
     </main>
 
-    <!-- JS: filtros simples -->
-    <script>
-        (function () {
-            const inputMat = document.getElementById('f-matricula');
-            const inputNom = document.getElementById('f-nombre');
-            const selGrado = document.getElementById('f-grado');
-            const selGrupo = document.getElementById('f-grupo');
-            const lista = document.getElementById('lista-alumnos');
-
-            function filtrar() {
-                const m = inputMat.value.trim().toLowerCase();
-                const n = inputNom.value.trim().toLowerCase();
-                const g = selGrado.value;
-                const gr = selGrupo.value;
-
-                Array.from(lista.children).forEach(card => {
-                    const nombre = card.getAttribute('data-nombre').toLowerCase();
-                    const matricula = card.getAttribute('data-matricula').toLowerCase();
-                    const grado = card.getAttribute('data-grado');
-                    const grupo = card.getAttribute('data-grupo');
-
-                    const matchMat = !m || matricula.includes(m);
-                    const matchNom = !n || nombre.includes(n);
-                    const matchGrado = !g || grado === g;
-                    const matchGrupo = !gr || grupo === gr;
-
-                    card.style.display = (matchMat && matchNom && matchGrado && matchGrupo) ? '' : 'none';
-                });
-            }
-
-            [inputMat, inputNom, selGrado, selGrupo].forEach(el => {
-                el.addEventListener('input', filtrar);
-                el.addEventListener('change', filtrar);
-            });
-        })();
-    </script>
 </body>
 
 </html>

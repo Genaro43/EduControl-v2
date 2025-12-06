@@ -251,13 +251,6 @@ select:focus {
     box-shadow: 0 6px 0 rgba(0, 0, 0, $opacidad-sombra-tarjeta);
 }
 
-.card--map {
-    width: 100%;
-    max-width: 340px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
 
 .card__title {
     font-family: $fuente-encabezado;
