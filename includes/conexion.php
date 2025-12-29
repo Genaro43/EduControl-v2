@@ -28,8 +28,6 @@ try {
 
     $obj = new Conectar();
     $conexion = $obj->conexion();
-
-    echo "conectado";
 } catch (Exception $e) {
     error_log("Error al conectar con la base de datos: " . $e->getMessage());
     echo "error";

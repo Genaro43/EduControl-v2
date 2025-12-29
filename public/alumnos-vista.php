@@ -62,14 +62,12 @@ if ($conexion instanceof mysqli) {
     }
 
     // Normalizamos arrays de opciones (ordenadas)
-    // IMPORTANT: usar array_keys para recuperar las claves, no array_values
     $gradoOptions = array_keys($gradoOptions);
     sort($gradoOptions, SORT_NATURAL);
     $grupoOptions = array_keys($grupoOptions);
     sort($grupoOptions, SORT_NATURAL);
 
     // Construir expresión SELECT para grado/grupo en alumnos (centrado en columnas existentes)
-    // Revisamos columnas de alumnos y grupos para evitar Unknown column
     $alCols = get_table_columns($conexion, 'alumnos');
     $grCols = $gcols;
 
@@ -113,6 +111,46 @@ if ($conexion instanceof mysqli) {
     } else {
         error_log("alumnos-vista.php: error preparando consulta: " . $conexion->error);
     }
+
+    // -----------------------
+    // Obtener conteo de reportes por alumno (una sola consulta)
+    // -----------------------
+    $reportCounts = [];
+    if (!empty($alumnos)) {
+        // recolectar ids (enteros)
+        $ids = array_map(function ($r) {
+            return (int)($r['id'] ?? 0);
+        }, $alumnos);
+        $ids = array_filter($ids, function ($v) {
+            return $v > 0;
+        });
+        if (!empty($ids)) {
+            $in = implode(',', $ids); // valores ya enteros -> seguro
+            $sqlCounts = "SELECT alumno_id, COUNT(*) AS cnt FROM reportes WHERE activo = 1 AND alumno_id IN ($in) GROUP BY alumno_id";
+            if ($r = $conexion->query($sqlCounts)) {
+                while ($row = $r->fetch_assoc()) {
+                    $aid = (int)$row['alumno_id'];
+                    $reportCounts[$aid] = (int)$row['cnt'];
+                }
+                $r->free();
+            }
+        }
+    }
+
+    // -----------------------
+    // Ordenar alumnos por #reportes (desc) y luego por nombre (asc)
+    // -----------------------
+    usort($alumnos, function ($a, $b) use ($reportCounts) {
+        $aid = (int)($a['id'] ?? 0);
+        $bid = (int)($b['id'] ?? 0);
+        $ca = $reportCounts[$aid] ?? 0;
+        $cb = $reportCounts[$bid] ?? 0;
+
+        // primero por count desc
+        if ($ca !== $cb) return $cb <=> $ca; // cb <=> ca para orden descendente
+        // empate: ordenar por nombre asc, case-insensitive
+        return strcasecmp($a['nombre'] ?? '', $b['nombre'] ?? '');
+    });
 } else {
     error_log('alumnos-vista.php: $conexion no es instancia de mysqli');
 }
@@ -123,7 +161,8 @@ if ($conexion instanceof mysqli) {
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Alumnos</title>
+    <title>EduControl</title>
+    <link rel="icon" href="../src/img/cecyteh.ico" type="image/x-icon">
     <link rel="stylesheet" href="../build/css/app.css" />
 </head>
 
@@ -167,9 +206,9 @@ if ($conexion instanceof mysqli) {
                 </div>
 
                 <!-- contador y limpiar -->
-                <div style="display:flex; align-items:center; gap:12px;">
+                <div>
                     <button id="btn-limpiar" class="btn" type="button">Limpiar</button>
-                    <div id="contador" aria-live="polite" style="font-weight:700;"><?php echo count($alumnos); ?> resultados</div>
+                    <div id="contador" aria-live="polite" style="font-weight:700; color:white;"><?php echo count($alumnos); ?> resultados</div>
                 </div>
             </div>
         </section>
@@ -177,21 +216,41 @@ if ($conexion instanceof mysqli) {
         <!-- lista de alumnos: generado desde PHP -->
         <section id="lista-alumnos" class="lista-alumnos" aria-live="polite">
             <?php if (empty($alumnos)): ?>
-                <div style="padding:16px;color:#666;">No hay alumnos.</div>
+                <div>No hay alumnos.</div>
             <?php else: ?>
-                <?php foreach ($alumnos as $row):
+                <?php
+                $topN = 3; // cuantos quieres marcar como recomendados
+                foreach ($alumnos as $idx => $row):
                     $mat = esc($row['matricula'] ?? '');
                     $nom = esc($row['nombre'] ?? '');
                     $grado = esc($row['grado'] ?? '');
                     $grupo = esc($row['grupo'] ?? '');
                     $foto = esc($row['foto'] ?: '../assets/avatar-placeholder.png');
-                    $reportClass = 'reportes-bajo';
+
+                    $aid = (int)($row['id'] ?? 0);
+                    $cnt = $reportCounts[$aid] ?? 0;
+
+                    if ($cnt === 0) {
+                        $reportClass = '';
+                    } elseif ($cnt === 1) {
+                        $reportClass = 'reportes-bajo';
+                    } elseif ($cnt >= 2 && $cnt <= 4) {
+                        $reportClass = 'reportes-medio';
+                    } else {
+                        $reportClass = 'reportes-alto';
+                    }
+
+                    // bandera recomendado para topN
+                    $esRecomendado = ($idx < $topN);
                 ?>
                     <article class="alumno-card <?php echo $reportClass ?>" data-matricula="<?php echo $mat ?>" data-nombre="<?php echo $nom ?>" data-grado="<?php echo $grado ?>" data-grupo="<?php echo $grupo ?>" tabindex="0">
                         <div class="alumno-info">
                             <div class="alumno-nombre"><?php echo $nom ?></div>
-                            <div class="alumno-meta">Matrícula: <?php echo $mat ?> &nbsp;•&nbsp; Semestre: <?php echo $grado ?> &nbsp;•&nbsp; Grupo: <?php echo $grupo ?></div>
+                            <div class="alumno-meta">
+                                Matrícula: <?php echo $mat ?> &nbsp;•&nbsp; Semestre: <?php echo $grado ?> &nbsp;•&nbsp; Grupo: <?php echo $grupo ?>
+                            </div>
                         </div>
+
                         <div class="acciones">
                             <a class="btn btn--small" href="./ver-reporte.php?matricula=<?php echo urlencode($mat) ?>">reportes</a>
                             <a class="btn btn--small" href="./aplicar-reporte.php?matricula=<?php echo urlencode($mat) ?>">reportar</a>
@@ -202,7 +261,7 @@ if ($conexion instanceof mysqli) {
         </section>
 
         <!-- botón salir -->
-        <a href="prefectos.php" class="btn btn--exit boton-salir">salir</a>
+        <button class="btn boton-salir btn--exit" type="button" onclick="history.back()">salir</button>
     </main>
 
     <!-- Script: filtrado eficiente + toggle acciones -->

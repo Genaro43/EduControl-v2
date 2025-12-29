@@ -2,18 +2,7 @@
 // aplicar-reporte.php
 session_start();
 
-// includes: intento rutas comunes
-if (!@include_once __DIR__ . '/../includes/conexion.php') {
-    @include_once __DIR__ . '/includes/conexion.php';
-}
-// $conexion debe venir del include (mysqli)
-if (!isset($conexion) || !$conexion instanceof mysqli) {
-    // Si no hay conexión válida, devolvemos HTML/JS que avisa
-    http_response_code(500);
-    echo "Error: no hay conexión a la base de datos (includes/conexion.php).";
-    exit;
-}
-
+include '../includes/conexion.php'; // incluir conexion a la base de datos
 // manejar POST JSON o form para crear reporte
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Leer JSON si viene
@@ -192,7 +181,8 @@ $conexion->close();
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Aplicar reporte — <?= htmlspecialchars($nombreAlumno, ENT_QUOTES) ?></title>
+    <title>EduControl</title>
+    <link rel="icon" href="../src/img/cecyteh.ico" type="image/x-icon">
     <link rel="stylesheet" href="../build/css/app.css" />
 </head>
 
@@ -233,7 +223,7 @@ $conexion->close();
             </div>
         </section>
 
-        <a href="./alumnos-vista.php" class="btn btn--exit boton-salir">salir</a>
+        <button class="btn boton-salir btn--exit" type="button" onclick="history.back()">salir</button>
         <button class="btn boton-enviar" id="btn-enviar" type="button" disabled>Enviar</button>
     </main>
 

@@ -1,8 +1,4 @@
 <?php
-// Nombre: Rosales Carrasco Genaro
-// Fecha de creacion: 13/09/2025
-// Fecha de ultima actualizacion: 11/07/2025
-// Descripcion: Loginn de usuarios y alumnos para el sistema EduControl
 session_start();
 include 'includes/conexion.php'; //incluir conexion a la base de datos
 
@@ -88,7 +84,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                     if ($ok) {
                         // iniciar sesión
-                        $_SESSION['edu_user_id'] = $found['id'];
+                        $_SESSION['user_id'] = intval($found['id']);
                         $_SESSION['edu_user'] = $found['nombre'];
                         $_SESSION['edu_rol'] = $found['rol'] ?? 'prefecto';
 
@@ -96,7 +92,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                         // redirigir según rol
                         if ($rol === 'orientacion' || $rol === 'orientación') {
-                            header('Location: orientacion.html');
+                            header('Location: public/orientacion.php');
                             exit;
                         } elseif ($rol === 'alumno') {
                             // intentar encontrar matricula vinculada (si existe columna alumno_id en usuarios)
@@ -159,8 +155,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html lang="es">
 
 <head>
+    <link rel="icon" href="src/img/cecyteh.ico" type="image/x-icon">
     <meta charset="utf-8">
-    <title>EduControl — Login</title>
+    <title>EduControl</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <link rel="stylesheet" href="build/css/app.css">
 </head>
