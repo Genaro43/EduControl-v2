@@ -1,0 +1,12 @@
+// scss/components/_mapa.scss
+.leaflet-container {
+    background: $fondo-guinda; // Para que no se vea gris mientras carga
+}
+
+@media (max-width: $ancho-maximo-app) {
+    h1 { font-size: 18px; }
+    #map { height: 400px; } // Mapa más pequeño en móvil para dejar espacio al modal
+    .info-modal {
+        box-shadow: 0 -4px 10px rgba(0,0,0,0.2); // Sombra hacia arriba en móviles
+    }
+}

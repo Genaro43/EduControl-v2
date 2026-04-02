@@ -1,8 +1,8 @@
 <?php
 include 'includes/conexion.php';
-$username = 'genaro';      // Nombre de usuario
-$password = 'orientador';     // Contraseña en texto plano
-$rol      = 'orientacion';  // Rol asignado al usuario
+$username = 'isabel';      // Nombre de usuario
+$password = 'prefecto';     // Contraseña en texto plano
+$rol      = 'prefecto';  // Rol asignado al usuario
 
 // Genera un hash seguro de la contraseña
 $hash = password_hash($password, PASSWORD_DEFAULT);

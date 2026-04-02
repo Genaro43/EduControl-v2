@@ -1,0 +1,243 @@
+@use "sass:color";
+@use "../base/variables" as *; // ajusta la ruta si tu estructura es distinta (p.ej. "../variables")
+
+
+
+.page-admin {
+  max-width: $ancho-maximo-app * 2.6;
+  margin: 18px auto;
+  background: $blanco;
+  color: $guinda-negro;
+  padding: 12px;
+  border-radius: 10px;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.14);
+  border: 4px solid rgba(0,0,0,0.06);
+
+  h2 {
+    text-align: center;
+    margin: 6px 0 12px;
+    color: $fondo-guinda;
+    font-family: $fuente-encabezado;
+    font-size: 20px;
+  }
+}
+
+/* Controles superiores */
+#controls {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 8px;
+
+  button {
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 3px solid $guinda-negro;
+    background: $guinda-claro;
+    color: $guinda-negro;
+    font-family: $fuente-encabezado;
+    cursor: pointer;
+    box-shadow: 0 $sombra-btn-tamano 0 $guinda-negro;
+    transition: transform .08s ease, box-shadow .08s ease;
+    &:hover { transform: translateY(-2px); }
+
+    &.secondary {
+      /* En lugar de lighten(), usamos un ajuste suave con color.adjust para prevenir warnings */
+      background: color.adjust($guinda-claro, $lightness: 4%);
+      border-color: rgba(0,0,0,0.08);
+      box-shadow: none;
+    }
+  }
+
+
+  a {
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 3px solid $guinda-negro;
+    background: $guinda-claro;
+    color: $guinda-negro;
+    font-family: $fuente-encabezado;
+    cursor: pointer;
+    box-shadow: 0 $sombra-btn-tamano 0 $guinda-negro;
+    transition: transform .08s ease, box-shadow .08s ease;
+    &:hover { transform: translateY(-2px); }
+
+    &.secondary {
+      /* En lugar de lighten(), usamos un ajuste suave con color.adjust para prevenir warnings */
+      background: color.adjust($guinda-claro, $lightness: 4%);
+      border-color: rgba(0,0,0,0.08);
+      box-shadow: none;
+    }
+  }
+
+  .size-control {
+    margin-left: 8px;
+    display:flex;
+    gap:8px;
+    align-items:center;
+
+    label { font-size: 13px; color: $guinda-negro; font-weight:700; }
+    input[type="range"] {
+      -webkit-appearance:none;
+      width: 180px;
+      height: 8px;
+      /* degradado usando tus tokens: guinda-claro -> rojo-acento */
+      background: linear-gradient(90deg, $guinda-claro 0%, $rojo-acento 100%);
+      border-radius: 8px;
+      outline: none;
+      &::-webkit-slider-thumb {
+        -webkit-appearance:none;
+        width: 18px; height:18px; border-radius:50%;
+        background: $blanco; border:3px solid rgba(0,0,0,0.08);
+        box-shadow: 0 6px 10px rgba(0,0,0,0.08);
+      }
+    }
+    span { font-size: 13px; color: $guinda-negro; min-width:48px; text-align:left; }
+  }
+
+  .hint { margin-left: auto; color: $guinda-negro; font-size: 13px; }
+}
+
+/* Mapa principal */
+#map {
+  position: relative;
+  height: 720px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 6px solid $blanco;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+  background: #f6f8fb;
+}
+
+/* Side list */
+#side { margin-top: 12px; display:flex; gap: 12px; align-items:flex-start; }
+
+#lista {
+  width: 320px;
+  max-height: 520px;
+  overflow-y: auto;
+  background: $blanco;
+  border-radius: 8px;
+  padding: 10px;
+  border: 4px solid rgba(0,0,0,0.04);
+
+  .aula-line {
+    display:flex;
+    justify-content:space-between;
+    gap:12px;
+    align-items:center;
+    padding: 10px;
+    border-bottom: 1px dashed rgba(0,0,0,0.04);
+
+    > div:first-child {
+      b { font-size: 15px; color: $fondo-guinda; font-family: $fuente-encabezado; display:block; }
+      .small { color: rgba($guinda-negro,0.7); font-size: 13px; margin-top:6px; }
+    }
+
+    > div:last-child {
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+      button {
+        padding:6px 8px;
+        border-radius:6px;
+        border: 3px solid $guinda-negro;
+        background: $guinda-claro;
+        font-family: $fuente-encabezado;
+        cursor:pointer;
+        font-size:13px;
+      }
+    }
+  }
+
+  .empty { color: rgba($guinda-negro,0.7); padding: 12px; text-align:center; }
+}
+
+/* Modal / card */
+.modal {
+  display:none;
+  position:fixed;
+  inset:0;
+  background: rgba(0,0,0,0.48);
+  align-items:center;
+  justify-content:center;
+  z-index: 9999;
+
+  .card {
+    width: 460px;
+    max-width: calc(100% - 32px);
+    background: $blanco;
+    border-radius: 10px;
+    padding: 16px;
+    border: 4px solid $guinda-negro;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.18);
+
+    h3 { margin: 0; color: $fondo-guinda; font-family: $fuente-encabezado; }
+    .small { color: rgba($guinda-negro, 0.8); margin-bottom: 10px; display:block; }
+
+    label { display:block; margin-bottom:6px; color: $guinda-negro; font-weight:700; }
+    input[type="text"], input[type="number"], select, textarea {
+      width:100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: 4px solid $guinda-negro;
+      background: $blanco;
+      margin-bottom: 8px;
+      font-size: 16px;
+    }
+
+    .form-row { display:flex; gap:8px; }
+    .hidden { display:none !important; }
+
+    .actions {
+      display:flex; gap:8px; justify-content:flex-end; margin-top:12px;
+      button {
+        padding:10px 14px; border-radius:8px; cursor:pointer; font-family:$fuente-encabezado;
+        &.danger { background: $rojo-acento; color: $blanco; border: 3px solid $rojo-acento-oscuro; box-shadow: 0 6px 0 $guinda-negro; }
+        &.primary { background: $guinda-claro; color: $guinda-negro; border: 3px solid $guinda-negro; box-shadow: 0 $sombra-btn-tamano 0 $guinda-negro; }
+        &.secondary { background: transparent; border: 3px solid rgba($guinda-negro,0.08); box-shadow: none; color:$guinda-negro; }
+      }
+    }
+  }
+}
+
+/* Pin fallback (cuando uses HTML/CSS pins) */
+.map-pin {
+  position: absolute;
+  width: 36px;
+  height: 36px;
+  border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+  background: radial-gradient(circle at 40% 35%, $rojo-acento, $rojo-acento-oscuro);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.18);
+  border: 4px solid rgba(255,255,255,0.06);
+  transform: translate(-50%, -100%);
+  pointer-events: none;
+}
+
+/* Indicadores de estado */
+.estado-dot {
+  display:inline-block;
+  width:12px; height:12px; border-radius:50%;
+  margin-right:8px;
+  &.libre { background: $borde-verde; box-shadow: 0 2px 0 rgba(0,0,0,0.06); }
+  &.ocupada { background: $borde-rojo; box-shadow: 0 2px 0 rgba(0,0,0,0.06); }
+}
+
+/* Leaflet controls por encima */
+.leaflet-top, .leaflet-bottom { z-index: 900 !important; }
+
+/* Responsivo */
+@media (max-width: 900px) {
+  #map { height: 560px; }
+  #lista { width: 100%; max-height: 280px; }
+  .page-admin { padding: 10px; }
+}
+
+/* Utilidades */
+.text-muted { color: rgba($guinda-negro,0.6); font-size:13px; }
+.flex { display: flex; }
+.center { display:flex; align-items:center; justify-content:center; }
+
+.small{
+  color: $blanco;
+}

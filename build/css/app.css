@@ -18,12 +18,12 @@
   font-size: clamp(28px, 6.5vw, 36px);
   /* escala entre 28 y 36 */
   text-align: center;
-  color: #93466F;
-  background: #f5dbe6;
-  border: 4px solid #93466F;
+  color: #4b4693;
+  background: #dbebf5;
+  border: 4px solid #4b4693;
   padding: 12px 18px;
   border-radius: 3px;
-  box-shadow: 0 4px 0 #93466F;
+  box-shadow: 0 4px 0 #4b4693;
   letter-spacing: 0.6px;
 }
 
@@ -32,8 +32,8 @@
   width: 100%;
   max-width: 420px;
   /* permitimos un poco más en pantallas grandes */
-  background: #ffffff;
-  border: 4px solid #93466F;
+  background: #6d7eb4;
+  border: 4px solid #4b4693;
   border-radius: 8px;
   padding: 22px;
   box-shadow: 0 6px 0 rgba(0, 0, 0, 0.06);
@@ -49,10 +49,10 @@
 }
 
 /* Etiqueta */
-.campo label {
+.campo .txWithe {
   font-size: 15px;
   font-weight: 700;
-  color: #93466F;
+  color: #dbebf5;
 }
 
 /* Inputs: más grandes y cómodos en móvil */
@@ -61,7 +61,7 @@
   padding: 14px 14px;
   font-size: 18px;
   border-radius: 8px;
-  border: 3px solid #93466F;
+  border: 3px solid #4b4693;
   background: #ffffff;
   box-shadow: inset 0 -3px 0 rgba(0, 0, 0, 0.04);
   transition: transform 0.08s ease, box-shadow 0.08s ease;
@@ -81,10 +81,10 @@
   padding: 14px 18px;
   font-size: 18px;
   font-family: "Fredoka One", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-  color: #93466F;
-  background: #f5dbe6;
-  border: 4px solid #93466F;
-  box-shadow: 0 4px 0 #93466F;
+  color: #4b4693;
+  background: #dbebf5;
+  border: 4px solid #4b4693;
+  box-shadow: 0 4px 0 #4b4693;
   border-radius: 6px;
   text-align: center;
   cursor: pointer;
@@ -95,7 +95,7 @@
 /* Botón activo */
 .contenedor-login .btn:active {
   transform: translateY(2px);
-  box-shadow: 0 2px 0 #93466F;
+  box-shadow: 0 2px 0 #4b4693;
 }
 
 /* Disabled */
@@ -143,6 +143,25 @@
     border-radius: 6px;
   }
 }
+.password-wrapper {
+  position: relative;
+}
+.password-wrapper input {
+  padding-right: 45px;
+}
+.password-wrapper .toggle-password {
+  position: absolute;
+  right: 12px;
+  top: 38px;
+  cursor: pointer;
+  user-select: none;
+  font-size: 18px;
+  transition: transform 0.2s ease;
+}
+.password-wrapper .toggle-password:hover {
+  transform: scale(1.1);
+}
+
 .prefectos-page {
   width: 100%;
   max-width: 420px;
@@ -229,8 +248,8 @@ body {
 
 body {
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-  background: #6f274b;
-  color: #93466F;
+  background: #154655;
+  color: #4b4693;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   line-height: 1.4;
@@ -267,7 +286,7 @@ h4,
 h5,
 h6 {
   margin: 0;
-  color: #93466F;
+  color: #4b4693;
   line-height: 1.1;
 }
 
@@ -313,9 +332,12 @@ p {
 }
 
 .logo {
-  font-family: "Fredoka One", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-  color: #93466F;
-  font-size: 16px;
+  width: 120px;
+  height: 60px;
+  background-image: url("../../../logo.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 /* main centrado */
@@ -338,10 +360,10 @@ p {
   font-family: "Fredoka One", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
   cursor: pointer;
   text-align: center;
-  color: #93466F;
-  background: #f5dbe6;
-  border: 4px solid #93466F;
-  box-shadow: 0 4px 0 #93466F;
+  color: #4b4693;
+  background: #dbebf5;
+  border: 4px solid #4b4693;
+  box-shadow: 0 4px 0 #4b4693;
   border-radius: 4px;
   padding: 10px 16px;
   text-decoration: none;
@@ -372,7 +394,7 @@ p {
   position: fixed;
   left: 20px;
   bottom: 22px;
-  box-shadow: 0 3px 0 #93466F;
+  box-shadow: 0 3px 0 #4b4693;
   border-width: 3px;
   z-index: 30;
   text-transform: lowercase;
@@ -389,7 +411,7 @@ p {
 /* efecto simple en active (aplicable a todos los .btn) */
 .btn:active {
   transform: translateY(2px);
-  box-shadow: 0 2px 0 #93466F;
+  box-shadow: 0 2px 0 #4b4693;
 }
 
 /* --------------------
@@ -399,7 +421,7 @@ label {
   display: inline-block;
   margin-bottom: 6px;
   font-weight: 700;
-  color: #93466F;
+  color: #4b4693;
 }
 
 input[type=text],
@@ -410,7 +432,7 @@ select {
   width: 100%;
   padding: 10px 12px;
   border-radius: 6px;
-  border: 3px solid #93466F;
+  border: 3px solid #4b4693;
   background: #ffffff;
   font-size: 16px;
   box-shadow: inset 0 -3px 0 rgba(0, 0, 0, 0.04);
@@ -440,7 +462,7 @@ select:focus {
    -------------------- */
 .card {
   background: #ffffff;
-  border: 4px solid #93466F;
+  border: 4px solid #4b4693;
   border-radius: 4px;
   padding: 12px;
   overflow: hidden;
@@ -450,7 +472,7 @@ select:focus {
 .card__title {
   font-family: "Fredoka One", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
   font-size: 20px;
-  color: #93466F;
+  color: #4b4693;
   text-align: center;
   margin-bottom: 8px;
 }
@@ -569,13 +591,13 @@ select:focus {
 .input--texto {
   width: 100%;
   padding: 10px 14px;
-  background: #f5dbe6;
-  border: 4px solid #93466F;
+  background: #dbebf5;
+  border: 4px solid #4b4693;
   border-radius: 4px;
   font-family: "Fredoka One", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
   font-size: 18px;
-  color: #93466F;
-  box-shadow: 0 4px 0 #93466F;
+  color: #4b4693;
+  box-shadow: 0 4px 0 #4b4693;
 }
 
 /* input grande para nombre (más alto y tipografía mayor) */
@@ -601,12 +623,12 @@ select:focus {
 .select {
   width: 100%;
   padding: 10px 12px;
-  background: #f5dbe6;
-  border: 4px solid #93466F;
+  background: #dbebf5;
+  border: 4px solid #4b4693;
   border-radius: 6px;
   font-family: "Fredoka One", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
   font-size: 20px;
-  box-shadow: 0 4px 0 #93466F;
+  box-shadow: 0 4px 0 #4b4693;
   text-align: center;
 }
 
@@ -644,7 +666,7 @@ select:focus {
 .alumno-nombre {
   font-family: "Fredoka One", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
   font-size: 40px;
-  color: #93466F;
+  color: #4b4693;
   letter-spacing: 0.4px;
 }
 
@@ -652,7 +674,7 @@ select:focus {
 .alumno-meta {
   margin-top: 8px;
   font-size: 16px;
-  color: #93466F;
+  color: #4b4693;
 }
 
 /* Bordes según reportes (clases de ejemplo) */
@@ -661,7 +683,7 @@ select:focus {
 }
 
 .reportes-medio {
-  border-color: #ffd800;
+  border-color: #d8b800;
 }
 
 .reportes-bajo {
@@ -792,6 +814,10 @@ select:focus {
   transform: translateY(-2px);
 }
 
+#contador {
+  display: none !important;
+}
+
 .pagina-alumno {
   width: 100%;
   max-width: 420px;
@@ -863,7 +889,7 @@ select:focus {
   width: 260px;
   height: 320px;
   background: #ffffff;
-  border: 4px solid #93466F;
+  border: 4px solid #4b4693;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -914,14 +940,14 @@ select:focus {
    Evitamos salto de línea en el contenido
    ------------------------- */
 .boton-reporte {
-  background: #f5dbe6;
-  border: 4px solid #93466F;
-  box-shadow: 0 4px 0 #93466F;
+  background: #dbebf5;
+  border: 4px solid #4b4693;
+  box-shadow: 0 4px 0 #4b4693;
   padding: 12px 18px;
   border-radius: 6px;
   font-family: "Fredoka One", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
   font-size: 22px;
-  color: #93466F;
+  color: #4b4693;
   cursor: pointer;
   text-align: center;
   user-select: none;
@@ -964,9 +990,9 @@ select:focus {
   left: 50%;
   transform: translateX(-50%);
   top: calc(100% + 8px);
-  background: #f5dbe6;
-  border: 4px solid #93466F;
-  box-shadow: 0 4px 0 #93466F;
+  background: #dbebf5;
+  border: 4px solid #4b4693;
+  box-shadow: 0 4px 0 #4b4693;
   border-radius: 6px;
   padding: 6px;
   z-index: 999;
@@ -981,7 +1007,7 @@ select:focus {
   padding: 8px 10px;
   margin: 6px 0;
   background: transparent;
-  border: 3px solid #93466F;
+  border: 3px solid #4b4693;
   border-radius: 4px;
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
   font-size: 16px;
@@ -1113,7 +1139,7 @@ select:focus {
   width: 100%;
   max-width: 520px;
   background: #ffffff;
-  border: 4px solid #93466F;
+  border: 4px solid #4b4693;
   border-radius: 6px;
   box-shadow: 0 8px 0 rgba(0, 0, 0, 0.08);
   box-sizing: border-box;
@@ -1125,13 +1151,13 @@ select:focus {
   margin: 0 0 10px 0;
   font-family: "Fredoka One", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
   font-size: 20px;
-  color: #93466F;
-  background: #f5dbe6;
-  border: 4px solid #93466F;
+  color: #4b4693;
+  background: #dbebf5;
+  border: 4px solid #4b4693;
   display: inline-block;
   padding: 8px 12px;
   border-radius: 3px;
-  box-shadow: 0 4px 0 #93466F;
+  box-shadow: 0 4px 0 #4b4693;
 }
 
 /* body rows */
@@ -1150,7 +1176,7 @@ select:focus {
 
 .er-row strong {
   font-family: "Fredoka One", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-  color: #93466F;
+  color: #4b4693;
   font-size: 14px;
 }
 
@@ -1160,7 +1186,7 @@ select:focus {
   padding: 10px 12px;
   font-size: 16px;
   border-radius: 6px;
-  border: 3px solid #93466F;
+  border: 3px solid #4b4693;
   box-sizing: border-box;
   background: #ffffff;
 }
@@ -1170,7 +1196,7 @@ select:focus {
   min-height: 80px;
   padding: 10px 12px;
   border-radius: 6px;
-  border: 3px solid #93466F;
+  border: 3px solid #4b4693;
   font-size: 15px;
   box-sizing: border-box;
   resize: vertical;
@@ -1186,19 +1212,19 @@ select:focus {
 
 .er-btn-cancel {
   background: transparent;
-  color: #93466F;
-  border: 3px solid #93466F;
+  color: #4b4693;
+  border: 3px solid #4b4693;
   padding: 8px 12px;
   border-radius: 6px;
 }
 
 .er-btn-confirm {
-  background: #f5dbe6;
-  color: #93466F;
-  border: 4px solid #93466F;
+  background: #dbebf5;
+  color: #4b4693;
+  border: 4px solid #4b4693;
   padding: 10px 14px;
   border-radius: 6px;
-  box-shadow: 0 4px 0 #93466F;
+  box-shadow: 0 4px 0 #4b4693;
 }
 
 /* Layout principal */
@@ -1235,12 +1261,12 @@ select:focus {
   flex: 1;
   max-width: 180px;
   padding: 10px 12px;
-  background: #f5dbe6;
-  border: 4px solid #93466F;
+  background: #dbebf5;
+  border: 4px solid #4b4693;
   border-radius: 6px;
   font-family: "Fredoka One", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
   font-size: 16px;
-  box-shadow: 0 4px 0 #93466F;
+  box-shadow: 0 4px 0 #4b4693;
   text-align: center;
   box-sizing: border-box;
 }
@@ -1261,12 +1287,12 @@ select:focus {
 .select-filtro {
   width: 140px;
   padding: 10px 12px;
-  background: #f5dbe6;
-  border: 4px solid #93466F;
+  background: #dbebf5;
+  border: 4px solid #4b4693;
   border-radius: 6px;
   font-family: "Fredoka One", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
   font-size: 18px;
-  box-shadow: 0 4px 0 #93466F;
+  box-shadow: 0 4px 0 #4b4693;
   text-align: center;
   box-sizing: border-box;
 }
@@ -1285,7 +1311,7 @@ select:focus {
   width: 92%;
   max-width: 560px;
   background: #ffffff;
-  border: 6px solid #93466F;
+  border: 6px solid #4b4693;
   border-radius: 6px;
   padding: 14px 18px;
   box-shadow: 0 6px 0 rgba(0, 0, 0, 0.06);
@@ -1302,12 +1328,12 @@ select:focus {
 .nombre {
   font-family: "Fredoka One", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
   font-size: 34px;
-  color: #93466F;
+  color: #4b4693;
 }
 
 .meta {
   font-size: 14px;
-  color: #93466F;
+  color: #4b4693;
 }
 
 /* Indicador de horas (esquina superior derecha) */
@@ -1470,7 +1496,7 @@ select:focus {
   width: 160px;
   height: 200px;
   background: #ffffff;
-  border: 4px solid #93466F;
+  border: 4px solid #4b4693;
   box-shadow: 0 6px 0 rgba(0, 0, 0, 0.06);
   display: flex;
   align-items: center;
@@ -1507,7 +1533,7 @@ select:focus {
   width: 92%;
   max-width: 560px;
   background: #ffffff;
-  border: 6px solid #93466F;
+  border: 6px solid #4b4693;
   border-radius: 6px;
   padding: 14px 18px;
   box-shadow: 0 6px 0 rgba(0, 0, 0, 0.06);
@@ -1526,20 +1552,20 @@ select:focus {
 .reporte-tipo {
   font-family: "Fredoka One", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
   font-size: 20px;
-  color: #93466F;
+  color: #4b4693;
   margin-bottom: 6px;
 }
 
 .reporte-meta {
   font-size: 14px;
-  color: #93466F;
+  color: #4b4693;
   margin-bottom: 8px;
 }
 
 .reporte-horas {
   font-family: "Fredoka One", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
   font-size: 18px;
-  color: #93466F;
+  color: #4b4693;
 }
 
 .horas-valor {
@@ -1554,7 +1580,7 @@ select:focus {
   right: 0;
   border-width: 0 24px 24px 0;
   border-style: solid;
-  border-color: transparent #f5dbe6 transparent transparent;
+  border-color: transparent #dbebf5 transparent transparent;
 }
 
 /* estados: adeuda (rojo) y pagado (verde) */
@@ -1689,7 +1715,7 @@ select:focus {
   width: 160px;
   height: 200px;
   background: #ffffff;
-  border: 4px solid #93466F;
+  border: 4px solid #4b4693;
   box-shadow: 0 6px 0 rgba(0, 0, 0, 0.06);
   display: flex;
   align-items: center;
@@ -1718,7 +1744,7 @@ select:focus {
   width: 92%;
   max-width: 560px;
   background: #ffffff;
-  border: 6px solid #93466F;
+  border: 6px solid #4b4693;
   border-radius: 6px;
   padding: 14px 18px;
   box-shadow: 0 6px 0 rgba(0, 0, 0, 0.06);
@@ -1736,20 +1762,20 @@ select:focus {
 .reporte-tipo {
   font-family: "Fredoka One", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
   font-size: 20px;
-  color: #93466F;
+  color: #4b4693;
   margin-bottom: 6px;
 }
 
 .reporte-meta {
   font-size: 14px;
-  color: #93466F;
+  color: #4b4693;
   margin-bottom: 8px;
 }
 
 .reporte-horas {
   font-family: "Fredoka One", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
   font-size: 18px;
-  color: #93466F;
+  color: #4b4693;
 }
 
 .horas-valor {
@@ -1764,7 +1790,7 @@ select:focus {
   right: 0;
   border-width: 0 24px 24px 0;
   border-style: solid;
-  border-color: transparent #f5dbe6 transparent transparent;
+  border-color: transparent #dbebf5 transparent transparent;
 }
 
 /* estados */
@@ -1802,9 +1828,9 @@ select:focus {
   padding: 6px 10px;
   font-size: 16px;
   border-radius: 6px;
-  border: 4px solid #93466F;
-  background: #f5dbe6;
-  box-shadow: 0 4px 0 #93466F;
+  border: 4px solid #4b4693;
+  background: #dbebf5;
+  box-shadow: 0 4px 0 #4b4693;
   cursor: pointer;
   line-height: 1;
 }
@@ -1819,7 +1845,7 @@ select:focus {
 /* active */
 .flecha:active {
   transform: translateY(2px);
-  box-shadow: 0 2px 0 #93466F;
+  box-shadow: 0 2px 0 #4b4693;
 }
 
 /* ocultar flechas en pagado */
@@ -1882,7 +1908,882 @@ select:focus {
     gap: 10px;
     padding: 0;
   }
-  .acciones-final .btn {
-    width: 100%;
+}
+/* -------------------------
+   Estilos para el modal
+   ------------------------- */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+.modal-overlay .modal {
+  width: min(420px, 92%);
+  max-width: 420px;
+  background: #ffffff;
+  color: #111;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.06);
+  position: relative;
+  overflow: hidden;
+  border: 6px solid #ff3b30;
+}
+.modal-overlay .modal:before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  box-shadow: inset 0 6px 20px rgba(0, 0, 0, 0.03);
+  border-radius: 10px;
+}
+.modal-overlay .modal:after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 0;
+  border-left: 0 solid transparent;
+  border-top: 0 solid transparent;
+  border-right: 80px solid transparent;
+  border-bottom: 80px solid #ff3b30;
+  transform-origin: 0 100%;
+}
+.modal-overlay .modal h3 {
+  margin: 0 0 8px 0;
+  font-family: "Fredoka One", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  color: #154655;
+  font-size: 28px;
+  line-height: 1;
+  letter-spacing: -0.5px;
+}
+.modal-overlay .modal .modal-body {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  margin-top: 8px;
+}
+.modal-overlay .modal .modal-body .left {
+  flex: 1;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  color: #222;
+}
+.modal-overlay .modal .modal-body .left .meta {
+  margin-top: 8px;
+  color: #333;
+  font-size: 15px;
+  line-height: 1.45;
+}
+.modal-overlay .modal .modal-body .left .meta .label {
+  display: block;
+  font-weight: 700;
+  color: #4b4693;
+  margin-bottom: 4px;
+}
+.modal-overlay .modal .modal-body .left .meta .value {
+  color: #222;
+  font-weight: 500;
+}
+.modal-overlay .modal .modal-body .media {
+  width: 120px;
+  height: 90px;
+  border: 4px solid rgba(0, 0, 0, 0.06);
+  background: #f6f6f6;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.modal-overlay .modal .modal-body .media img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.modal-overlay .modal .modal-actions {
+  margin-top: 14px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: flex-start;
+}
+.modal-overlay .modal .modal-actions .btn {
+  padding: 10px 18px;
+  border-radius: 10px;
+  font-family: "Fredoka One", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+  border: 0;
+}
+.modal-overlay .modal .modal-actions .btn.reportes {
+  background: #dbebf5;
+  color: #4b4693;
+  border: 2px solid rgba(75, 70, 147, 0.06);
+}
+.modal-overlay .modal .modal-actions .btn.danger {
+  background: #ff4b4b;
+  color: #ffffff;
+  border: 2px solid #c80000;
+}
+.modal-overlay .modal .modal-actions .btn:hover {
+  transform: translateY(-2px);
+}
+.modal-overlay .modal .modal-actions .btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+@media (max-width: 420px) {
+  .modal-overlay .modal h3 {
+    font-size: 22px;
   }
+  .modal-overlay .modal .modal-body {
+    flex-direction: column;
+  }
+  .modal-overlay .modal .modal-body .media {
+    width: 100%;
+    height: 160px;
+  }
+  .modal-overlay .modal:after {
+    border-bottom-width: 48px;
+    border-right-width: 48px;
+  }
+}
+
+/* -------------------------
+   Control tamaño del pin
+   ------------------------- */
+.size-control {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  color: #222;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  user-select: none;
+}
+.size-control .size-btn {
+  width: 36px;
+  height: 36px;
+  display: inline-grid;
+  place-items: center;
+  border-radius: 8px;
+  border: 2px solid rgba(0, 0, 0, 0.06);
+  background: #dbebf5;
+  color: #4b4693;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.08s ease, box-shadow 0.08s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+.size-control .size-btn:active {
+  transform: translateY(1px) scale(0.98);
+}
+.size-control input[type=range] {
+  -webkit-appearance: none;
+  height: 6px;
+  background: linear-gradient(90deg, #39d353 0%, #ffa600 60%, #ff4b4b 100%);
+  border-radius: 10px;
+  outline: none;
+  margin: 0;
+  padding: 0;
+  width: 160px;
+}
+.size-control input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #4b4693;
+  border: 3px solid #ffffff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+  cursor: pointer;
+}
+.size-control input[type=range]::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #4b4693;
+  border: 3px solid #ffffff;
+}
+.size-control .size-value {
+  min-width: 48px;
+  text-align: right;
+  font-weight: 600;
+  color: #4b4693;
+}
+
+/* -------------------------
+   Pequeñas utilidades
+   ------------------------- */
+.small {
+  font-size: 13px;
+  color: #666;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* ===============================
+   CONTENEDOR PRINCIPAL
+================================ */
+.admin-app {
+  width: 100%;
+  min-height: 100vh;
+  background: #154655;
+  padding-bottom: 80px;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  color: #ffffff;
+}
+
+/* ===============================
+   HEADER
+================================ */
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px;
+  background: #4b4693;
+}
+.admin-header h1 {
+  font-family: "Fredoka One", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  font-size: 1.3rem;
+  margin: 0;
+}
+.admin-header span {
+  font-size: 0.8rem;
+  opacity: 0.8;
+}
+.admin-header .avatar {
+  width: 45px;
+  height: 45px;
+  background: #6d7eb4;
+  border-radius: 50%;
+}
+
+/* ===============================
+   RESUMEN CARDS
+================================ */
+.resumen-cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  padding: 0 24px;
+  margin-top: 20px;
+}
+.resumen-cards .card {
+  background: #ffffff;
+  color: #4b4693;
+  border-radius: 14px;
+  padding: 16px;
+  text-align: center;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+}
+.resumen-cards .card h3 {
+  margin: 0;
+  font-size: 0.9rem;
+}
+.resumen-cards .card p {
+  font-size: 1.5rem;
+  margin-top: 8px;
+  font-weight: bold;
+}
+
+/* ===============================
+   PANELES
+================================ */
+.panel {
+  background: #ffffff;
+  color: #4b4693;
+  margin: 20px 24px;
+  border-radius: 16px;
+  padding: 18px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+}
+.panel h2 {
+  font-family: "Fredoka One", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  font-size: 1.1rem;
+  margin-top: 0;
+  margin-bottom: 15px;
+}
+.panel .panel-placeholder {
+  min-height: 180px;
+  background: #dbebf5;
+  border-radius: 12px;
+  padding: 15px;
+}
+.panel .map-placeholder {
+  min-height: 220px;
+  background: #dbebf5;
+  border-radius: 12px;
+  border: 2px dashed #ffa600;
+}
+
+/* ===============================
+   NAV INFERIOR (MÓVIL)
+================================ */
+.admin-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #4b4693;
+  display: flex;
+  justify-content: space-around;
+  padding: 10px 0;
+}
+.admin-nav button {
+  background: none;
+  border: none;
+  color: #ffffff;
+  font-size: 0.8rem;
+  cursor: pointer;
+  padding: 6px 10px;
+  border-radius: 8px;
+}
+.admin-nav button.active {
+  background: #6d7eb4;
+}
+
+/* ===============================
+   PANEL USUARIOS
+================================ */
+.usuarios-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.usuarios-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow-y: auto;
+}
+
+.usuario-item {
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 8px 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  word-break: break-word;
+}
+
+.usuario-info {
+  display: flex;
+  flex-direction: column;
+  max-width: 65%;
+}
+.usuario-info .rol {
+  font-size: 11px;
+  opacity: 0.7;
+}
+
+.btn-eliminar {
+  background: #ff4b4b;
+  color: #ffffff;
+  border: none;
+  padding: 5px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.btn-eliminar:hover {
+  background: #c80000;
+}
+
+.form-usuario {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.form-usuario input,
+.form-usuario select {
+  padding: 7px 8px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  font-size: 13px;
+}
+
+.btn-agregar {
+  background: #6d7eb4;
+  color: #ffffff;
+  border: none;
+  padding: 7px;
+  border-radius: 6px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+/* ===============================
+   FORM EXCEL
+================================ */
+.alumnos-panel {
+  padding: 20px;
+}
+
+.form-excel {
+  background: #ffffff;
+  padding: 25px;
+  border-radius: 14px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  max-width: 500px;
+}
+
+.excel-input-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+.excel-input-group label {
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #333;
+}
+.excel-input-group input[type=file] {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #dcdcdc;
+  background: #f8f9fa;
+  cursor: pointer;
+}
+.excel-input-group input[type=file]:hover {
+  border-color: #2c7be5;
+}
+
+.excel-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btn-subir-excel {
+  background: #2c7be5;
+  color: #fff;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.btn-subir-excel:hover {
+  background: #1a68d1;
+  transform: translateY(-2px);
+}
+
+/* ===============================
+   RESPONSIVE TABLET
+================================ */
+@media (min-width: 768px) {
+  .resumen-cards {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .panel {
+    max-width: 1100px;
+    margin: 30px auto;
+  }
+  .form-excel {
+    max-width: 600px;
+  }
+}
+/* ===============================
+   RESPONSIVE DESKTOP
+================================ */
+@media (min-width: 1200px) {
+  .admin-app {
+    padding-bottom: 40px;
+  }
+  .admin-nav {
+    position: relative;
+    max-width: 1100px;
+    margin: 20px auto;
+    border-radius: 12px;
+  }
+}
+.alumnos-panel {
+  padding: 20px;
+}
+
+.form-excel {
+  background: #fff;
+  padding: 25px;
+  border-radius: 14px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+  max-width: 500px;
+}
+
+.excel-input-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+.excel-input-group label {
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.excel-input-group input[type=file] {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  background: #f8f9fa;
+  cursor: pointer;
+}
+.excel-input-group input[type=file]:hover {
+  border-color: #2c7be5;
+}
+
+.excel-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btn-subir-excel {
+  background: #2c7be5;
+  color: #fff;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+.btn-subir-excel:hover {
+  background: #1a68d1;
+  transform: translateY(-2px);
+}
+
+.page-admin {
+  max-width: 1092px;
+  margin: 18px auto;
+  background: #ffffff;
+  color: #4b4693;
+  padding: 12px;
+  border-radius: 10px;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.14);
+  border: 4px solid rgba(0, 0, 0, 0.06);
+}
+.page-admin h2 {
+  text-align: center;
+  margin: 6px 0 12px;
+  color: #154655;
+  font-family: "Fredoka One", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  font-size: 20px;
+}
+
+/* Controles superiores */
+#controls {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 8px;
+}
+#controls button {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 3px solid #4b4693;
+  background: #dbebf5;
+  color: #4b4693;
+  font-family: "Fredoka One", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  cursor: pointer;
+  box-shadow: 0 4px 0 #4b4693;
+  transition: transform 0.08s ease, box-shadow 0.08s ease;
+}
+#controls button:hover {
+  transform: translateY(-2px);
+}
+#controls button.secondary {
+  /* En lugar de lighten(), usamos un ajuste suave con color.adjust para prevenir warnings */
+  background: rgb(234.9652173913, 243.8695652174, 249.4347826087);
+  border-color: rgba(0, 0, 0, 0.08);
+  box-shadow: none;
+}
+#controls a {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 3px solid #4b4693;
+  background: #dbebf5;
+  color: #4b4693;
+  font-family: "Fredoka One", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  cursor: pointer;
+  box-shadow: 0 4px 0 #4b4693;
+  transition: transform 0.08s ease, box-shadow 0.08s ease;
+}
+#controls a:hover {
+  transform: translateY(-2px);
+}
+#controls a.secondary {
+  /* En lugar de lighten(), usamos un ajuste suave con color.adjust para prevenir warnings */
+  background: rgb(234.9652173913, 243.8695652174, 249.4347826087);
+  border-color: rgba(0, 0, 0, 0.08);
+  box-shadow: none;
+}
+#controls .size-control {
+  margin-left: 8px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+#controls .size-control label {
+  font-size: 13px;
+  color: #4b4693;
+  font-weight: 700;
+}
+#controls .size-control input[type=range] {
+  -webkit-appearance: none;
+  width: 180px;
+  height: 8px;
+  /* degradado usando tus tokens: guinda-claro -> rojo-acento */
+  background: linear-gradient(90deg, #dbebf5 0%, #ff4b4b 100%);
+  border-radius: 8px;
+  outline: none;
+}
+#controls .size-control input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 3px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.08);
+}
+#controls .size-control span {
+  font-size: 13px;
+  color: #4b4693;
+  min-width: 48px;
+  text-align: left;
+}
+#controls .hint {
+  margin-left: auto;
+  color: #4b4693;
+  font-size: 13px;
+}
+
+/* Mapa principal */
+#map {
+  position: relative;
+  height: 720px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 6px solid #ffffff;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+  background: #f6f8fb;
+}
+
+/* Side list */
+#side {
+  margin-top: 12px;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+#lista {
+  width: 320px;
+  max-height: 520px;
+  overflow-y: auto;
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 10px;
+  border: 4px solid rgba(0, 0, 0, 0.04);
+}
+#lista .aula-line {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px dashed rgba(0, 0, 0, 0.04);
+}
+#lista .aula-line > div:first-child b {
+  font-size: 15px;
+  color: #154655;
+  font-family: "Fredoka One", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  display: block;
+}
+#lista .aula-line > div:first-child .small {
+  color: rgba(75, 70, 147, 0.7);
+  font-size: 13px;
+  margin-top: 6px;
+}
+#lista .aula-line > div:last-child {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+#lista .aula-line > div:last-child button {
+  padding: 6px 8px;
+  border-radius: 6px;
+  border: 3px solid #4b4693;
+  background: #dbebf5;
+  font-family: "Fredoka One", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  cursor: pointer;
+  font-size: 13px;
+}
+#lista .empty {
+  color: rgba(75, 70, 147, 0.7);
+  padding: 12px;
+  text-align: center;
+}
+
+/* Modal / card */
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.48);
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+.modal .card {
+  width: 460px;
+  max-width: calc(100% - 32px);
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 16px;
+  border: 4px solid #4b4693;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.18);
+}
+.modal .card h3 {
+  margin: 0;
+  color: #154655;
+  font-family: "Fredoka One", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+.modal .card .small {
+  color: rgba(75, 70, 147, 0.8);
+  margin-bottom: 10px;
+  display: block;
+}
+.modal .card label {
+  display: block;
+  margin-bottom: 6px;
+  color: #4b4693;
+  font-weight: 700;
+}
+.modal .card input[type=text], .modal .card input[type=number], .modal .card select, .modal .card textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 4px solid #4b4693;
+  background: #ffffff;
+  margin-bottom: 8px;
+  font-size: 16px;
+}
+.modal .card .form-row {
+  display: flex;
+  gap: 8px;
+}
+.modal .card .hidden {
+  display: none !important;
+}
+.modal .card .actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  margin-top: 12px;
+}
+.modal .card .actions button {
+  padding: 10px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: "Fredoka One", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+.modal .card .actions button.danger {
+  background: #ff4b4b;
+  color: #ffffff;
+  border: 3px solid #c80000;
+  box-shadow: 0 6px 0 #4b4693;
+}
+.modal .card .actions button.primary {
+  background: #dbebf5;
+  color: #4b4693;
+  border: 3px solid #4b4693;
+  box-shadow: 0 4px 0 #4b4693;
+}
+.modal .card .actions button.secondary {
+  background: transparent;
+  border: 3px solid rgba(75, 70, 147, 0.08);
+  box-shadow: none;
+  color: #4b4693;
+}
+
+/* Pin fallback (cuando uses HTML/CSS pins) */
+.map-pin {
+  position: absolute;
+  width: 36px;
+  height: 36px;
+  border-radius: 50% 50% 50% 50%/40% 40% 60% 60%;
+  background: radial-gradient(circle at 40% 35%, #ff4b4b, #c80000);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.18);
+  border: 4px solid rgba(255, 255, 255, 0.06);
+  transform: translate(-50%, -100%);
+  pointer-events: none;
+}
+
+/* Indicadores de estado */
+.estado-dot {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+.estado-dot.libre {
+  background: #39d353;
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.06);
+}
+.estado-dot.ocupada {
+  background: #ff3b30;
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+/* Leaflet controls por encima */
+.leaflet-top, .leaflet-bottom {
+  z-index: 900 !important;
+}
+
+/* Responsivo */
+@media (max-width: 900px) {
+  #map {
+    height: 560px;
+  }
+  #lista {
+    width: 100%;
+    max-height: 280px;
+  }
+  .page-admin {
+    padding: 10px;
+  }
+}
+/* Utilidades */
+.text-muted {
+  color: rgba(75, 70, 147, 0.6);
+  font-size: 13px;
+}
+
+.flex {
+  display: flex;
+}
+
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.small {
+  color: #ffffff;
 }

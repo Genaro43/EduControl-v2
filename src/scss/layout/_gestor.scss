@@ -1,0 +1,64 @@
+// scss/components/_gestor.scss
+@use "../base/variables" as *;
+.campo .txBlack {
+    color: $fondo-guinda;
+    
+}
+.gestor-card {
+    width: 100%;
+    max-width: 500px; 
+    margin: 0 auto;
+}
+
+.form-gestor {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding-top: 12px;
+
+    &__row {
+        display: flex;
+        gap: 12px;
+        
+        // En pantallas muy pequeñas, apilamos los campos que van en fila
+        @media (max-width: 420px) {
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        // Para que los campos ocupen el 50% cada uno si están en fila
+        .campo {
+            flex: 1;
+            margin-bottom: 0; 
+        }
+    }
+
+    &__acciones {
+        margin-top: 24px;
+        display: flex;
+        justify-content: center;
+        
+        .btn {
+            width: 100%;
+        }
+    }
+
+    &__mensaje {
+        padding: 12px;
+        border-radius: 6px;
+        font-weight: 700;
+        text-align: center;
+        display: none; // Se controla con JS
+        border: 3px solid $guinda-negro;
+        
+        &--exito {
+            background-color: $borde-verde;
+            color: $guinda-negro;
+        }
+        
+        &--error {
+            background-color: $rojo-acento;
+            color: $blanco;
+        }
+    }
+}

@@ -1,0 +1,316 @@
+@use "../base/variables" as *;
+
+/* ===============================
+   CONTENEDOR PRINCIPAL
+================================ */
+
+.admin-app {
+    width: 100%;
+    min-height: 100vh;
+    background: $fondo-guinda;
+    padding-bottom: 80px;
+    font-family: $fuente-base;
+    color: $blanco;
+}
+
+/* ===============================
+   HEADER
+================================ */
+
+.admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: $espacio-contenedor;
+    background: $guinda-negro;
+
+    h1 {
+        font-family: $fuente-encabezado;
+        font-size: 1.3rem;
+        margin: 0;
+    }
+
+    span {
+        font-size: 0.8rem;
+        opacity: 0.8;
+    }
+
+    .avatar {
+        width: 45px;
+        height: 45px;
+        background: $azul;
+        border-radius: 50%;
+    }
+}
+
+/* ===============================
+   RESUMEN CARDS
+================================ */
+
+.resumen-cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    padding: 0 $espacio-contenedor;
+    margin-top: 20px;
+
+    .card {
+        background: $blanco;
+        color: $guinda-negro;
+        border-radius: 14px;
+        padding: 16px;
+        text-align: center;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, $opacidad-sombra-tarjeta);
+
+        h3 {
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        p {
+            font-size: 1.5rem;
+            margin-top: 8px;
+            font-weight: bold;
+        }
+    }
+}
+
+/* ===============================
+   PANELES
+================================ */
+
+.panel {
+    background: $blanco;
+    color: $guinda-negro;
+    margin: 20px $espacio-contenedor;
+    border-radius: 16px;
+    padding: 18px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, $opacidad-sombra-tarjeta);
+
+    h2 {
+        font-family: $fuente-encabezado;
+        font-size: 1.1rem;
+        margin-top: 0;
+        margin-bottom: 15px;
+    }
+
+    .panel-placeholder {
+        min-height: 180px;
+        background: $guinda-claro;
+        border-radius: 12px;
+        padding: 15px;
+    }
+
+    .map-placeholder {
+        min-height: 220px;
+        background: $guinda-claro;
+        border-radius: 12px;
+        border: 2px dashed $borde-seleccion;
+    }
+}
+
+/* ===============================
+   NAV INFERIOR (MÓVIL)
+================================ */
+
+.admin-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: $guinda-negro;
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0;
+
+    button {
+        background: none;
+        border: none;
+        color: $blanco;
+        font-size: 0.8rem;
+        cursor: pointer;
+        padding: 6px 10px;
+        border-radius: 8px;
+
+        &.active {
+            background: $azul;
+        }
+    }
+}
+
+/* ===============================
+   PANEL USUARIOS
+================================ */
+
+.usuarios-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.usuarios-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    overflow-y: auto;
+}
+
+.usuario-item {
+    background: $blanco;
+    border-radius: 8px;
+    padding: 8px 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    word-break: break-word;
+}
+
+.usuario-info {
+    display: flex;
+    flex-direction: column;
+    max-width: 65%;
+
+    .rol {
+        font-size: 11px;
+        opacity: 0.7;
+    }
+}
+
+.btn-eliminar {
+    background: $rojo-acento;
+    color: $blanco;
+    border: none;
+    padding: 5px 8px;
+    border-radius: 6px;
+    font-size: 12px;
+    cursor: pointer;
+    white-space: nowrap;
+
+    &:hover {
+        background: $rojo-acento-oscuro;
+    }
+}
+
+.form-usuario {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    input,
+    select {
+        padding: 7px 8px;
+        border-radius: 6px;
+        border: 1px solid #ddd;
+        font-size: 13px;
+    }
+}
+
+.btn-agregar {
+    background: $azul;
+    color: $blanco;
+    border: none;
+    padding: 7px;
+    border-radius: 6px;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+/* ===============================
+   FORM EXCEL
+================================ */
+
+.alumnos-panel {
+    padding: 20px;
+}
+
+.form-excel {
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 14px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    max-width: 500px;
+}
+
+.excel-input-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+
+    label {
+        font-weight: 600;
+        margin-bottom: 8px;
+        color: #333;
+    }
+
+    input[type="file"] {
+        padding: 10px;
+        border-radius: 8px;
+        border: 1px solid #dcdcdc;
+        background: #f8f9fa;
+        cursor: pointer;
+
+        &:hover {
+            border-color: #2c7be5;
+        }
+    }
+}
+
+.excel-actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.btn-subir-excel {
+    background: #2c7be5;
+    color: #fff;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all .2s ease;
+
+    &:hover {
+        background: #1a68d1;
+        transform: translateY(-2px);
+    }
+}
+
+/* ===============================
+   RESPONSIVE TABLET
+================================ */
+
+@media (min-width: 768px) {
+
+    .resumen-cards {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .panel {
+        max-width: 1100px;
+        margin: 30px auto;
+    }
+
+    .form-excel {
+        max-width: 600px;
+    }
+}
+
+/* ===============================
+   RESPONSIVE DESKTOP
+================================ */
+
+@media (min-width: 1200px) {
+
+    .admin-app {
+        padding-bottom: 40px;
+    }
+
+    .admin-nav {
+        position: relative;
+        max-width: 1100px;
+        margin: 20px auto;
+        border-radius: 12px;
+    }
+}

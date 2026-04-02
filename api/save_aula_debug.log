@@ -1,0 +1,176 @@
+2026-03-09T15:09:32+00:00 - REQUEST: array (
+  'id' => '1',
+  'nombre' => 'AULA 2',
+  'xPct' => 83.0911,
+  'yPct' => 84.8605,
+  'estado' => 'ocupada',
+  'grupo_id' => '17',
+  'maestro_id' => '7',
+  'grupo_text' => 'undefined D',
+  'maestro_text' => 'GERARDO ANDRES HERNANDEZ CERRITO',
+  'horario_id' => '9',
+  'horario_text' => 'hora9',
+)
+2026-03-09T15:09:32+00:00 - COLUMNS in aulas: id_aula,nombre,x_pct,y_pct,estado,grupo,maestro,horario,foto,created_at,updated_at
+2026-03-09T15:09:33+00:00 - SUCCESS UPDATE: {"ok":true,"mensaje":"Aula actualizada","id":1,"affected":1}
+2026-03-09T15:09:38+00:00 - REQUEST: array (
+  'id' => '1',
+  'nombre' => 'AULA 2',
+  'xPct' => 83.0911,
+  'yPct' => 84.8605,
+  'estado' => 'ocupada',
+  'grupo_id' => '18',
+  'maestro_id' => '7',
+  'grupo_text' => 'undefined E',
+  'maestro_text' => 'GERARDO ANDRES HERNANDEZ CERRITO',
+  'horario_id' => '9',
+  'horario_text' => 'hora9',
+)
+2026-03-09T15:09:38+00:00 - COLUMNS in aulas: id_aula,nombre,x_pct,y_pct,estado,grupo,maestro,horario,foto,created_at,updated_at
+2026-03-09T15:09:38+00:00 - SUCCESS UPDATE: {"ok":true,"mensaje":"Aula actualizada","id":1,"affected":1}
+2026-03-09T15:09:40+00:00 - REQUEST: array (
+  'id' => '1',
+  'nombre' => 'AULA 2',
+  'xPct' => 83.0911,
+  'yPct' => 84.8605,
+  'estado' => 'libre',
+  'grupo_id' => '',
+  'maestro_id' => '',
+  'grupo_text' => '',
+  'maestro_text' => '',
+  'horario_id' => '',
+  'horario_text' => '',
+)
+2026-03-09T15:09:40+00:00 - COLUMNS in aulas: id_aula,nombre,x_pct,y_pct,estado,grupo,maestro,horario,foto,created_at,updated_at
+2026-03-09T15:09:40+00:00 - SUCCESS UPDATE: {"ok":true,"mensaje":"Aula actualizada","id":1,"affected":1}
+2026-03-09T15:09:47+00:00 - REQUEST: array (
+  'id' => '2',
+  'nombre' => 'AULA 1',
+  'xPct' => 88.764,
+  'yPct' => 84.9292,
+  'estado' => 'ocupada',
+  'grupo_id' => '9',
+  'maestro_id' => '2',
+  'grupo_text' => 'undefined C',
+  'maestro_text' => 'JUAN JOSE CARRASCO BONILLA',
+  'horario_id' => '10',
+  'horario_text' => 'hora10',
+)
+2026-03-09T15:09:47+00:00 - COLUMNS in aulas: id_aula,nombre,x_pct,y_pct,estado,grupo,maestro,horario,foto,created_at,updated_at
+2026-03-09T15:09:47+00:00 - SUCCESS UPDATE: {"ok":true,"mensaje":"Aula actualizada","id":2,"affected":1}
+2026-03-09T15:11:30+00:00 - REQUEST: array (
+  'id' => 'aula_1773069090760',
+  'nombre' => 'Aula 4',
+  'xPct' => 81.53125,
+  'yPct' => 75.91666666666667,
+  'estado' => 'libre',
+  'grupo_id' => '',
+  'maestro_id' => '',
+  'grupo_text' => '',
+  'maestro_text' => '',
+  'horario' => '',
+)
+2026-03-09T15:11:30+00:00 - COLUMNS in aulas: id_aula,nombre,x_pct,y_pct,estado,grupo,maestro,horario,foto,created_at,updated_at
+2026-03-09T15:11:30+00:00 - SUCCESS INSERT: {"ok":true,"mensaje":"Aula creada","id":4}
+2026-03-09T15:11:50+00:00 - REQUEST: array (
+  'id' => '4',
+  'nombre' => 'Aula 4',
+  'xPct' => 69.3125,
+  'yPct' => 72.33333333333334,
+  'estado' => 'libre',
+  'grupo_id' => '',
+  'maestro_id' => '',
+  'grupo_text' => '',
+  'maestro_text' => '',
+  'horario' => '',
+)
+2026-03-09T15:11:50+00:00 - COLUMNS in aulas: id_aula,nombre,x_pct,y_pct,estado,grupo,maestro,horario,foto,created_at,updated_at
+2026-03-09T15:11:50+00:00 - SUCCESS UPDATE: {"ok":true,"mensaje":"Aula actualizada","id":4,"affected":1}
+2026-03-09T15:12:29+00:00 - REQUEST: array (
+  'id' => '4',
+  'nombre' => 'Aula 4',
+  'xPct' => 69.3125,
+  'yPct' => 72.33333333333334,
+  'estado' => 'ocupada',
+  'grupo_id' => '8',
+  'maestro_id' => '4',
+  'grupo_text' => 'undefined B',
+  'maestro_text' => 'ANTONIO RODRIGUEZ MAYORGA',
+  'horario' => '10',
+)
+2026-03-09T15:12:29+00:00 - COLUMNS in aulas: id_aula,nombre,x_pct,y_pct,estado,grupo,maestro,horario,foto,created_at,updated_at
+2026-03-09T15:12:29+00:00 - SUCCESS UPDATE: {"ok":true,"mensaje":"Aula actualizada","id":4,"affected":1}
+2026-03-09T15:50:54+00:00 - REQUEST: array (
+  'id' => '4',
+  'nombre' => 'Aula 4',
+  'xPct' => 69.3125,
+  'yPct' => 72.3333,
+  'estado' => 'ocupada',
+  'grupo_id' => '8',
+  'maestro_id' => '7',
+  'grupo_text' => 'undefined B',
+  'maestro_text' => 'GERARDO ANDRES HERNANDEZ CERRITO',
+  'horario_id' => '9',
+  'horario_text' => 'hora9',
+)
+2026-03-09T15:50:54+00:00 - COLUMNS: id_aula,nombre,x_pct,y_pct,estado,grupo,maestro,horario,foto,created_at,updated_at
+2026-03-09T15:50:54+00:00 - SUCCESS UPDATE: {"ok":true,"mensaje":"Aula actualizada","id":"4","affected":1}
+2026-03-09T15:51:23+00:00 - REQUEST: array (
+  'id' => '4',
+  'nombre' => 'Aula 4',
+  'xPct' => 69.3125,
+  'yPct' => 72.3333,
+  'estado' => 'libre',
+  'grupo_id' => '',
+  'maestro_id' => '',
+  'grupo_text' => '',
+  'maestro_text' => '',
+  'horario_id' => '',
+  'horario_text' => '',
+)
+2026-03-09T15:51:23+00:00 - COLUMNS: id_aula,nombre,x_pct,y_pct,estado,grupo,maestro,horario,foto,created_at,updated_at
+2026-03-09T15:51:23+00:00 - SUCCESS UPDATE: {"ok":true,"mensaje":"Aula actualizada","id":"4","affected":1}
+2026-03-09T15:51:27+00:00 - REQUEST: array (
+  'id' => '2',
+  'nombre' => 'AULA 1',
+  'xPct' => 88.764,
+  'yPct' => 84.9292,
+  'estado' => 'libre',
+  'grupo_id' => '',
+  'maestro_id' => '',
+  'grupo_text' => '',
+  'maestro_text' => '',
+  'horario_id' => '',
+  'horario_text' => '',
+)
+2026-03-09T15:51:27+00:00 - COLUMNS: id_aula,nombre,x_pct,y_pct,estado,grupo,maestro,horario,foto,created_at,updated_at
+2026-03-09T15:51:27+00:00 - SUCCESS UPDATE: {"ok":true,"mensaje":"Aula actualizada","id":"2","affected":1}
+2026-03-09T15:51:45+00:00 - REQUEST: array (
+  'id' => '4',
+  'nombre' => 'Aula 4',
+  'xPct' => 69.3125,
+  'yPct' => 72.3333,
+  'estado' => 'ocupada',
+  'grupo_id' => '41',
+  'maestro_id' => '5',
+  'grupo_text' => 'undefined L',
+  'maestro_text' => 'MAREVSNA GUADALUPE GUZMAN MEJIA',
+  'horario_id' => '7',
+  'horario_text' => 'hora7',
+)
+2026-03-09T15:51:45+00:00 - COLUMNS: id_aula,nombre,x_pct,y_pct,estado,grupo,maestro,horario,foto,created_at,updated_at
+2026-03-09T15:51:45+00:00 - SUCCESS UPDATE: {"ok":true,"mensaje":"Aula actualizada","id":"4","affected":1}
+2026-03-09T15:53:54+00:00 - REQUEST: array (
+  'id' => '4',
+  'nombre' => 'Aula 4',
+  'xPct' => 69.3125,
+  'yPct' => 72.3333,
+  'estado' => 'ocupada',
+  'grupo_id' => '29',
+  'maestro_id' => '7',
+  'grupo_text' => '6 J',
+  'maestro_text' => 'GERARDO ANDRES HERNANDEZ CERRITO',
+  'horario' => '9',
+)
+2026-03-09T15:53:54+00:00 - COLUMNS: id_aula,nombre,x_pct,y_pct,estado,grupo,maestro,horario,foto,created_at,updated_at
+2026-03-09T15:53:54+00:00 - SUCCESS UPDATE: {"ok":true,"mensaje":"Aula actualizada","id":"4","affected":1}

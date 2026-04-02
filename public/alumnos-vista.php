@@ -1,7 +1,13 @@
 <?php
-session_start();
+// public/alumnos-vista.php
 include '../includes/conexion.php';
+include '../includes/config.php';
+session_start();
 
+if (!isset($_SESSION['user_id']) || !isset($_SESSION['edu_rol']) || $_SESSION['edu_rol'] !== 'prefecto') {
+    header('Location: ../index.php');
+    exit;
+}
 //? helper: escapar salida
 function esc($v)
 {
@@ -113,9 +119,9 @@ if ($conexion instanceof mysqli) {
     }
 
     // -----------------------
-    // Obtener conteo de reportes por alumno (una sola consulta)
+    // Obtener conteo y suma de horas por alumno (una sola consulta)
     // -----------------------
-    $reportCounts = [];
+    $reportData = []; // alumno_id => ['cnt' => X, 'total_horas' => Y]
     if (!empty($alumnos)) {
         // recolectar ids (enteros)
         $ids = array_map(function ($r) {
@@ -126,11 +132,15 @@ if ($conexion instanceof mysqli) {
         });
         if (!empty($ids)) {
             $in = implode(',', $ids); // valores ya enteros -> seguro
-            $sqlCounts = "SELECT alumno_id, COUNT(*) AS cnt FROM reportes WHERE activo = 1 AND alumno_id IN ($in) GROUP BY alumno_id";
+            // Sumamos horas y contamos reportes activos (si existe campo activo)
+            $sqlCounts = "SELECT alumno_id, COUNT(*) AS cnt, COALESCE(SUM(horas),0) AS total_horas FROM reportes WHERE alumno_id IN ($in) AND (activo IS NULL OR activo = 1) GROUP BY alumno_id";
             if ($r = $conexion->query($sqlCounts)) {
                 while ($row = $r->fetch_assoc()) {
                     $aid = (int)$row['alumno_id'];
-                    $reportCounts[$aid] = (int)$row['cnt'];
+                    $reportData[$aid] = [
+                        'cnt' => (int)$row['cnt'],
+                        'total_horas' => (int)$row['total_horas']
+                    ];
                 }
                 $r->free();
             }
@@ -138,17 +148,14 @@ if ($conexion instanceof mysqli) {
     }
 
     // -----------------------
-    // Ordenar alumnos por #reportes (desc) y luego por nombre (asc)
+    // Ordenar alumnos por total_horas (desc) y luego por nombre (asc)
     // -----------------------
-    usort($alumnos, function ($a, $b) use ($reportCounts) {
+    usort($alumnos, function ($a, $b) use ($reportData) {
         $aid = (int)($a['id'] ?? 0);
         $bid = (int)($b['id'] ?? 0);
-        $ca = $reportCounts[$aid] ?? 0;
-        $cb = $reportCounts[$bid] ?? 0;
-
-        // primero por count desc
-        if ($ca !== $cb) return $cb <=> $ca; // cb <=> ca para orden descendente
-        // empate: ordenar por nombre asc, case-insensitive
+        $ta = $reportData[$aid]['total_horas'] ?? 0;
+        $tb = $reportData[$bid]['total_horas'] ?? 0;
+        if ($ta !== $tb) return $tb <=> $ta; // orden descendente por horas
         return strcasecmp($a['nombre'] ?? '', $b['nombre'] ?? '');
     });
 } else {
@@ -163,12 +170,12 @@ if ($conexion instanceof mysqli) {
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>EduControl</title>
     <link rel="icon" href="../src/img/cecyteh.ico" type="image/x-icon">
-    <link rel="stylesheet" href="../build/css/app.css" />
+    <link rel="stylesheet" href="../build/css/app.css?v=<?php echo CSS_VERSION; ?>" />
 </head>
 
 <body class="app">
     <header class="app__header" role="banner">
-        <div class="logo" aria-hidden="true">logo</div>
+        <div class="logo" aria-hidden="true"></div>
     </header>
 
     <main class="app__main alumnos-page" role="main">
@@ -228,26 +235,33 @@ if ($conexion instanceof mysqli) {
                     $foto = esc($row['foto'] ?: '../assets/avatar-placeholder.png');
 
                     $aid = (int)($row['id'] ?? 0);
-                    $cnt = $reportCounts[$aid] ?? 0;
+                    $cnt = $reportData[$aid]['cnt'] ?? 0;
+                    $totalHoras = $reportData[$aid]['total_horas'] ?? 0;
 
-                    if ($cnt === 0) {
-                        $reportClass = '';
-                    } elseif ($cnt === 1) {
+                    // decidir clase según total de horas (no por conteo)
+                    if ($totalHoras <= 0) {
+                        $reportClass = ''; // sin borde coloreado
+                        // inline style para forzar border blanco (no tocar CSS global)
+                        $inlineStyle = 'style="border-color: #001c77;"';
+                    } elseif ($totalHoras === 1) {
                         $reportClass = 'reportes-bajo';
-                    } elseif ($cnt >= 2 && $cnt <= 4) {
+                        $inlineStyle = '';
+                    } elseif ($totalHoras >= 2 && $totalHoras <= 4) {
                         $reportClass = 'reportes-medio';
+                        $inlineStyle = '';
                     } else {
                         $reportClass = 'reportes-alto';
+                        $inlineStyle = '';
                     }
 
                     // bandera recomendado para topN
                     $esRecomendado = ($idx < $topN);
                 ?>
-                    <article class="alumno-card <?php echo $reportClass ?>" data-matricula="<?php echo $mat ?>" data-nombre="<?php echo $nom ?>" data-grado="<?php echo $grado ?>" data-grupo="<?php echo $grupo ?>" tabindex="0">
+                    <article class="alumno-card <?php echo $reportClass ?>" <?php echo $inlineStyle ?? '' ?> data-matricula="<?php echo $mat ?>" data-nombre="<?php echo $nom ?>" data-grado="<?php echo $grado ?>" data-grupo="<?php echo $grupo ?>" tabindex="0">
                         <div class="alumno-info">
                             <div class="alumno-nombre"><?php echo $nom ?></div>
                             <div class="alumno-meta">
-                                Matrícula: <?php echo $mat ?> &nbsp;•&nbsp; Semestre: <?php echo $grado ?> &nbsp;•&nbsp; Grupo: <?php echo $grupo ?>
+                                Matrícula: <?php echo $mat ?> <br> Semestre: <?php echo $grado ?> &nbsp;•&nbsp; Grupo: <?php echo $grupo ?>
                             </div>
                         </div>
 

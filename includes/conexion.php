@@ -5,8 +5,8 @@ try {
         private $servidor = "localhost";
         private $usuario = "genaro";
         private $password = "123456";
-        private $db = "educontrol";
-        private $port = "3307";
+        private $db = "eduControl";
+        private $port = "3306";
 
         public function conexion()
         {

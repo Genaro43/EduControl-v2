@@ -33,7 +33,7 @@
     width: 100%;
     max-width: 420px;
     /* permitimos un poco más en pantallas grandes */
-    background: $blanco;
+    background: $azul;
     border: 4px solid $guinda-negro;
     border-radius: 8px;
     padding: 22px;
@@ -50,10 +50,10 @@
 }
 
 /* Etiqueta */
-.campo label {
+.campo .txWithe {
     font-size: 15px;
     font-weight: 700;
-    color: $guinda-negro;
+    color: $guinda-claro;
 }
 
 /* Inputs: más grandes y cómodos en móvil */
@@ -150,4 +150,26 @@
         font-size: 18px;
         border-radius: 6px;
     }
+}
+
+.password-wrapper {
+  position: relative;
+
+  input {
+    padding-right: 45px;
+  }
+
+  .toggle-password {
+    position: absolute;
+    right: 12px;
+    top: 38px;
+    cursor: pointer;
+    user-select: none;
+    font-size: 18px;
+    transition: transform 0.2s ease;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
 }

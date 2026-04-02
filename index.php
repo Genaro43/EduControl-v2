@@ -1,6 +1,16 @@
 <?php
+// Configuración segura de cookies de sesión
+session_set_cookie_params([
+    'lifetime' => 0,
+    'path' => '/',
+    'secure' => isset($_SERVER['HTTPS']),
+    'httponly' => true,
+    'samesite' => 'Strict'
+]);
+
 session_start();
 include 'includes/conexion.php'; //incluir conexion a la base de datos
+include 'includes/config.php'; //incluir conexion a la base de datos
 
 $error = '';
 $valor_usuario = '';
@@ -65,40 +75,54 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (!$found) {
             $error = 'Usuario o contraseña incorrectos.';
         } else {
+
             if ($found['tipo_origen'] === 'usuario') {
-                // usuario del sistema (prefecto, orientacion, admin, etc.)
+
                 $hash = $found['password'] ?? '';
                 $activo = isset($found['activo']) ? $found['activo'] : 1;
 
                 if ($activo === "0" || $activo === 0 || $activo === false) {
                     $error = 'Cuenta inactiva.';
                 } else {
+
                     $ok = false;
+
                     if (is_string($hash) && $hash !== '') {
                         if (password_verify($pass, $hash)) $ok = true;
-                        // fallback dev: comparar texto plano (solo si no hay hash)
-                        if (!$ok && $pass === $hash) $ok = true;
+                        if (!$ok && $pass === $hash) $ok = true; // compatibilidad antigua
                     } else {
                         if ($pass === $hash) $ok = true;
                     }
 
                     if ($ok) {
-                        // iniciar sesión
+
+                        // 🔐 Regenerar sesión
+                        session_regenerate_id(true);
+
                         $_SESSION['user_id'] = intval($found['id']);
                         $_SESSION['edu_user'] = $found['nombre'];
-                        $_SESSION['edu_rol'] = $found['rol'] ?? 'prefecto';
+                        $_SESSION['edu_rol'] = strtolower(trim($found['rol'] ?? 'prefecto'));
 
-                        $rol = strtolower(trim($_SESSION['edu_rol']));
+                        $rol = $_SESSION['edu_rol'];
 
-                        // redirigir según rol
-                        if ($rol === 'orientacion' || $rol === 'orientación') {
+                        // 🔴 ADMIN
+                        if ($rol === 'admin') {
+                            header('Location: public/admin.php');
+                            exit;
+                        }
+
+                        // 🟣 ORIENTACION
+                        elseif ($rol === 'orientacion' || $rol === 'orientación') {
                             header('Location: public/orientacion.php');
                             exit;
-                        } elseif ($rol === 'alumno') {
-                            // intentar encontrar matricula vinculada (si existe columna alumno_id en usuarios)
+                        }
+
+                        // 🟢 ALUMNO
+                        elseif ($rol === 'alumno') {
+
                             $mat = '';
-                            // try: if users has alumno_id column, retrieve it
                             $check = $conexion->query("SHOW COLUMNS FROM `usuarios` LIKE 'alumno_id'");
+
                             if ($check && $check->num_rows) {
                                 $q = $conexion->prepare("SELECT alumno_id FROM usuarios WHERE id = ? LIMIT 1");
                                 if ($q) {
@@ -106,6 +130,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     $q->execute();
                                     $r = $q->get_result()->fetch_assoc();
                                     $q->close();
+
                                     if (!empty($r['alumno_id'])) {
                                         $aid = (int)$r['alumno_id'];
                                         $q2 = $conexion->prepare("SELECT matricula FROM alumnos WHERE id = ? LIMIT 1");
@@ -119,30 +144,39 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     }
                                 }
                             }
-                            // fallback: tratar de extraer dígitos del nombre
+
                             if (!$mat && preg_match('/\d{4,}/', $found['nombre'], $m)) $mat = $m[0];
 
                             $dest = 'public/alumno.php' . ($mat ? ('?matricula=' . urlencode($mat)) : '');
                             header('Location: ' . $dest);
                             exit;
-                        } else {
-                            header('Location: public/prefectos.html');
+                        }
+
+                        // 🟡 PREFECTO u otros
+                        else {
+                            header('Location: public/prefectos.php');
                             exit;
                         }
+
                     } else {
                         $error = 'Usuario o contraseña incorrectos.';
                     }
                 }
+
             } else {
-                // es alumno buscado por matricula
                 $matricula = $found['matricula'] ?? '';
-                // demo: contraseña igual a matrícula
+
                 if ($pass === $matricula) {
+
+                    session_regenerate_id(true);
+
                     $_SESSION['edu_user_id'] = $found['id'];
                     $_SESSION['edu_user'] = $found['nombre'];
                     $_SESSION['edu_rol'] = 'alumno';
+
                     header('Location: public/alumno.php?matricula=' . urlencode($matricula));
                     exit;
+
                 } else {
                     $error = 'Usuario o contraseña incorrectos.';
                 }
@@ -159,7 +193,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="utf-8">
     <title>EduControl</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <link rel="stylesheet" href="build/css/app.css">
+    <link rel="stylesheet" href="build/css/app.css?v=<?php echo CSS_VERSION; ?>">
 </head>
 
 <body>
@@ -167,23 +201,40 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <h1>EduControl</h1>
 
         <?php if ($error): ?>
-            <div style="max-width:380px;margin:10px auto;color:#b00000;font-weight:700;"><?= esc($error) ?></div>
+            <div style="max-width:380px;margin:10px auto;color:#b00000;font-weight:700;">
+                <?= esc($error) ?>
+            </div>
         <?php endif; ?>
 
         <form method="post" action="">
             <div class="campo">
-                <label for="usuario">Usuario / Matrícula</label>
-                <input id="usuario" name="usuario" type="text" value="<?= esc($valor_usuario) ?>" placeholder="usuario o matrícula" required autofocus>
+                <label for="usuario" class="txWithe">Usuario / Matrícula</label>
+                <input id="usuario" name="usuario" type="text"
+                    value="<?= esc($valor_usuario) ?>"
+                    placeholder="usuario o matrícula"
+                    required autofocus>
             </div>
 
-            <div class="campo">
-                <label for="password">Contraseña</label>
-                <input id="password" name="password" type="password" placeholder="contraseña" required>
+            <div class="campo password-wrapper">
+                <label for="password" class="txWithe">Contraseña</label>
+                <input id="password" name="password" type="password"
+                    placeholder="contraseña" required>
+                <span id="togglePassword" class="toggle-password">👁</span>
             </div>
 
             <input type="submit" class="btn" value="Iniciar Sesión">
         </form>
     </div>
-</body>
 
+    <script>
+        const togglePassword = document.getElementById('togglePassword');
+        const passwordInput = document.getElementById('password');
+
+        togglePassword.addEventListener('click', function () {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            this.textContent = type === 'password' ? '👁' : '🙈';
+        });
+    </script>
+</body>
 </html>

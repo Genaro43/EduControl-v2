@@ -1,8 +1,14 @@
 <?php
 // aplicar-reporte.php
-session_start();
 
 include '../includes/conexion.php'; // incluir conexion a la base de datos
+session_start();
+
+if (!isset($_SESSION['user_id']) || !isset($_SESSION['edu_rol']) || $_SESSION['edu_rol'] !== 'prefecto') {
+    header('Location: ../index.php');
+    exit;
+}
+
 // manejar POST JSON o form para crear reporte
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Leer JSON si viene
@@ -183,12 +189,12 @@ $conexion->close();
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>EduControl</title>
     <link rel="icon" href="../src/img/cecyteh.ico" type="image/x-icon">
-    <link rel="stylesheet" href="../build/css/app.css" />
+    <link rel="stylesheet" href="../build/css/app.css?v=<?php echo CSS_VERSION; ?>" />
 </head>
 
 <body class="app">
     <header class="app__header" role="banner">
-        <div class="logo" aria-hidden="true">logo</div>
+        <div class="logo" aria-hidden="true"></div>
     </header>
 
     <main class="app__main pagina-alumno" role="main" aria-label="Detalle del alumno">

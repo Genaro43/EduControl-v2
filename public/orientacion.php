@@ -1,7 +1,12 @@
 <?php
 // public/orientacion.php
-session_start();
 include '../includes/conexion.php'; // Ajusta si tu include está en otra ruta
+session_start();
+
+if (!isset($_SESSION['user_id']) || !isset($_SESSION['edu_rol']) || $_SESSION['edu_rol'] !== 'orientacion') {
+    header('Location: ../index.php');
+    exit;
+}
 
 // helper escapes
 function esc($v)
@@ -122,12 +127,12 @@ function nivelClaseHoras(int $h): string
     <title>EduControl</title>
     <link rel="icon" href="../src/img/cecyteh.ico" type="image/x-icon">
 
-    <link rel="stylesheet" href="../build/css/app.css" />
+    <link rel="stylesheet" href="../build/css/app.css?v=<?php echo CSS_VERSION; ?>" />
 </head>
 
 <body class="app">
     <header class="app__header" role="banner">
-        <div class="logo" aria-hidden="true">logo</div>
+        <div class="logo" aria-hidden="true"></div>
     </header>
 
     <main class="app__main pagina-orientacion" role="main">
@@ -195,9 +200,7 @@ function nivelClaseHoras(int $h): string
         </section>
 
         <div class="acciones-final">
-            <!-- <a href="prefectos.html" class="btn btn--exit boton-salir">salir</a> -->
-
-            <button class="btn boton-salir btn--exit" type="button" onclick="history.back()">salir</button>
+            <a href="logout.php" class="btn btn--exit boton-salir">salir</a>
             <button class="btn boton-acciones" id="btn-exportar" type="button">Exportar</button>
         </div>
     </main>

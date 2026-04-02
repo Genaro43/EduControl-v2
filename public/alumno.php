@@ -199,12 +199,12 @@ function fmtFecha($s)
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>EduControl</title>
-    <link rel="stylesheet" href="../build/css/app.css" />
+    <link rel="stylesheet" href="../build/css/app.css?v=<?php echo CSS_VERSION; ?>" />
 </head>
 
 <body class="app">
     <header class="app__header" role="banner">
-        <div class="logo" aria-hidden="true">logo</div>
+        <div class="logo" aria-hidden="true"></div>
     </header>
 
     <main class="app__main pagina-reportes" role="main" aria-label="Detalle del alumno">
@@ -231,6 +231,7 @@ function fmtFecha($s)
                     </div>
                     <?php if ($esJefe): ?>
                         <div>
+                            <br>
                             <button id="btn-jefe" class="btn btn--small" type="button" data-matricula="<?= esc($matricula) ?>">
                                 Aulas
                             </button>
@@ -243,7 +244,7 @@ function fmtFecha($s)
         <section class="lista-reportes">
             <h2 style="color:white;">Adeudos</h2>
             <?php if (empty($adeudos)): ?>
-                <div style="padding:12px;color:#666;">No hay adeudos.</div>
+                <div style="color:white;">No hay adeudos.</div>
             <?php else: ?>
                 <?php foreach ($adeudos as $r):
                     $hor = isset($r['horas']) ? (int)$r['horas'] : 0;
@@ -274,7 +275,7 @@ function fmtFecha($s)
 
             <h2 style="color:white;">Completados</h2>
             <?php if (empty($completados)): ?>
-                <div>No hay reportes completados.</div>
+                <div style="color:white;">No hay reportes completados.</div>
             <?php else: ?>
                 <?php foreach ($completados as $r):
                     $hor = isset($r['horas']) ? (int)$r['horas'] : 0;

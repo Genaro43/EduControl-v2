@@ -1,7 +1,11 @@
 <?php
-// public/ver-reporte.php  (archivo completo, robusto contra esquemas distintos)
-session_start();
 include '../includes/conexion.php'; // debe exponer $conexion (mysqli)
+session_start();
+
+if (!isset($_SESSION['user_id']) || !isset($_SESSION['edu_rol']) || $_SESSION['edu_rol'] !== 'prefecto') {
+    header('Location: ../index.php');
+    exit;
+}
 
 /* ---------- helpers ---------- */
 function esc($v)
@@ -281,12 +285,12 @@ function estadoClase($horas)
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>EduControl</title>
     <link rel="icon" href="../src/img/cecyteh.ico" type="image/x-icon">
-    <link rel="stylesheet" href="../build/css/app.css" />
+    <link rel="stylesheet" href="../build/css/app.css?v=<?php echo CSS_VERSION; ?>" />
 </head>
 
 <body class="app">
     <header class="app__header">
-        <div class="logo" aria-hidden="true">logo</div>
+        <div class="logo" aria-hidden="true"></div>
     </header>
 
     <main class="app__main pagina-reportes" role="main">
@@ -330,12 +334,14 @@ function estadoClase($horas)
                                 <div>
                                     <strong>Creado:</strong>
                                     <span><?= !empty($r['created_at']) ? esc(date('Y-m-d H:i', strtotime($r['created_at']))) : '—' ?></span>
-                                    <?php if (!empty($r['aplicado_nombre'])): ?> · <span>por <?= esc($r['aplicado_nombre']) ?></span><?php endif; ?>
+                                    <br>
+                                    <?php if (!empty($r['aplicado_nombre'])): ?><span><strong>por:</strong> <?= esc($r['aplicado_nombre']) ?></span><?php endif; ?>
                                 </div>
                                 <div>
                                     <strong>Última modificación:</strong>
                                     <span><?= !empty($r['updated_at']) ? esc(date('Y-m-d H:i', strtotime($r['updated_at']))) : '—' ?></span>
-                                    <?php if (!empty($r['ultima_mod_nombre'])): ?> · <span>por <?= esc($r['ultima_mod_nombre']) ?></span><?php endif; ?>
+                                    <br>
+                                    <?php if (!empty($r['ultima_mod_nombre'])): ?> <span><strong>por:</strong> <?= esc($r['ultima_mod_nombre']) ?></span><?php endif; ?>
                                 </div>
                             </div>
 
